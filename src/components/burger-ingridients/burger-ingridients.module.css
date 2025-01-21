@@ -1,0 +1,22 @@
+.burger-ingridients-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingridients-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+  list-style: none;
+}
+
+.nav-link {
+  color: inherit;
+  text-decoration: none;
+  font-size: inherit;
+}
+
+.scrollable {
+  overflow-y: auto;
+}

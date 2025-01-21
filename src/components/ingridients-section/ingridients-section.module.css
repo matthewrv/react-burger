@@ -1,0 +1,19 @@
+.ingridients-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  gap: 32px 24px;
+}
+
+.ingridient-item {
+  position: relative;
+  width: 100%;
+}
+
+.ingridient-card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  align-items: center;
+}
