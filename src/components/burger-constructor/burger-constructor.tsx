@@ -36,7 +36,10 @@ const BurgerConstructor = (props: SelectedIngridientsProps) => {
     >
       <ol className={constructorStyles["ingridients-list"]}>
         {bun && (
-          <li className={constructorStyles["ingridients-list-item"]}>
+          <li
+            key={`${bun._id}_top`}
+            className={constructorStyles["ingridients-list-item"]}
+          >
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -53,8 +56,11 @@ const BurgerConstructor = (props: SelectedIngridientsProps) => {
           {selected
             .filter((ing) => ing.type !== "bun")
             .flatMap((ingridient) =>
-              Array.from({ length: ingridient.__v }, () => (
-                <li className={constructorStyles["ingridients-list-item"]}>
+              Array.from({ length: ingridient.__v }, (_, k) => (
+                <li
+                  key={`${ingridient._id}_${k}`}
+                  className={constructorStyles["ingridients-list-item"]}
+                >
                   <DragIcon type="primary" />
                   <ConstructorElement
                     text={ingridient.name}
@@ -66,7 +72,10 @@ const BurgerConstructor = (props: SelectedIngridientsProps) => {
             )}
         </div>
         {bun && (
-          <li className={constructorStyles["ingridients-list-item"]}>
+          <li
+            key={`${bun._id}_bot`}
+            className={constructorStyles["ingridients-list-item"]}
+          >
             <ConstructorElement
               type="bottom"
               isLocked={true}

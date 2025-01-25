@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+import appStyles from "./App.module.css";
 import AppHeader from "./components/app-header/app-header";
 import BurgerConstructor from "./components/burger-constructor/burger-constructor";
 import BurgerIngridients from "./components/burger-ingridients/burger-ingridients";
@@ -13,7 +13,12 @@ function App() {
 
   React.useEffect(() => {
     fetch("https://norma.nomoreparties.space/api/ingredients")
-      .then((resp) => resp.json())
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        }
+        return Promise.reject(`Ошибка ${resp.status}`);
+      })
       .then((response) => {
         const respIngridients: BurgerIngridient[] = response.data;
         respIngridients.forEach((element) => {
@@ -30,14 +35,14 @@ function App() {
   switch (status) {
     case "loading":
       return (
-        <div className="loader">
-          <span className="spinner"></span>
+        <div className={appStyles.loader}>
+          <span className={appStyles.spinner}></span>
           <span className="text text_type_main-default">Загрузка...</span>
         </div>
       );
     case "error":
       return (
-        <div className="error">
+        <div className={appStyles.error}>
           <h1 className="text text_type_main-large text-center">
             Ошибка запроса
           </h1>
@@ -54,7 +59,7 @@ function App() {
       return (
         <>
           <AppHeader />
-          <main className="main pl-5 pr-5">
+          <main className={`${appStyles.main} pl-5 pr-5`}>
             <BurgerIngridients ingridients={ingridients} />
             <BurgerConstructor ingridients={ingridients} />
           </main>
