@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
-  gap: 32px 24px;
+  gap: calc(var(--offset-base-size) * 8) calc(var(--offset-base-size) * 6);
 }
 
 .ingridient-item {

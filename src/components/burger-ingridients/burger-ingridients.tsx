@@ -36,7 +36,7 @@ const BurgerIngridients = (props: BurgerIngridientsProps) => {
       <nav className="mb-10">
         <ul className={`${ingridientsStyles["ingridients-nav"]}`}>
           {sections.map((key) => (
-            <li key={key} className="section text text_type_main-default">
+            <li key={key} className="text text_type_main-default">
               <Tab
                 active={activeSection === key}
                 value={key}

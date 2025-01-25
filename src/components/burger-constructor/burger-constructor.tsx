@@ -11,17 +11,19 @@ import OrderDetails from "./order-details/order-details";
 import Modal from "../modal/modal";
 
 interface SelectedIngridientsProps {
-  className?: string;
   ingridients: BurgerIngridient[];
 }
 
 const BurgerConstructor = (props: SelectedIngridientsProps) => {
   const selected = props.ingridients.filter((ingridient) => ingridient.__v > 0);
   const bun = selected.find((ing) => ing.type === "bun");
-  const totalPrice = selected.reduce((prev, ing) => prev + ing.price, 0);
+  const totalPrice = selected.reduce(
+    (prev, ing) => prev + ing.price * ing.__v,
+    0
+  );
 
   const [detailsVisible, updateDetailsVisible] = useState(false);
-  const onClick = () => {
+  const onClickCheckout = () => {
     updateDetailsVisible(true);
   };
   const onDetailsClose = () => {
@@ -30,7 +32,7 @@ const BurgerConstructor = (props: SelectedIngridientsProps) => {
 
   return (
     <section
-      className={`pt-25 pb-8 pl-4 ${constructorStyles["selected-ingridients-section"]}`}
+      className={`pt-25 pb-8 pl-4 ${constructorStyles["burger-constructor-section"]}`}
     >
       <ol className={constructorStyles["ingridients-list"]}>
         {bun && (
@@ -80,7 +82,12 @@ const BurgerConstructor = (props: SelectedIngridientsProps) => {
         <span className="text text_type_digits-medium">
           {totalPrice} <CurrencyIcon type="primary" />
         </span>
-        <Button type="primary" htmlType="button" size="large" onClick={onClick}>
+        <Button
+          type="primary"
+          htmlType="button"
+          size="large"
+          onClick={onClickCheckout}
+        >
           Оформить заказ
         </Button>
         {detailsVisible && (
