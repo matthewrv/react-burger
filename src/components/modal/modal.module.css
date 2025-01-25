@@ -1,0 +1,32 @@
+.modal {
+  position: absolute;
+  inset: 0 0 0 0;
+  margin: auto;
+  width: 720px;
+  height: fit-content;
+
+  border: 1px rgba(76, 76, 255, 0.2) solid;
+  border-radius: 40px;
+  background-color: #1c1c21;
+
+  box-shadow: 0 0 1 0 rgba(0, 0, 0, 0.04), 0 4 8 0 rgba(0, 0, 0, 0.04),
+    0 16 24 0 rgba(0, 0, 0, 0.04), 0 24 32 0 rgba(0, 0, 0, 0.04);
+
+  color: #fff;
+}
+
+.modal:focus-visible {
+  outline: none;
+}
+
+.heading {
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+}

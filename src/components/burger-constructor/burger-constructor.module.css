@@ -9,6 +9,7 @@
   flex-direction: column;
   row-gap: calc(var(--offset-base-size) * 4);
   overflow-y: auto;
+  flex-grow: 1;
 }
 
 .ingridients-list-item {
@@ -21,7 +22,6 @@
 .unlocked-ingridients-list {
   composes: ingridients-list;
   overflow-y: auto;
-  /* scroll-snap-type: y mandatory; */
 }
 
 .total-price-section {

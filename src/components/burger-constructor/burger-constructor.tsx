@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BurgerIngridient } from "../../utils/data";
 import constructorStyles from "./burger-constructor.module.css";
 import {
@@ -6,6 +7,8 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import OrderDetails from "./order-details/order-details";
+import Modal from "../modal/modal";
 
 interface SelectedIngridientsProps {
   className?: string;
@@ -16,6 +19,14 @@ const BurgerConstructor = (props: SelectedIngridientsProps) => {
   const selected = props.ingridients.filter((ingridient) => ingridient.__v > 0);
   const bun = selected.find((ing) => ing.type === "bun");
   const totalPrice = selected.reduce((prev, ing) => prev + ing.price, 0);
+
+  const [detailsVisible, updateDetailsVisible] = useState(false);
+  const onClick = () => {
+    updateDetailsVisible(true);
+  };
+  const onDetailsClose = () => {
+    updateDetailsVisible(false);
+  };
 
   return (
     <section
@@ -69,9 +80,15 @@ const BurgerConstructor = (props: SelectedIngridientsProps) => {
         <span className="text text_type_digits-medium">
           {totalPrice} <CurrencyIcon type="primary" />
         </span>
-        <Button type="primary" htmlType="button" size="large">
+        <Button type="primary" htmlType="button" size="large" onClick={onClick}>
           Оформить заказ
         </Button>
+        {detailsVisible && (
+          <Modal onClose={onDetailsClose} title="">
+            <OrderDetails orderId="034536" />
+            {/* FIXME remove orderId hardcode */}
+          </Modal>
+        )}
       </div>
     </section>
   );

@@ -1,0 +1,27 @@
+.info {
+  width: 520px;
+  margin: auto;
+  display: grid;
+  column-count: 1;
+  gap: calc(var(--offset-base-size) * 4) calc(var(--offset-base-size) * 8);
+}
+
+.img {
+  margin: auto;
+}
+
+.ingridient-name {
+  color: #fff;
+}
+
+.nutrition-params-list {
+  list-style: none;
+  color: #8585ad;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: calc(var(--offset-base-size) * 5);
+}
+
+.nutrition-info-item {
+  flex-grow: 1;
+}
