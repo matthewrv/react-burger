@@ -33,7 +33,7 @@ export default function ConstructorItem(props: ConsturtorItemProps) {
 
   const [{ slideDown }, dropRef] = useDrop({
     accept: "editable-item",
-    drop(item) {
+    drop(item: { index?: number }) {
       dispatch(
         swapElements({ dragIndex: item.index, hoverIndex: props.index })
       );

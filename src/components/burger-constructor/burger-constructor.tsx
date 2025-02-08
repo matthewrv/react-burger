@@ -39,16 +39,17 @@ const BurgerConstructor = () => {
     (item) => ingredientsMap.get(item.ingredientId)!
   );
   const bunIngredient = bun && ingredientsMap.get(bun.ingredientId)!;
+
   const totalPrice = useMemo(
     () =>
-      selected.reduce((prev, ing) => prev + ing.price * ing.__v, 0) +
+      selected.reduce((total, ingredient) => total + ingredient.price, 0) +
       (bunIngredient ? bunIngredient.price * 2 : 0),
     [selected, bunIngredient]
   );
 
   const [{ enableOutline }, dropRef] = useDrop({
     accept: ["bun", "sauce", "main"],
-    drop(payload, monitor) {
+    drop(payload: { id: string }, monitor) {
       switch (monitor.getItemType()) {
         case "bun": {
           if (bun) {
@@ -80,11 +81,9 @@ const BurgerConstructor = () => {
   const onClickCheckout = () => {
     dispatch(
       checkoutOrder({
-        ingredients: [
-          bun?.ingredientId,
-          ...ingredients.map((item) => item.ingredientId),
-          bun?.ingredientId,
-        ],
+        ingredients: [bun, ...ingredients, bun]
+          .filter((item) => item !== null)
+          .map((item) => item.ingredientId),
       })
     );
     updateDetailsVisible(true);
@@ -173,6 +172,7 @@ const BurgerConstructor = () => {
           type="primary"
           htmlType="button"
           size="large"
+          disabled={bun === null}
           onClick={onClickCheckout}
         >
           Оформить заказ
