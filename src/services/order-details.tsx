@@ -44,7 +44,7 @@ const OrderDetailsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(checkoutOrder.fulfilled, (state, action) => ({
+    builder.addCase(checkoutOrder.fulfilled, (_, action) => ({
       orderId: action.payload.order.number,
     }));
     builder.addCase(checkoutOrder.rejected, () => initialState);

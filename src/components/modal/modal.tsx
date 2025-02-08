@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useCallback, useEffect } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import ReactDOM from "react-dom";
 import modalStyles from "./modal.module.css";
@@ -11,34 +11,37 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const Modal = (props: PropsWithChildren<ModalProps>) => {
-  const onKeyPressed = (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      props.onClose();
-    }
-  };
+const Modal = ({ title, onClose, children }: PropsWithChildren<ModalProps>) => {
+  const onKeyPressed = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     document.addEventListener("keydown", onKeyPressed);
 
     return () => document.removeEventListener("keydown", onKeyPressed);
-  }, [props.onClose]);
+  }, [onClose, onKeyPressed]);
 
   return ReactDOM.createPortal(
     <>
-      <ModalOverlay onClick={props.onClose} />
-      <div aria-label={props.title} className={`p-10 ${modalStyles.modal}`}>
+      <ModalOverlay onClick={onClose} />
+      <div aria-label={title} className={`p-10 ${modalStyles.modal}`}>
         <div className={modalStyles.heading}>
-          <p className="text text_type_main-large">{props.title}</p>
+          <p className="text text_type_main-large">{title}</p>
           <button
             className={`text ${modalStyles["close-button"]}`}
             type="button"
-            onClick={props.onClose}
+            onClick={onClose}
           >
             <CloseIcon type="primary" />
           </button>
         </div>
-        {props.children}
+        {children}
       </div>
     </>,
     modalRoot

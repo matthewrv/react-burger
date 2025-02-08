@@ -1,6 +1,5 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { IngredientType, localizedIngredientType } from "../../services/common";
-import { BurgerIngredient } from "../../services/common";
 import ingredientsStyles from "./burger-ingredients.module.css";
 import IngredientsSection from "./ingredients-section/ingredients-section";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";

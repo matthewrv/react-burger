@@ -8,7 +8,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { AppDispatch } from "../../../services/store";
 import { useDispatch } from "react-redux";
 import { swapElements } from "../../../services/selected-ingredients";
-import { useMemo, useRef, useState } from "react";
+import { useRef } from "react";
 
 export interface ConsturtorItemProps {
   itemId: string;

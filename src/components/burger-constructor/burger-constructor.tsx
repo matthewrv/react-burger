@@ -23,8 +23,6 @@ import {
 import ConstructorItem from "./constructor-item/constructor-item";
 
 const BurgerConstructor = () => {
-  const [hoverIndex, setHoverIndex] = useState(null);
-
   const dispatch: AppDispatch = useDispatch();
 
   const ingredientsMap = new Map(
@@ -44,8 +42,8 @@ const BurgerConstructor = () => {
   const totalPrice = useMemo(
     () =>
       selected.reduce((prev, ing) => prev + ing.price * ing.__v, 0) +
-      (!!bunIngredient ? bunIngredient.price * 2 : 0),
-    [ingredients, bun]
+      (bunIngredient ? bunIngredient.price * 2 : 0),
+    [selected, bunIngredient]
   );
 
   const [{ enableOutline }, dropRef] = useDrop({
@@ -53,7 +51,7 @@ const BurgerConstructor = () => {
     drop(payload, monitor) {
       switch (monitor.getItemType()) {
         case "bun": {
-          if (!!bun) {
+          if (bun) {
             dispatch(decreaseItemCount({ id: bun.ingredientId }));
             dispatch(decreaseItemCount({ id: bun.ingredientId }));
           }
