@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-.ingridients-list {
+.ingredients-list {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -12,16 +12,45 @@
   flex-grow: 1;
 }
 
-.ingridients-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  column-gap: calc(var(--offset-base-size) * 2);
+.drop-allowed {
+  outline: 2px dashed #4c4cff;
 }
 
-.unlocked-ingridients-list {
-  composes: ingridients-list;
+.common-ingredient {
+  background-color: var(--background-element);
+  max-width: 536px;
+  min-height: 80px;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.top-bun {
+  composes: common-ingredient;
+  border-top-left-radius: 88px;
+  border-top-right-radius: 88px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.ingredient {
+  composes: common-ingredient;
+  border-radius: 40px;
+  flex-grow: 1;
+}
+
+.unlocked-ingredients-list {
+  composes: ingredients-list;
   overflow-y: auto;
+}
+
+.bottom-bun {
+  composes: common-ingredient;
+  border-bottom-left-radius: 88px;
+  border-bottom-right-radius: 88px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
 }
 
 .total-price-section {

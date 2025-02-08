@@ -1,9 +1,9 @@
-.burger-ingridients-section {
+.burger-ingredients-section {
   display: flex;
   flex-direction: column;
 }
 
-.ingridients-nav {
+.ingredients-nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;

@@ -1,4 +1,4 @@
-.ingridients-list {
+.ingredients-list {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -6,7 +6,7 @@
   gap: calc(var(--offset-base-size) * 8) calc(var(--offset-base-size) * 6);
 }
 
-.ingridient-item {
+.ingredient-item {
   position: relative;
   width: 100%;
 }

@@ -1,4 +1,4 @@
-.ingridient-card {
+.ingredient-card {
   display: flex;
   flex-direction: column;
   gap: var(--offset-base-size);
