@@ -1,0 +1,35 @@
+.burger-constructor-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingridients-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--offset-base-size) * 4);
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.ingridients-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  column-gap: calc(var(--offset-base-size) * 2);
+}
+
+.unlocked-ingridients-list {
+  composes: ingridients-list;
+  overflow-y: auto;
+}
+
+.total-price-section {
+  display: flex;
+  column-gap: calc(var(--offset-base-size) * 10);
+  flex-wrap: nowrap;
+  justify-content: end;
+  align-items: center;
+
+  padding-top: calc(var(--offset-base-size) * 10);
+}

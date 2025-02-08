@@ -1,0 +1,23 @@
+.info {
+  width: 520px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  margin: auto;
+}
+
+.nutrition-params-list {
+  list-style: none;
+  color: #8585ad;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: calc(var(--offset-base-size) * 5);
+}
+
+.nutrition-info-item {
+  composes: text text_type_main-default text-center from global;
+  flex-grow: 1;
+}

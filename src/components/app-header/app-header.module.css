@@ -1,0 +1,43 @@
+.header {
+  background-color: #1c1c21;
+  padding: 0;
+}
+
+.navigation {
+  max-width: 1280px;
+  margin: auto;
+}
+
+.navigation-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: fit-content(25%) fit-content(25%) 1fr fit-content(25%);
+  column-gap: calc(var(--offset-size-base) * 2);
+  list-style: none;
+  align-items: center;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--offset-base-size) * 2);
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo-item {
+  grid-area: 1 / 1 / 2 / -1;
+}
+
+.burger-constructor-item {
+  grid-area: 1 / 1;
+}
+
+.order-history-item {
+  grid-area: 1 / 2;
+}
+
+.account-item {
+  grid-area: 1 / -2;
+}

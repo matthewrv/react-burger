@@ -1,0 +1,6 @@
+.ingridient-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--offset-base-size);
+  align-items: center;
+}
