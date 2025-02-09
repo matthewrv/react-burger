@@ -1,20 +1,20 @@
 import ingredientDetailsStyles from "./ingredient-details.module.css";
-import { BurgerIngridient } from "../../../utils/data";
+import { BurgerIngredient } from "../../../services/common";
 
-interface IngridientDetailsProps {
-  ingridient: BurgerIngridient;
+interface IngredientDetailsProps {
+  ingredient: BurgerIngredient;
 }
 
-export default function IngredientDetails(props: IngridientDetailsProps) {
+export default function IngredientDetails(props: IngredientDetailsProps) {
   return (
     <div className={`pb-5 ${ingredientDetailsStyles.info}`}>
       <img
         className={ingredientDetailsStyles.img}
-        src={props.ingridient.image_large}
-        alt={props.ingridient.name}
+        src={props.ingredient.image_large}
+        alt={props.ingredient.name}
       />
       <p className="mt-4 text text_type_main-medium text-center">
-        {props.ingridient.name}
+        {props.ingredient.name}
       </p>
       <ul
         className={`mt-8 ${ingredientDetailsStyles["nutrition-params-list"]}`}
@@ -22,19 +22,19 @@ export default function IngredientDetails(props: IngridientDetailsProps) {
         <li className={ingredientDetailsStyles["nutrition-info-item"]}>
           Калории, ккал
           <br />
-          {props.ingridient.calories}
+          {props.ingredient.calories}
         </li>
         <li className={ingredientDetailsStyles["nutrition-info-item"]}>
           Белки, г<br />
-          {props.ingridient.proteins}
+          {props.ingredient.proteins}
         </li>
         <li className={ingredientDetailsStyles["nutrition-info-item"]}>
           Жиры, г<br />
-          {props.ingridient.fat}
+          {props.ingredient.fat}
         </li>
         <li className={ingredientDetailsStyles["nutrition-info-item"]}>
           Углеводы, г<br />
-          {props.ingridient.carbohydrates}
+          {props.ingredient.carbohydrates}
         </li>
       </ul>
     </div>

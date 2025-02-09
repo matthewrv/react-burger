@@ -1,0 +1,12 @@
+.ingredients-list-item {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: end;
+  column-gap: calc(var(--offset-base-size) * 2);
+}
+
+.slide-down {
+  display: inline-block;
+  transform: translateY(5%);
+}

@@ -1,45 +1,27 @@
-import React, { useState } from "react";
+import { useEffect } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "./components/app-header/app-header";
 import BurgerConstructor from "./components/burger-constructor/burger-constructor";
-import BurgerIngridients from "./components/burger-ingridients/burger-ingridients";
-import { BurgerIngridient } from "./utils/data";
-
-type Status = "loading" | "error" | "success";
+import BurgerIngredients from "./components/burger-ingredients/burger-ingredients";
+import { fetchIngredients } from "./services/ingredients";
+import { useAppDispatch, useAppSelector } from "./services/hooks";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Loader from "./components/loader/loader";
 
 function App() {
-  const [status, updateStatus] = useState<Status>("loading");
-  const [ingridients, setIngridients] = React.useState<BurgerIngridient[]>([]);
+  const { ingredientsRequestStatus } = useAppSelector(
+    (state) => state.ingredients
+  );
+  const dispatch = useAppDispatch();
 
-  React.useEffect(() => {
-    fetch("https://norma.nomoreparties.space/api/ingredients")
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        }
-        return Promise.reject(`Ошибка ${resp.status}`);
-      })
-      .then((response) => {
-        const respIngridients: BurgerIngridient[] = response.data;
-        respIngridients.forEach((element) => {
-          element.__v = 1;
-        });
-        setIngridients(respIngridients);
-        updateStatus("success");
-      })
-      .catch(() => {
-        updateStatus("error");
-      });
-  }, []);
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
-  switch (status) {
-    case "loading":
-      return (
-        <div className={appStyles.loader}>
-          <span className={appStyles.spinner}></span>
-          <span className="text text_type_main-default">Загрузка...</span>
-        </div>
-      );
+  switch (ingredientsRequestStatus) {
+    case "request":
+      return <Loader />;
     case "error":
       return (
         <div className={appStyles.error}>
@@ -60,8 +42,10 @@ function App() {
         <>
           <AppHeader />
           <main className={`${appStyles.main} pl-5 pr-5`}>
-            <BurgerIngridients ingridients={ingridients} />
-            <BurgerConstructor ingridients={ingridients} />
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </DndProvider>
           </main>
         </>
       );
