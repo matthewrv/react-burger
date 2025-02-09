@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface selectIngredientPayload {
+export interface RemoveIngredientPayload {
   id: string;
 }
 
@@ -19,26 +19,37 @@ const initialState: SelectedIngredientsState = {
   ingredients: [],
 };
 
+const prepareSelectedIngredient = (ingredientId: string) => {
+  const constructorItemId = crypto.randomUUID();
+  return {
+    payload: { id: constructorItemId, ingredientId: ingredientId },
+  };
+};
+
 const selectedIngridietsSlice = createSlice({
   name: "selectedIngredients",
   initialState,
   reducers: {
-    addIngredient: (state, action: PayloadAction<selectIngredientPayload>) => {
-      state.ingredients.push({
-        id: crypto.randomUUID(),
-        ingredientId: action.payload.id,
-      });
+    clearIngredients: () => initialState,
+    addIngredient: {
+      reducer: (state, action: PayloadAction<SelectedIngredientItem>) => {
+        state.ingredients.push(action.payload);
+      },
+      prepare: prepareSelectedIngredient,
     },
     removeIngredient: (
       state,
-      action: PayloadAction<selectIngredientPayload>
+      action: PayloadAction<RemoveIngredientPayload>
     ) => {
       state.ingredients = state.ingredients.filter(
         (item) => item.id !== action.payload.id
       );
     },
-    setBun: (state, action: PayloadAction<selectIngredientPayload>) => {
-      state.bun = { id: crypto.randomUUID(), ingredientId: action.payload.id };
+    setBun: {
+      reducer: (state, action: PayloadAction<SelectedIngredientItem>) => {
+        state.bun = action.payload;
+      },
+      prepare: prepareSelectedIngredient,
     },
     resetBun: (state) => {
       state.bun = null;
@@ -68,5 +79,10 @@ const selectedIngridietsSlice = createSlice({
 
 export default selectedIngridietsSlice.reducer;
 
-export const { addIngredient, setBun, removeIngredient, swapElements } =
-  selectedIngridietsSlice.actions;
+export const {
+  addIngredient,
+  setBun,
+  removeIngredient,
+  swapElements,
+  clearIngredients,
+} = selectedIngridietsSlice.actions;

@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 import { AppDispatch } from "../../../services/store";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../services/hooks";
 import { swapElements } from "../../../services/selected-ingredients";
 import { useRef } from "react";
 
@@ -22,7 +22,7 @@ export interface ConsturtorItemProps {
 }
 
 export default function ConstructorItem(props: ConsturtorItemProps) {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
   const ref = useRef<HTMLLIElement>(null);
 

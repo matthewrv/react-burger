@@ -1,10 +1,9 @@
 import orderDetailsStyles from "./order-details.module.css";
 import orderAcceptedImage from "../../../images/order-accepted.svg";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../services/store";
+import { useAppSelector } from "../../../services/hooks";
 
 export default function OrderDetails() {
-  const { orderId } = useSelector((state: RootState) => state.orderDetails);
+  const { orderId } = useAppSelector((state) => state.orderDetails);
 
   return (
     <div className={`pt-4 pb-20 ${orderDetailsStyles.details}`}>

@@ -5,24 +5,24 @@ import IngredientsSection from "./ingredients-section/ingredients-section";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import IngredientDetails from "./ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../services/store";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import {
   resetIngredient,
   setIngredient,
 } from "../../services/ingredient-details";
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch();
-  const selectedItem = useSelector(
-    (state: RootState) => state.indgidientDetails.ingredient
+  const dispatch = useAppDispatch();
+  const selectedItem = useAppSelector(
+    (state) => state.indgidientDetails.ingredient
   );
 
   const sections: IngredientType[] = ["bun", "sauce", "main"];
   const [activeSection, updateActiveSection] = useState<string>(sections[0]);
 
   const onClickTab = (value: string) => {
-    const currentSectionRef = sectionRefs[sections.indexOf(value)];
+    const currentSectionRef =
+      sectionRefs[sections.indexOf(value as IngredientType)];
     currentSectionRef.current!.scrollIntoView({
       behavior: "smooth",
       block: "start",

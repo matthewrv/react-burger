@@ -6,8 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "./order-details/order-details";
 import Modal from "../modal/modal";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../services/store";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { checkoutOrder } from "../../services/order-details";
 import { useDrop } from "react-dnd";
 import {
@@ -23,16 +22,17 @@ import {
 import ConstructorItem from "./constructor-item/constructor-item";
 
 const BurgerConstructor = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const ingredientsMap = new Map(
-    useSelector((state: RootState) => state.ingredients.ingredients).map(
-      (item) => [item._id, item]
-    )
+    useAppSelector((state) => state.ingredients.ingredients).map((item) => [
+      item._id,
+      item,
+    ])
   );
 
-  const { ingredients, bun } = useSelector(
-    (state: RootState) => state.selectedIngredients
+  const { ingredients, bun } = useAppSelector(
+    (state) => state.selectedIngredients
   );
 
   const selected = ingredients.map(
@@ -56,13 +56,13 @@ const BurgerConstructor = () => {
             dispatch(decreaseItemCount({ id: bun.ingredientId }));
             dispatch(decreaseItemCount({ id: bun.ingredientId }));
           }
-          dispatch(setBun(payload));
+          dispatch(setBun(payload.id));
           dispatch(increaseItemCount(payload));
           dispatch(increaseItemCount(payload));
           break;
         }
         default: {
-          dispatch(addIngredient(payload));
+          dispatch(addIngredient(payload.id));
           dispatch(increaseItemCount(payload));
         }
       }

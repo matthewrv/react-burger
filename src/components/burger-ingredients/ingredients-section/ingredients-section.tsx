@@ -2,9 +2,8 @@ import { IngredientType } from "../../../services/common";
 import { BurgerIngredient } from "../../../services/common";
 import ingredientsArticleStyles from "./ingredients-section.module.css";
 import IngredientCard from "../ingredient-card/ingredient-card";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../services/store";
-import { forwardRef } from "react";
+import { useAppSelector } from "../../../services/hooks";
+import { ForwardedRef, forwardRef } from "react";
 
 const IngredientsSection = forwardRef(
   (
@@ -13,10 +12,10 @@ const IngredientsSection = forwardRef(
       ingredientType: IngredientType;
       onItemSelect: (item: BurgerIngredient) => void;
     },
-    ref
+    ref: ForwardedRef<HTMLHeadingElement>
   ) => {
-    const ingredients = useSelector(
-      (state: RootState) => state.ingredients.ingredients
+    const ingredients = useAppSelector(
+      (state) => state.ingredients.ingredients
     ).filter((item) => item.type === props.ingredientType);
 
     return (

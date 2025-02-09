@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BurgerIngredient } from "./common";
+import normaApi from "../utils/normaApi/normaApi";
+import { IngredientsResponse } from "../utils/normaApi/models";
 
 export interface IngredientsState {
   ingredients: BurgerIngredient[];
@@ -13,18 +15,9 @@ const initialState: IngredientsState = {
   ingredientsRequestStatus: "success",
 };
 
-const fetchIngredientsURL = "https://norma.nomoreparties.space/api/ingredients";
-
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchAll",
-  async () => {
-    return await fetch(fetchIngredientsURL).then((resp) => {
-      if (resp.ok) {
-        return resp.json();
-      }
-      return Promise.reject(`Ошибка ${resp.status}`);
-    });
-  }
+  async () => await normaApi<IngredientsResponse>("/ingredients")
 );
 
 export const ingredientsSlice = createSlice({

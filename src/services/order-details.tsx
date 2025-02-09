@@ -1,4 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import normaApi from "../utils/normaApi/normaApi";
+import {
+  OrderCreateRequest,
+  OrderCreateResponse,
+} from "../utils/normaApi/models";
+import { clearIngredients } from "./selected-ingredients";
 
 export interface OrderDetailsState {
   orderId: string | null;
@@ -8,26 +14,18 @@ const initialState: OrderDetailsState = {
   orderId: null,
 };
 
-export interface OrderCreateRequest {
-  ingredients: Array<string>;
-}
-
-const orderCreateRequestURL = "https://norma.nomoreparties.space/api/orders";
-
 export const checkoutOrder = createAsyncThunk(
   "checkoutOrder",
-  async (payload: OrderCreateRequest) => {
-    return await fetch(orderCreateRequestURL, {
+  (payload: OrderCreateRequest, thunkApi) => {
+    return normaApi<OrderCreateResponse>("/orders", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((resp) => {
-      if (resp.ok) {
-        return resp.json();
-      }
-      return Promise.reject(`Ошибка ${resp.status}`);
+    }).then((response) => {
+      thunkApi.dispatch(clearIngredients());
+      return response;
     });
   }
 );
