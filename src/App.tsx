@@ -7,6 +7,7 @@ import { fetchIngredients } from "./services/ingredients";
 import { useAppDispatch, useAppSelector } from "./services/hooks";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import Loader from "./components/loader/loader";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -20,12 +21,7 @@ function App() {
 
   switch (ingredientsRequestStatus) {
     case "request":
-      return (
-        <div className={appStyles.loader}>
-          <span className={appStyles.spinner}></span>
-          <span className="text text_type_main-default">Загрузка...</span>
-        </div>
-      );
+      return <Loader />;
     case "error":
       return (
         <div className={appStyles.error}>

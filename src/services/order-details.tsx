@@ -5,13 +5,16 @@ import {
   OrderCreateResponse,
 } from "../utils/normaApi/models";
 import { clearIngredients } from "./selected-ingredients";
+import { resetAllItemsCount } from "./ingredients";
 
 export interface OrderDetailsState {
   orderId: string | null;
+  createOrderStatus: "request" | "success" | "error";
 }
 
 const initialState: OrderDetailsState = {
   orderId: null,
+  createOrderStatus: "request",
 };
 
 export const checkoutOrder = createAsyncThunk(
@@ -25,6 +28,7 @@ export const checkoutOrder = createAsyncThunk(
       },
     }).then((response) => {
       thunkApi.dispatch(clearIngredients());
+      thunkApi.dispatch(resetAllItemsCount());
       return response;
     });
   }
@@ -44,8 +48,13 @@ const OrderDetailsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(checkoutOrder.fulfilled, (_, action) => ({
       orderId: action.payload.order.number,
+      createOrderStatus: "success",
     }));
-    builder.addCase(checkoutOrder.rejected, () => initialState);
+    builder.addCase(checkoutOrder.rejected, () => ({
+      ...initialState,
+      createOrderStatus: "error",
+    }));
+    builder.addCase(checkoutOrder.pending, () => initialState);
   },
 });
 

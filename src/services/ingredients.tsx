@@ -34,6 +34,12 @@ export const ingredientsSlice = createSlice({
         item._id !== action.payload.id ? item : { ...item, __v: item.__v - 1 }
       );
     },
+    resetAllItemsCount: (state) => {
+      state.ingredients = state.ingredients.map((item) => ({
+        ...item,
+        __v: 0,
+      }));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchIngredients.fulfilled, (state, action) => {
@@ -52,5 +58,5 @@ export const ingredientsSlice = createSlice({
 
 export default ingredientsSlice.reducer;
 
-export const { increaseItemCount, decreaseItemCount } =
+export const { increaseItemCount, decreaseItemCount, resetAllItemsCount } =
   ingredientsSlice.actions;
