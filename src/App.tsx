@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "./components/app-header/app-header";
-import BurgerConstructor from "./components/burger-constructor/burger-constructor";
-import BurgerIngredients from "./components/burger-ingredients/burger-ingredients";
 import { fetchIngredients } from "./services/ingredients";
 import { useAppDispatch, useAppSelector } from "./services/hooks";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import Loader from "./components/loader/loader";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/home";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -42,10 +40,11 @@ function App() {
         <>
           <AppHeader />
           <main className={`${appStyles.main} pl-5 pr-5`}>
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </DndProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route index element={<HomePage />} />
+              </Routes>
+            </BrowserRouter>
           </main>
         </>
       );
