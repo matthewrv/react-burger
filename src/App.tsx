@@ -7,6 +7,7 @@ import Loader from "./components/loader/loader";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/home";
 import LoginPage from "./pages/login/login";
+import RegisterPage from "./pages/register/register";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -45,6 +46,7 @@ function App() {
               <Routes>
                 <Route index element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
               </Routes>
             </BrowserRouter>
           </main>
