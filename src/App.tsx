@@ -6,9 +6,9 @@ import { useAppDispatch, useAppSelector } from "./services/hooks";
 import Loader from "./components/loader/loader";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/home";
-import LoginPage from "./pages/login/login";
-import RegisterPage from "./pages/register/register";
-import ForgotPasswordPage from "./pages/forgot-password/forgot-password";
+import LoginPage from "./pages/login";
+import RegisterPage from "./pages/register";
+import ForgotPasswordPage from "./pages/forgot-password";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(

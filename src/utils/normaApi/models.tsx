@@ -13,3 +13,12 @@ export interface OrderCreateResponse {
     number: string;
   };
 }
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ForgotPasswordResponse {
+  success: boolean;
+  message: string;
+}
