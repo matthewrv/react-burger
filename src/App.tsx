@@ -9,6 +9,7 @@ import { HomePage } from "./pages/home";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import ForgotPasswordPage from "./pages/forgot-password";
+import ResetPasswordPage from "./pages/reset-password";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -52,6 +53,7 @@ function App() {
                   path="/forgot-password"
                   element={<ForgotPasswordPage />}
                 />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
               </Routes>
             </BrowserRouter>
           </main>
