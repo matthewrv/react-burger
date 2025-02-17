@@ -1,4 +1,3 @@
-import { ChangeEvent, useCallback, useState } from "react";
 import {
   Button,
   EmailInput,
@@ -13,15 +12,10 @@ import Form from "../components/form/form";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
 import FormLink from "../components/form-link/form-link";
 import { useNavigate } from "react-router-dom";
+import { useStringInput } from "../hooks";
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
-  const onChangeEmail = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setEmail(e.target.value);
-    },
-    [setEmail]
-  );
+  const [email, onChangeEmail] = useStringInput();
 
   const navigate = useNavigate();
   const onPasswordReset = () => {

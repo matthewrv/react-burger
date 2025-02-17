@@ -4,38 +4,16 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import registerStyles from "./register.module.css";
-import { ChangeEvent, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
 import Form from "../components/form/form";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
 import FormLink from "../components/form-link/form-link";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
+import { useStringInput } from "../hooks";
 
 export default function RegisterPage() {
-  const [name, setName] = useState("");
-  const onChangeName = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setName(e.target.value);
-    },
-    [setName]
-  );
-
-  const [email, setEmail] = useState("");
-  const onChangeEmail = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setEmail(e.target.value);
-    },
-    [setEmail]
-  );
-
-  const [password, setPassword] = useState("");
-  const onChangePassword = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setPassword(e.target.value);
-    },
-    [setPassword]
-  );
+  const [name, onChangeName] = useStringInput();
+  const [email, onChangeEmail] = useStringInput();
+  const [password, onChangePassword] = useStringInput();
 
   return (
     <FormWrapper>

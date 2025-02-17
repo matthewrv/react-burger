@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from "react";
 import {
   Button,
   EmailInput,
@@ -8,17 +7,11 @@ import Form from "../components/form/form";
 import FormLink from "../components/form-link/form-link";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
+import { useStringInput } from "../hooks";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const [password, setPassword] = useState("");
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const [email, onChangeEmail] = useStringInput();
+  const [password, onChangePassword] = useStringInput();
 
   return (
     <FormWrapper>
