@@ -12,6 +12,7 @@ import {
 export default function ResetPasswordPage() {
   const [newPassword, onChangeNewPassword] = useStringInput();
   const [verificationCode, onChangeVerificationCode] = useStringInput();
+
   return (
     <FormWrapper>
       <Form title="Восстановление пароля">

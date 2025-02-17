@@ -18,7 +18,7 @@ import React from "react"
 import ${component_name_camel_l}Styles from "./${component_name}.module.css"
 
 export default function ${component_name_camel}(props) {
-    return <></>
+  return <></>
 }
 EOF
 
