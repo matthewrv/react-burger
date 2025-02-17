@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "./services/hooks";
 import Loader from "./components/loader/loader";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/home";
+import LoginPage from "./pages/login/login";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -43,6 +44,7 @@ function App() {
             <BrowserRouter>
               <Routes>
                 <Route index element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
               </Routes>
             </BrowserRouter>
           </main>
