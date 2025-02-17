@@ -53,7 +53,7 @@ export default function RegisterPage() {
             Зарегистрироваться
           </Button>
         </form>
-        <div className="text text_type_main-default">
+        <div className="text text_type_main-default text_color_inactive">
           Уже зарегистрированы?{" "}
           <Link to="/login" className={registerStyles.link}>
             Войти

@@ -39,13 +39,13 @@ export default function LoginPage() {
           </Button>
         </form>
         <div className="text text_type_main-default text_color_inactive">
-          Вы новый пользователь?{" "}
+          {"Вы новый пользователь? "}
           <Link to="/register" className={loginStyles.link}>
             Зарегистрироваться
           </Link>
         </div>
         <div className="text text_type_main-default text_color_inactive mt-4">
-          Забыли пароль?{" "}
+          {"Забыли пароль? "}
           <Link to="/forgot-password" className={loginStyles.link}>
             Восстановить пароль
           </Link>

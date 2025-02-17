@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/home";
 import LoginPage from "./pages/login/login";
 import RegisterPage from "./pages/register/register";
+import ForgotPasswordPage from "./pages/forgot-password/forgot-password";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -47,6 +48,10 @@ function App() {
                 <Route index element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route
+                  path="/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
               </Routes>
             </BrowserRouter>
           </main>
