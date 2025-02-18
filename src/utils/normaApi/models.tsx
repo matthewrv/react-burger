@@ -22,3 +22,24 @@ export interface ForgotPasswordResponse {
   success: boolean;
   message: string;
 }
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface RegisterRequest {
+  email: string;
+  name: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+}

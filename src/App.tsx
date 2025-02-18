@@ -11,6 +11,7 @@ import RegisterPage from "./pages/register";
 import ForgotPasswordPage from "./pages/forgot-password";
 import ResetPasswordPage from "./pages/reset-password";
 import ProfilePage from "./pages/profile/profile";
+import ErrorView from "./components/error/error";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -27,17 +28,14 @@ function App() {
       return <Loader />;
     case "error":
       return (
-        <div className={appStyles.error}>
-          <h1 className="text text_type_main-large text-center">
-            Ошибка запроса
-          </h1>
-          <p className="text text_type_main-default text-center">
+        <ErrorView title="Ошибка запроса">
+          <p className="text text_type_main-default">
             Не удалось получить список ингридиентов.
           </p>
-          <p className="text text_type_main-default text-center">
+          <p className="text text_type_main-default">
             Попробуйте перезагрузить страницу.
           </p>
-        </div>
+        </ErrorView>
       );
 
     case "success":
