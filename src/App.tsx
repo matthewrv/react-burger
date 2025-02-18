@@ -41,9 +41,9 @@ function App() {
     case "success":
       return (
         <>
-          <AppHeader />
-          <main className={`${appStyles.main} pl-5 pr-5`}>
-            <BrowserRouter>
+          <BrowserRouter>
+            <AppHeader />
+            <main className={`${appStyles.main} pl-5 pr-5`}>
               <Routes>
                 <Route index element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
@@ -55,8 +55,8 @@ function App() {
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
               </Routes>
-            </BrowserRouter>
-          </main>
+            </main>
+          </BrowserRouter>
         </>
       );
   }
