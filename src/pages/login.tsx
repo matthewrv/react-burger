@@ -9,8 +9,6 @@ import FormWrapper from "../components/form-wrapper/form-wrapper";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
 import { useStringInput } from "../hooks";
 import { SyntheticEvent } from "react";
-import { useAppDispatch, useAppSelector } from "../services/hooks";
-import { login } from "../services/auth";
 import Loader from "../components/loader/loader";
 import ErrorView from "../components/error/error";
 
@@ -18,12 +16,11 @@ export default function LoginPage() {
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
 
-  const { status } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
+  const status = "";
 
   const onClick = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
+    // TODO trigger login
   };
 
   return (

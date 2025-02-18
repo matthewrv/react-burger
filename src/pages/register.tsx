@@ -10,8 +10,6 @@ import FormLink from "../components/form-link/form-link";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import { useStringInput } from "../hooks";
 import { SyntheticEvent } from "react";
-import { register } from "../services/auth";
-import { useAppDispatch, useAppSelector } from "../services/hooks";
 import Loader from "../components/loader/loader";
 import ErrorView from "../components/error/error";
 
@@ -20,12 +18,11 @@ export default function RegisterPage() {
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
 
-  const { status } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
+  const status = "";
 
   const onClick = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(register({ name, email, password }));
+    // TODO trigger register
   };
 
   return (

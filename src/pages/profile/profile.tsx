@@ -13,8 +13,8 @@ export default function ProfilePage() {
     }`;
 
   const [name, onChangeName] = useStringInput();
-  const [password, onChangePassword] = useStringInput();
   const [email, onChangeEmail] = useStringInput();
+  const [password, onChangePassword] = useStringInput();
 
   return (
     <div className={`pt-30 ${profileStyles.container}`}>
