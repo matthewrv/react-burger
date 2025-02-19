@@ -5,6 +5,7 @@ import {
   LoginRequest,
   AuthResponse,
   GetUserResponse,
+  LogoutResponse,
 } from "../utils/normaApi/models";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
@@ -15,6 +16,8 @@ export interface UserInfo {
   name: string;
 }
 
+// do not export - assumed that user is requested using AuthContextProvider only
+// to avoid multiple getUser requests
 const getUser = createAsyncThunk("getUser", async () => {
   return await requestWithAuth<GetUserResponse>("/auth/user");
 });
@@ -36,9 +39,26 @@ export const login = createAsyncThunk(
   }
 );
 
+export const logout = createAsyncThunk("logout", async () => {
+  const refreshToken = getCookie("refreshToken");
+  return await request<LogoutResponse>("/auth/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: refreshToken,
+    }),
+  }).then((response) => {
+    setCookie("token", "");
+    setCookie("refreshToken", "");
+    return response;
+  });
+});
+
 export interface AuthInfo {
   loginStatus?: RequestStatus;
-  authentication: "in progress" | "authenticated" | "anonimous";
+  authentication: "in progress" | "authenticated" | "anonymous";
   user?: {
     name: string;
     email: string;
@@ -57,7 +77,7 @@ const authSlice = createSlice({
       return { authentication: "authenticated", user: user };
     });
     builder.addCase(login.rejected, (state, action) => {
-      return { authentication: "anonimous" };
+      return { authentication: "anonymous" };
     });
 
     builder.addCase(getUser.fulfilled, (state, action) => {
@@ -65,7 +85,17 @@ const authSlice = createSlice({
       return { authentication: "authenticated", user: user };
     });
     builder.addCase(getUser.rejected, (state, action) => {
-      return { authentication: "anonimous" };
+      return { authentication: "anonymous" };
+    });
+
+    builder.addCase(logout.pending, (state, action) => {
+      state.authentication = "in progress";
+    });
+    builder.addCase(logout.fulfilled, (state, action) => {
+      return { authentication: "anonymous" };
+    });
+    builder.addCase(logout.rejected, (state, action) => {
+      state.authentication = "authenticated";
     });
   },
 });

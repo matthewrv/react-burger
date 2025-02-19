@@ -11,7 +11,7 @@ export default function ProtectedRouteElement(props: {
     case "in progress": {
       return null;
     }
-    case "anonimous": {
+    case "anonymous": {
       return <Navigate to="/login" />;
     }
     case "authenticated": {

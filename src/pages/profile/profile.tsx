@@ -5,12 +5,20 @@ import {
 import profileStyles from "./profile.module.css";
 import { NavLink } from "react-router-dom";
 import { useStringInput } from "../../hooks";
+import { useCallback } from "react";
+import { useAppDispatch } from "../../services/hooks";
+import { logout } from "../../services/auth";
 
 export default function ProfilePage() {
   const linkStyle = ({ isActive }: { isActive: boolean }) =>
     `text text_type_main-medium ${profileStyles.link} ${
       isActive ? profileStyles.activeLink : "text_color_inactive"
     }`;
+
+  const dispatch = useAppDispatch();
+  const onLogout = useCallback(() => {
+    dispatch(logout());
+  }, []);
 
   const [name, onChangeName] = useStringInput();
   const [email, onChangeEmail] = useStringInput();
@@ -32,9 +40,9 @@ export default function ProfilePage() {
               </NavLink>
             </li>
             <li className={profileStyles.listItem}>
-              <NavLink to="/logout" className={linkStyle}>
+              <a className={linkStyle({ isActive: false })} onClick={onLogout}>
                 Выход
-              </NavLink>
+              </a>
             </li>
           </ul>
         </nav>

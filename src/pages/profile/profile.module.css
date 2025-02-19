@@ -17,6 +17,10 @@
   text-decoration: none;
 }
 
+.link:hover {
+  cursor: pointer;
+}
+
 .activeLink {
   color: inherit;
 }
