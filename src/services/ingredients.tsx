@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BurgerIngredient } from "./common";
+import { BurgerIngredient, RequestStatus } from "./common";
 import normaApi from "../utils/normaApi/normaApi";
 import { IngredientsResponse } from "../utils/normaApi/models";
 
 export interface IngredientsState {
   ingredients: BurgerIngredient[];
-  ingredientsRequestStatus: IngredientsRequestStatus;
+  ingredientsRequestStatus: RequestStatus;
 }
-
-export type IngredientsRequestStatus = "request" | "error" | "success";
 
 const initialState: IngredientsState = {
   ingredients: [],

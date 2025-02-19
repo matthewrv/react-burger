@@ -6,10 +6,11 @@ import {
 } from "../utils/normaApi/models";
 import { clearIngredients } from "./selected-ingredients";
 import { resetAllItemsCount } from "./ingredients";
+import { RequestStatus } from "./common";
 
 export interface OrderDetailsState {
   orderId: string | null;
-  createOrderStatus: "request" | "success" | "error";
+  createOrderStatus: RequestStatus;
 }
 
 const initialState: OrderDetailsState = {
