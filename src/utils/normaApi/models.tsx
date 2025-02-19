@@ -51,3 +51,9 @@ export interface GetUserResponse {
     name: string;
   };
 }
+
+export interface RefreshTokenResponse {
+  success: boolean;
+  token: string;
+  refreshToken: string;
+}

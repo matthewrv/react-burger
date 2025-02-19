@@ -3,6 +3,7 @@ import ingredientsSlice from "./ingredients";
 import selectedIngredientsSlice from "./selected-ingredients";
 import ingredientsDetailsSlice from "./ingredient-details";
 import orderDetailsSlice from "./order-details";
+import authSlice from "./auth";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     selectedIngredients: selectedIngredientsSlice,
     indgidientDetails: ingredientsDetailsSlice,
     orderDetails: orderDetailsSlice,
+    auth: authSlice,
   },
 });
 

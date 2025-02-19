@@ -12,6 +12,7 @@ import ForgotPasswordPage from "./pages/forgot-password";
 import ResetPasswordPage from "./pages/reset-password";
 import ProfilePage from "./pages/profile/profile";
 import ErrorView from "./components/error/error";
+import ProtectedRouteElement from "./components/protected-route-element/protected-route-element";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -53,7 +54,10 @@ function App() {
                   element={<ForgotPasswordPage />}
                 />
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route
+                  path="/profile"
+                  element={<ProtectedRouteElement element={<ProfilePage />} />}
+                />
               </Routes>
             </main>
           </BrowserRouter>
