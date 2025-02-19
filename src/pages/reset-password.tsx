@@ -8,14 +8,31 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { request } from "../utils/normaApi/normaApi";
+import { useNavigate } from "react-router-dom";
+import { SyntheticEvent, useState } from "react";
 
 export default function ResetPasswordPage() {
   const [newPassword, onChangeNewPassword] = useStringInput();
   const [verificationCode, onChangeVerificationCode] = useStringInput();
 
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const navigate = useNavigate();
+
+  const onPasswordReset = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    await request("/password-reset/reset", {
+      method: "POST",
+      body: JSON.stringify({ password: newPassword, token: verificationCode }),
+    })
+      .then(() => navigate("login", { replace: true }))
+      .catch((error) => setErrorMsg(error));
+  };
+
   return (
     <FormWrapper>
-      <Form title="Восстановление пароля">
+      <Form title="Восстановление пароля" errorMsg={errorMsg}>
         <PasswordInput
           value={newPassword}
           onChange={onChangeNewPassword}
@@ -27,7 +44,12 @@ export default function ResetPasswordPage() {
           placeholder="Введите код из письма"
           extraClass="mt-6"
         />
-        <Button htmlType="submit" size="medium" extraClass="mt-6">
+        <Button
+          htmlType="submit"
+          size="medium"
+          extraClass="mt-6"
+          onClick={onPasswordReset}
+        >
           Сохранить
         </Button>
       </Form>

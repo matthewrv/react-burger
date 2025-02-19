@@ -1,4 +1,4 @@
-import request, { requestWithAuth } from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/normaApi";
 import { getCookie, setCookie } from "../utils/cookie";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
@@ -19,7 +19,7 @@ export interface UserInfo {
 // do not export - assumed that user is requested using AuthContextProvider only
 // to avoid multiple getUser requests
 const getUser = createAsyncThunk("getUser", async () => {
-  return await requestWithAuth<GetUserResponse>("/auth/user");
+  return await request<GetUserResponse>("/auth/user", undefined, true);
 });
 
 export const login = createAsyncThunk(
@@ -57,12 +57,9 @@ export const logout = createAsyncThunk("logout", async () => {
 });
 
 export interface AuthInfo {
-  loginStatus?: RequestStatus;
   authentication: "in progress" | "authenticated" | "anonymous";
-  user?: {
-    name: string;
-    email: string;
-  };
+  user?: UserInfo;
+  errorMsg?: string;
 }
 
 const initialState: AuthInfo = { authentication: "in progress" };
@@ -72,30 +69,33 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
+    builder.addCase(login.pending, (_, action) => ({
+      authentication: "in progress",
+    }));
+    builder.addCase(login.fulfilled, (_, action) => ({
+      authentication: "authenticated",
+      user: action.payload.user,
+    }));
+    builder.addCase(login.rejected, (state, action) => ({
+      authentication: "anonymous",
+      errorMsg: action.error.message,
+    }));
+
+    builder.addCase(getUser.fulfilled, (_, action) => {
       const user = action.payload.user;
       return { authentication: "authenticated", user: user };
     });
-    builder.addCase(login.rejected, (state, action) => {
+    builder.addCase(getUser.rejected, () => {
       return { authentication: "anonymous" };
     });
 
-    builder.addCase(getUser.fulfilled, (state, action) => {
-      const user = action.payload.user;
-      return { authentication: "authenticated", user: user };
-    });
-    builder.addCase(getUser.rejected, (state, action) => {
-      return { authentication: "anonymous" };
-    });
-
-    builder.addCase(logout.pending, (state, action) => {
+    builder.addCase(logout.pending, (state) => {
       state.authentication = "in progress";
     });
-    builder.addCase(logout.fulfilled, (state, action) => {
-      return { authentication: "anonymous" };
-    });
+    builder.addCase(logout.fulfilled, () => ({ authentication: "anonymous" }));
     builder.addCase(logout.rejected, (state, action) => {
       state.authentication = "authenticated";
+      state.errorMsg = action.error.message;
     });
   },
 });

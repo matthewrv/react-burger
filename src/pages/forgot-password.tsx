@@ -2,7 +2,7 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import request from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/normaApi";
 import {
   ForgotPasswordRequest,
   ForgotPasswordResponse,
@@ -13,13 +13,16 @@ import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrappe
 import FormLink from "../components/form-link/form-link";
 import { useNavigate } from "react-router-dom";
 import { useStringInput } from "../hooks";
+import { SyntheticEvent } from "react";
 
 export default function ForgotPasswordPage() {
   const [email, onChangeEmail] = useStringInput();
 
   const navigate = useNavigate();
-  const onPasswordReset = () => {
-    request<ForgotPasswordResponse>("/forgot-password", {
+  const onPasswordReset = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    await request<ForgotPasswordResponse>("/password-reset", {
+      method: "POST",
       body: JSON.stringify({ email }),
     }).then(() => navigate("/reset-password", { replace: true }));
   };

@@ -10,7 +10,6 @@ import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrappe
 import { useStringInput } from "../hooks";
 import { SyntheticEvent } from "react";
 import Loader from "../components/loader/loader";
-import ErrorView from "../components/error/error";
 import { useAppDispatch, useAppSelector } from "../services/hooks";
 import { login } from "../services/auth";
 import { Navigate } from "react-router-dom";
@@ -19,7 +18,9 @@ export default function LoginPage() {
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
 
-  const { user, loginStatus } = useAppSelector((state) => state.auth);
+  const { user, authentication, errorMsg } = useAppSelector(
+    (state) => state.auth
+  );
   const dispatch = useAppDispatch();
 
   const onClick = (e: SyntheticEvent) => {
@@ -33,24 +34,11 @@ export default function LoginPage() {
 
   return (
     <FormWrapper>
-      {loginStatus === "request" ? (
+      {authentication === "in progress" ? (
         <Loader />
-      ) : loginStatus === "error" ? (
-        <ErrorView title="Ошибка запроса">
-          <p className="text text_type_main-default">Попробуйте позже</p>
-          <Button
-            extraClass="mt-6"
-            type="secondary"
-            size="medium"
-            htmlType="button"
-            onClick={() => window.location.reload()}
-          >
-            Перезагрузить страницу
-          </Button>
-        </ErrorView>
       ) : (
         <>
-          <Form title="Вход">
+          <Form title="Вход" errorMsg={errorMsg}>
             <EmailInput value={email} onChange={onChangeEmail} />
             <PasswordInput
               extraClass="mt-6"

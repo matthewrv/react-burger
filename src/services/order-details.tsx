@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import normaApi from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/normaApi";
 import {
   OrderCreateRequest,
   OrderCreateResponse,
@@ -21,7 +21,7 @@ const initialState: OrderDetailsState = {
 export const checkoutOrder = createAsyncThunk(
   "checkoutOrder",
   (payload: OrderCreateRequest, thunkApi) => {
-    return normaApi<OrderCreateResponse>("/orders", {
+    return request<OrderCreateResponse>("/orders", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
