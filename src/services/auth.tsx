@@ -6,6 +6,8 @@ import {
   GetUserResponse,
   LogoutResponse,
   RegisterRequest,
+  UpdateUserResponse,
+  UpdateUserRequest,
 } from "../utils/normaApi/models";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
@@ -87,6 +89,23 @@ export const logout = createAsyncThunk("logout", async () => {
   }).then(resetTokens);
 });
 
+export const updateUser = createAsyncThunk(
+  "updateUser",
+  async (payload: UpdateUserRequest) => {
+    return await request<UpdateUserResponse>(
+      "/auth/user",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      },
+      true
+    );
+  }
+);
+
 interface PendingAction extends Action {}
 function isPendingAction(action: Action): action is PendingAction {
   return action.type.endsWith("pending");
@@ -107,6 +126,11 @@ const authSlice = createSlice({
         user: action.payload.user,
       }))
       .addCase(getUser.fulfilled, (_, action) => ({
+        authentication: "authenticated",
+        user: action.payload.user,
+      }))
+      .addCase(updateUser.fulfilled, (state, action) => ({
+        ...state,
         authentication: "authenticated",
         user: action.payload.user,
       }))

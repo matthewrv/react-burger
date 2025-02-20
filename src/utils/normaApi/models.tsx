@@ -62,3 +62,17 @@ export interface LogoutResponse {
   success: boolean;
   message: string;
 }
+
+export interface UpdateUserRequest {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface UpdateUserResponse {
+  success: boolean;
+  user: {
+    email: string;
+    name: string;
+  };
+}

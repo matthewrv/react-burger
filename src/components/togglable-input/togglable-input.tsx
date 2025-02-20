@@ -1,32 +1,38 @@
-import { useRef, useState } from "react";
-import { useStringInput } from "../../hooks";
+import { ChangeEvent, useCallback, useRef, useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export interface SafeInputProps {
   type: "text" | "email" | "password";
   placeholder: string;
-  initialValue?: string;
+  value: string;
+  setValue: (value: string) => void;
   extraClass?: string;
 }
 
-export default function SafeInput({
+export default function TogglableInput({
   type,
   placeholder,
-  initialValue,
   extraClass,
+  value,
+  setValue,
 }: SafeInputProps) {
   const ref = useRef(null);
   const [enabled, setEnabled] = useState(false);
-  const [value, onChangeValue, resetValue] = useStringInput(initialValue);
+
+  const onChangeValue = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setValue(e.target.value);
+    },
+    [setValue]
+  );
 
   const onIconClick = () => {
     setEnabled(!enabled);
     if (!enabled) {
-      ref.current.focus();
+      // small delay is required - disabled input can not get in focus
       setTimeout(() => ref.current.focus(), 50);
     } else {
       ref.current.blur();
-      resetValue();
     }
   };
 
