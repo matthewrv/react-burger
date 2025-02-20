@@ -12,23 +12,18 @@ import { SyntheticEvent } from "react";
 import Loader from "../components/loader/loader";
 import { useAppDispatch } from "../services/hooks";
 import { login, useAuthContext } from "../services/auth";
-import { Navigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
 
-  const { user, authentication, errorMsg } = useAuthContext();
+  const { authentication, errorMsg } = useAuthContext();
   const dispatch = useAppDispatch();
 
   const onClick = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
-
-  if (user) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <FormWrapper>

@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
-import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../../services/auth";
+import { Navigate } from "react-router-dom";
 import Loader from "../loader/loader";
-import styles from "./protected-route-element.module.css";
+import styles from "./anonymous-route-element.module.css";
 
-export default function ProtectedRouteElement(props: {
+export default function AnonymousRouteElement(props: {
   element: ReactElement;
 }) {
   const auth = useAuthContext();
@@ -18,10 +18,10 @@ export default function ProtectedRouteElement(props: {
       );
     }
     case "anonymous": {
-      return <Navigate to="/login" />;
+      return props.element;
     }
     case "authenticated": {
-      return props.element;
+      return <Navigate to="/" replace={true} />;
     }
   }
 }

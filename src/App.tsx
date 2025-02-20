@@ -13,6 +13,7 @@ import ResetPasswordPage from "./pages/reset-password";
 import ProfilePage from "./pages/profile/profile";
 import ErrorView from "./components/error/error";
 import ProtectedRouteElement from "./components/protected-route-element/protected-route-element";
+import AnonymousRouteElement from "./components/anonymous-route-element/anonymous-route-element";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -47,13 +48,26 @@ function App() {
             <main className={`${appStyles.main} pl-5 pr-5`}>
               <Routes>
                 <Route index element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+                <Route
+                  path="/login"
+                  element={<AnonymousRouteElement element={<LoginPage />} />}
+                />
+                <Route
+                  path="/register"
+                  element={<AnonymousRouteElement element={<RegisterPage />} />}
+                />
                 <Route
                   path="/forgot-password"
-                  element={<ForgotPasswordPage />}
+                  element={
+                    <AnonymousRouteElement element={<ForgotPasswordPage />} />
+                  }
                 />
-                <Route path="/reset-password" element={<ResetPasswordPage />} />
+                <Route
+                  path="/reset-password"
+                  element={
+                    <AnonymousRouteElement element={<ResetPasswordPage />} />
+                  }
+                />
                 <Route
                   path="/profile"
                   element={<ProtectedRouteElement element={<ProfilePage />} />}
