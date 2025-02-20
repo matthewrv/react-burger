@@ -10,17 +10,15 @@ import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrappe
 import { useStringInput } from "../hooks";
 import { SyntheticEvent } from "react";
 import Loader from "../components/loader/loader";
-import { useAppDispatch, useAppSelector } from "../services/hooks";
-import { login } from "../services/auth";
+import { useAppDispatch } from "../services/hooks";
+import { login, useAuthContext } from "../services/auth";
 import { Navigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
 
-  const { user, authentication, errorMsg } = useAppSelector(
-    (state) => state.auth
-  );
+  const { user, authentication, errorMsg } = useAuthContext();
   const dispatch = useAppDispatch();
 
   const onClick = (e: SyntheticEvent) => {

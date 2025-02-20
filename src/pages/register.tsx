@@ -11,42 +11,29 @@ import FormWrapper from "../components/form-wrapper/form-wrapper";
 import { useStringInput } from "../hooks";
 import { SyntheticEvent } from "react";
 import Loader from "../components/loader/loader";
-import ErrorView from "../components/error/error";
+import { useAppDispatch } from "../services/hooks";
+import { register, useAuthContext } from "../services/auth";
 
 export default function RegisterPage() {
   const [name, onChangeName] = useStringInput();
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
 
-  const status = "";
+  const { authentication, errorMsg } = useAuthContext();
+  const dispatch = useAppDispatch();
 
   const onClick = (e: SyntheticEvent) => {
     e.preventDefault();
-    // TODO trigger register
+    dispatch(register({ email, name, password }));
   };
 
   return (
     <FormWrapper>
-      {status === "register/pending" ? (
+      {authentication === "in progress" ? (
         <Loader />
-      ) : status === "register/failed" ? (
-        <ErrorView title="Ошибка запроса">
-          <p className="text text_type_main-default text-center">
-            Попробуйте позже
-          </p>
-          <Button
-            extraClass="mt-6"
-            type="secondary"
-            size="medium"
-            htmlType="button"
-            onClick={() => window.location.reload()}
-          >
-            Перезагрузить страницу
-          </Button>
-        </ErrorView>
       ) : (
         <>
-          <Form title="Регистрация">
+          <Form title="Регистрация" errorMsg={errorMsg}>
             <Input
               placeholder="Имя"
               value={name}

@@ -1,4 +1,9 @@
-import { getCookie, setCookie } from "../cookie";
+import {
+  getAccessToken,
+  getRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from "./authTokens";
 import { RefreshTokenResponse } from "./models";
 
 const BASE_URL = "https://norma.nomoreparties.space/api";
@@ -44,7 +49,7 @@ function withRefresh(...args: Parameters<typeof withToken>) {
 }
 
 function withToken(endpoint: URL, options?: RequestInit) {
-  const token = getCookie("token");
+  const token = getAccessToken();
   const newOptions = {
     ...options,
     headers: { ...options?.headers, Authorization: `Bearer ${token}` },
@@ -53,14 +58,14 @@ function withToken(endpoint: URL, options?: RequestInit) {
 }
 
 async function refreshToken(): Promise<RefreshTokenResponse> {
-  const token = getCookie("refreshToken");
+  const token = getRefreshToken();
   return request<RefreshTokenResponse>("/auth/token", {
     method: "POST",
     body: JSON.stringify({ token: token }),
   }).then((response) => {
     if (response.success) {
-      setCookie("token", response.token);
-      setCookie("refreshToken", response.refreshToken);
+      setAccessToken(response.token);
+      setRefreshToken(response.refreshToken);
     }
     return response;
   });
