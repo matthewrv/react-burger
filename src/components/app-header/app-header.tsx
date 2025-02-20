@@ -1,11 +1,7 @@
-import {
-  BurgerIcon,
-  ListIcon,
-  Logo,
-  ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyles from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
+import TopNavItem from "../top-nav-item/top-nav-item";
 
 const AppHeader = () => {
   return (
@@ -21,30 +17,47 @@ const AppHeader = () => {
           <li
             className={`pl-5 pr-5 pt-4 pb-4 ${headerStyles["burger-constructor-item"]}`}
           >
-            <NavLink to="/" className={headerStyles["nav-link"]}>
-              <BurgerIcon type="primary" />
-              <span className="text text_type_main-default">Конструктор</span>
-            </NavLink>
+            <NavLink
+              to="/"
+              className={headerStyles["nav-link"]}
+              children={({ isActive }) => (
+                <TopNavItem
+                  isActive={isActive}
+                  icon={"BurgerIcon"}
+                  text={"Конструктор"}
+                />
+              )}
+            />
           </li>
 
           <li
             className={`pl-5 pr-5 pt-4 pb-4 ${headerStyles["order-history-item"]}`}
           >
-            <NavLink to="/orders" className={headerStyles["nav-link"]}>
-              <ListIcon type="secondary" />
-              <span className="text text_type_main-default text_color_inactive">
-                Лента заказов
-              </span>
-            </NavLink>
+            <NavLink
+              to="/orders"
+              className={headerStyles["nav-link"]}
+              children={({ isActive }) => (
+                <TopNavItem
+                  isActive={isActive}
+                  icon={"ListIcon"}
+                  text={"Лента заказов"}
+                />
+              )}
+            />
           </li>
 
           <li className={`pl-5 pr-5 pt-4 pb-4 ${headerStyles["account-item"]}`}>
-            <NavLink to="/profile" className={headerStyles["nav-link"]}>
-              <ProfileIcon type="secondary" />
-              <span className="text text_type_main-default text_color_inactive">
-                Личный кабинет
-              </span>
-            </NavLink>
+            <NavLink
+              to="/profile"
+              className={headerStyles["nav-link"]}
+              children={({ isActive }) => (
+                <TopNavItem
+                  isActive={isActive}
+                  icon={"ProfileIcon"}
+                  text={"Личный кабинет"}
+                />
+              )}
+            />
           </li>
         </ol>
       </nav>
