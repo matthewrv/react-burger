@@ -17,47 +17,41 @@ const AppHeader = () => {
           <li
             className={`pl-5 pr-5 pt-4 pb-4 ${headerStyles["burger-constructor-item"]}`}
           >
-            <NavLink
-              to="/"
-              className={headerStyles["nav-link"]}
-              children={({ isActive }) => (
+            <NavLink to="/" className={headerStyles["nav-link"]}>
+              {({ isActive }) => (
                 <TopNavItem
                   isActive={isActive}
                   icon={"BurgerIcon"}
                   text={"Конструктор"}
                 />
               )}
-            />
+            </NavLink>
           </li>
 
           <li
             className={`pl-5 pr-5 pt-4 pb-4 ${headerStyles["order-history-item"]}`}
           >
-            <NavLink
-              to="/orders"
-              className={headerStyles["nav-link"]}
-              children={({ isActive }) => (
+            <NavLink to="/orders" className={headerStyles["nav-link"]}>
+              {({ isActive }) => (
                 <TopNavItem
                   isActive={isActive}
                   icon={"ListIcon"}
                   text={"Лента заказов"}
                 />
               )}
-            />
+            </NavLink>
           </li>
 
           <li className={`pl-5 pr-5 pt-4 pb-4 ${headerStyles["account-item"]}`}>
-            <NavLink
-              to="/profile"
-              className={headerStyles["nav-link"]}
-              children={({ isActive }) => (
+            <NavLink to="/profile" className={headerStyles["nav-link"]}>
+              {({ isActive }) => (
                 <TopNavItem
                   isActive={isActive}
                   icon={"ProfileIcon"}
                   text={"Личный кабинет"}
                 />
               )}
-            />
+            </NavLink>
           </li>
         </ol>
       </nav>
