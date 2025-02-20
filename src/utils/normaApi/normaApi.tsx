@@ -65,7 +65,7 @@ async function refreshToken(): Promise<RefreshTokenResponse> {
     body: JSON.stringify({ token: token }),
   }).then((response) => {
     if (response.success) {
-      setAccessToken(response.token);
+      setAccessToken(response.accessToken.split("Bearer ")[1]);
       setRefreshToken(response.refreshToken);
     }
     return response;

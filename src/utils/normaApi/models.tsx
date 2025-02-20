@@ -54,7 +54,7 @@ export interface GetUserResponse {
 
 export interface RefreshTokenResponse {
   success: boolean;
-  token: string;
+  accessToken: string;
   refreshToken: string;
 }
 
