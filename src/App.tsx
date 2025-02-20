@@ -14,6 +14,7 @@ import ProfilePage from "./pages/profile/profile";
 import ErrorView from "./components/error/error";
 import ProtectedRouteElement from "./components/protected-route-element/protected-route-element";
 import AnonymousRouteElement from "./components/anonymous-route-element/anonymous-route-element";
+import NotFound404 from "./pages/not-found-404/not-found-404";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -72,6 +73,7 @@ function App() {
                   path="/profile"
                   element={<ProtectedRouteElement element={<ProfilePage />} />}
                 />
+                <Route path="*" element={<NotFound404 />} />
               </Routes>
             </main>
           </BrowserRouter>
