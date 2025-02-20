@@ -45,41 +45,39 @@ function App() {
     case "success":
       return (
         <>
-          <BrowserRouter>
-            <AppHeader />
-            <main className={`${appStyles.main} pl-5 pr-5`}>
-              <Routes>
-                <Route index element={<HomePage />} />
-                <Route
-                  path="/login"
-                  element={<AnonymousRouteElement element={<LoginPage />} />}
-                />
-                <Route
-                  path="/register"
-                  element={<AnonymousRouteElement element={<RegisterPage />} />}
-                />
-                <Route
-                  path="/forgot-password"
-                  element={
-                    <AnonymousRouteElement element={<ForgotPasswordPage />} />
-                  }
-                />
-                <Route
-                  path="/reset-password"
-                  element={
-                    <AnonymousRouteElement element={<ResetPasswordPage />} />
-                  }
-                />
-                <Route
-                  path="/profile"
-                  element={<ProtectedRouteElement element={<ProfilePage />} />}
-                >
-                  <Route index element={<EditProfile />} />
-                </Route>
-                <Route path="*" element={<NotFound404 />} />
-              </Routes>
-            </main>
-          </BrowserRouter>
+          <AppHeader />
+          <main className={`${appStyles.main} pl-5 pr-5`}>
+            <Routes>
+              <Route index element={<HomePage />} />
+              <Route
+                path="/login"
+                element={<AnonymousRouteElement element={<LoginPage />} />}
+              />
+              <Route
+                path="/register"
+                element={<AnonymousRouteElement element={<RegisterPage />} />}
+              />
+              <Route
+                path="/forgot-password"
+                element={
+                  <AnonymousRouteElement element={<ForgotPasswordPage />} />
+                }
+              />
+              <Route
+                path="/reset-password"
+                element={
+                  <AnonymousRouteElement element={<ResetPasswordPage />} />
+                }
+              />
+              <Route
+                path="/profile"
+                element={<ProtectedRouteElement element={<ProfilePage />} />}
+              >
+                <Route index element={<EditProfile />} />
+              </Route>
+              <Route path="*" element={<NotFound404 />} />
+            </Routes>
+          </main>
         </>
       );
   }
