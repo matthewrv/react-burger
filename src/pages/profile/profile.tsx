@@ -1,10 +1,5 @@
-import {
-  Button,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import profileStyles from "./profile.module.css";
-import { NavLink } from "react-router-dom";
-import { useStringInput } from "../../hooks";
+import { NavLink, Outlet } from "react-router-dom";
 import { useCallback } from "react";
 import { useAppDispatch } from "../../services/hooks";
 import { logout } from "../../services/auth";
@@ -20,10 +15,6 @@ export default function ProfilePage() {
     dispatch(logout());
   }, []);
 
-  const [name, onChangeName] = useStringInput();
-  const [email, onChangeEmail] = useStringInput();
-  const [password, onChangePassword] = useStringInput();
-
   return (
     <div className={`pt-30 ${profileStyles.container}`}>
       <div>
@@ -35,7 +26,7 @@ export default function ProfilePage() {
               </NavLink>
             </li>
             <li className={profileStyles.listItem}>
-              <NavLink to="/history" className={linkStyle}>
+              <NavLink to="orders" className={linkStyle}>
                 История заказов
               </NavLink>
             </li>
@@ -52,37 +43,7 @@ export default function ProfilePage() {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
-      <form>
-        <Input
-          type="text"
-          value={name}
-          onChange={onChangeName}
-          placeholder="Имя"
-          icon="EditIcon"
-        />
-        <Input
-          type="email"
-          value={email}
-          onChange={onChangeEmail}
-          placeholder="Логин"
-          icon="EditIcon"
-          extraClass="mt-6"
-        />
-        <Input
-          type="password"
-          value={password}
-          onChange={onChangePassword}
-          placeholder="Пароль"
-          icon="EditIcon"
-          extraClass="mt-6"
-        />
-        <div className={`mt-6 ${profileStyles.buttons}`}>
-          <Button htmlType="reset" type="secondary">
-            Отмена
-          </Button>
-          <Button htmlType="submit">Сохранить</Button>
-        </div>
-      </form>
+      <Outlet />
     </div>
   );
 }
