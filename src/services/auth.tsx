@@ -20,7 +20,7 @@ import {
 } from "../utils/normaApi/authTokens";
 
 export interface AuthInfo {
-  authentication: "in progress" | "authenticated" | "anonymous";
+  isAuthCompleted: boolean;
   user?: {
     email: string;
     name: string;
@@ -28,7 +28,7 @@ export interface AuthInfo {
   errorMsg?: string;
 }
 
-const initialState: AuthInfo = { authentication: "in progress" };
+const initialState: AuthInfo = { isAuthCompleted: false };
 
 // Do not export - assumed that user is requested using AuthContextProvider only.
 // We want to avoid multiple getUser requests from different places.
@@ -118,43 +118,45 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (_, action) => ({
-        authentication: "authenticated",
+        isAuthCompleted: true,
         user: action.payload.user,
       }))
       .addCase(register.fulfilled, (_, action) => ({
-        authentication: "authenticated",
+        isAuthCompleted: true,
         user: action.payload.user,
       }))
       .addCase(getUser.fulfilled, (_, action) => ({
-        authentication: "authenticated",
+        isAuthCompleted: true,
         user: action.payload.user,
       }))
       .addCase(updateUser.fulfilled, (state, action) => ({
         ...state,
-        authentication: "authenticated",
+        isAuthCompleted: true,
         user: action.payload.user,
       }))
       .addCase(login.rejected, (_, action) => ({
-        authentication: "anonymous",
+        isAuthCompleted: true,
         errorMsg: action.error.message,
       }))
       .addCase(register.rejected, (_, action) => ({
-        authentication: "anonymous",
+        isAuthCompleted: true,
         errorMsg: action.error.message,
       }))
       .addCase(getUser.rejected, () => {
         // do not save error message on getUser since
         // it is requested on page load and does not
         // intefere with other logic
-        return { authentication: "anonymous" };
+        return { isAuthCompleted: true };
       })
-      .addCase(logout.fulfilled, () => ({ authentication: "anonymous" }))
+      .addCase(logout.fulfilled, () => ({
+        isAuthCompleted: true,
+      }))
       .addCase(logout.rejected, (state, action) => {
-        state.authentication = "authenticated";
+        state.isAuthCompleted = true;
         state.errorMsg = action.error.message;
       })
       .addMatcher(isPendingAction, (state) => ({
-        authentication: "in progress",
+        isAuthCompleted: false,
         user: state.user, // save user for a while, clear error message
       }));
   },

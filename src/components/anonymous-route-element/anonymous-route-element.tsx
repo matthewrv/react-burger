@@ -11,20 +11,18 @@ export default function AnonymousRouteElement(props: {
   const auth = useAuthContext();
   const location = useAppLocation();
 
-  switch (auth.authentication) {
-    case "in progress": {
-      return (
-        <div className={styles.wrapper}>
-          <Loader />
-        </div>
-      );
-    }
-    case "anonymous": {
-      return props.element;
-    }
-    case "authenticated": {
-      const from = location.state?.from ?? { pathname: "/" };
-      return <Navigate to={from} replace={true} />;
-    }
+  if (!auth.isAuthCompleted) {
+    return (
+      <div className={styles.wrapper}>
+        <Loader />
+      </div>
+    );
   }
+
+  if (auth.user) {
+    const from = location.state?.from ?? { pathname: "/" };
+    return <Navigate to={from} replace={true} />;
+  }
+
+  return props.element;
 }

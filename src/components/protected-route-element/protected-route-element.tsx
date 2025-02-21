@@ -11,19 +11,17 @@ export default function ProtectedRouteElement(props: {
   const auth = useAuthContext();
   const location = useAppLocation();
 
-  switch (auth.authentication) {
-    case "in progress": {
-      return (
-        <div className={styles.wrapper}>
-          <Loader />
-        </div>
-      );
-    }
-    case "anonymous": {
-      return <Navigate to="/login" state={{ from: location }} />;
-    }
-    case "authenticated": {
-      return props.element;
-    }
+  if (!auth.isAuthCompleted) {
+    return (
+      <div className={styles.wrapper}>
+        <Loader />
+      </div>
+    );
   }
+
+  if (!auth.user) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
+
+  return props.element;
 }
