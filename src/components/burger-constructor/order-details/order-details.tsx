@@ -11,7 +11,7 @@ export default function OrderDetails() {
   return (
     <div className={`pt-4 pb-20 ${orderDetailsStyles.details}`}>
       {createOrderStatus === "request" ? (
-        <Loader />
+        <Loader title="Оформляем заказ" />
       ) : createOrderStatus === "error" ? (
         <p className="text_type_main-medium">Ошибка создания заказа :(</p>
       ) : (

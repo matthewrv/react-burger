@@ -21,13 +21,17 @@ const initialState: OrderDetailsState = {
 export const checkoutOrder = createAsyncThunk(
   "checkoutOrder",
   (payload: OrderCreateRequest, thunkApi) => {
-    return request<OrderCreateResponse>("/orders", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
+    return request<OrderCreateResponse>(
+      "/orders",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    }).then((response) => {
+      true
+    ).then((response) => {
       thunkApi.dispatch(clearIngredients());
       thunkApi.dispatch(resetAllItemsCount());
       return response;
