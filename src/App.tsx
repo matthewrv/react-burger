@@ -4,7 +4,7 @@ import AppHeader from "./components/app-header/app-header";
 import { fetchIngredients } from "./services/ingredients";
 import { useAppDispatch, useAppSelector } from "./services/hooks";
 import Loader from "./components/loader/loader";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/home";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
@@ -16,12 +16,20 @@ import ProtectedRouteElement from "./components/protected-route-element/protecte
 import AnonymousRouteElement from "./components/anonymous-route-element/anonymous-route-element";
 import NotFound404 from "./pages/not-found-404/not-found-404";
 import EditProfile from "./pages/edit-profile/edit-profile";
+import IngredientDetails from "./components/burger-ingredients/ingredient-details/ingredient-details";
+import Modal from "./components/modal/modal";
+import IngredientDetailsPage from "./pages/ingredient-details/ingredient-details";
+import OrdersPage from "./pages/orders/orders";
 
 function App() {
   const { ingredientsRequestStatus } = useAppSelector(
     (state) => state.ingredients
   );
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const backgroundLocation = location.state?.backgroundLocation;
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -45,10 +53,30 @@ function App() {
     case "success":
       return (
         <>
+          {backgroundLocation && (
+            <Routes>
+              <Route
+                path="/ingredients/:id"
+                element={
+                  <Modal
+                    onClose={() => navigate(-1)}
+                    title="Детали ингредиента"
+                  >
+                    <IngredientDetails />
+                  </Modal>
+                }
+              />
+            </Routes>
+          )}
+
           <AppHeader />
           <main className={`${appStyles.main} pl-5 pr-5`}>
-            <Routes>
+            <Routes location={backgroundLocation || location}>
               <Route index element={<HomePage />} />
+              <Route
+                path="/ingredients/:id"
+                element={<IngredientDetailsPage />}
+              />
               <Route
                 path="/login"
                 element={<AnonymousRouteElement element={<LoginPage />} />}
@@ -74,6 +102,7 @@ function App() {
                 element={<ProtectedRouteElement element={<ProfilePage />} />}
               >
                 <Route index element={<EditProfile />} />
+                <Route path="orders" element={<OrdersPage />} />
               </Route>
               <Route path="*" element={<NotFound404 />} />
             </Routes>

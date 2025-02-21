@@ -10,7 +10,7 @@ export interface IngredientsState {
 
 const initialState: IngredientsState = {
   ingredients: [],
-  ingredientsRequestStatus: "success",
+  ingredientsRequestStatus: "request",
 };
 
 export const fetchIngredients = createAsyncThunk(
