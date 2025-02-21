@@ -44,14 +44,17 @@ function App() {
       return <Loader />;
     case "error":
       return (
-        <ErrorView title="Ошибка запроса">
-          <p className="text text_type_main-default">
+        <div className={appStyles.error}>
+          <h1 className="text text_type_main-large text-center">
+            Ошибка запроса
+          </h1>
+          <p className="text text_type_main-default text-center">
             Не удалось получить список ингридиентов.
           </p>
-          <p className="text text_type_main-default">
+          <p className="text text_type_main-default text-center">
             Попробуйте перезагрузить страницу.
           </p>
-        </ErrorView>
+        </div>
       );
 
     case "success":
