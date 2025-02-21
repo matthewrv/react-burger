@@ -51,7 +51,7 @@ function resetTokens<T>(response: T): T {
 }
 
 export const register = createAsyncThunk(
-  "register",
+  "auth/register",
   async (payload: RegisterRequest) => {
     return await request<AuthResponse>("/auth/register", {
       method: "POST",
@@ -64,7 +64,7 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "login",
+  "auth/login",
   async (payload: LoginRequest) => {
     return await request<AuthResponse>("/auth/login", {
       method: "POST",
@@ -76,7 +76,7 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk("logout", async () => {
+export const logout = createAsyncThunk("auth/logout", async () => {
   const refreshToken = getRefreshToken();
   return await request<LogoutResponse>("/auth/logout", {
     method: "POST",
@@ -90,7 +90,7 @@ export const logout = createAsyncThunk("logout", async () => {
 });
 
 export const updateUser = createAsyncThunk(
-  "updateUser",
+  "auth/updateUser",
   async (payload: UpdateUserRequest) => {
     return await request<UpdateUserResponse>(
       "/auth/user",
@@ -108,7 +108,7 @@ export const updateUser = createAsyncThunk(
 
 interface PendingAction extends Action {}
 function isPendingAction(action: Action): action is PendingAction {
-  return action.type.endsWith("pending");
+  return action.type.startsWith("auth") && action.type.endsWith("pending");
 }
 
 const authSlice = createSlice({
