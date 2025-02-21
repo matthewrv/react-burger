@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const dispatch = useAppDispatch();
   const onLogout = useCallback(() => {
     dispatch(logout());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={`pt-30 ${profileStyles.container}`}>
@@ -21,12 +21,12 @@ export default function ProfilePage() {
         <nav>
           <ul className={profileStyles.list}>
             <li className={profileStyles.listItem}>
-              <NavLink to="/profile" className={linkStyle}>
+              <NavLink to="/profile" end className={linkStyle}>
                 Профиль
               </NavLink>
             </li>
             <li className={profileStyles.listItem}>
-              <NavLink to="orders" className={linkStyle}>
+              <NavLink to="/profile/orders" end className={linkStyle}>
                 История заказов
               </NavLink>
             </li>
