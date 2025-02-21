@@ -2,7 +2,7 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { request } from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/norma-api";
 import { ForgotPasswordResponse } from "../utils/normaApi/models";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import Form from "../components/form/form";

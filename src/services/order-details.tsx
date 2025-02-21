@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { request } from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/norma-api";
 import {
   OrderCreateRequest,
   OrderCreateResponse,

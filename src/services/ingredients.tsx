@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BurgerIngredient, RequestStatus } from "./common";
-import { request } from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/norma-api";
 import { IngredientsResponse } from "../utils/normaApi/models";
 
 export interface IngredientsState {

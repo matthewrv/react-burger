@@ -1,4 +1,4 @@
-import { request } from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/norma-api";
 import { Action, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   LoginRequest,
@@ -18,7 +18,7 @@ import {
   resetRefreshToken,
   setAccessToken,
   setRefreshToken,
-} from "../utils/normaApi/authTokens";
+} from "../utils/normaApi/auth-tokens";
 
 export interface AuthInfo {
   isAuthCompleted: boolean;

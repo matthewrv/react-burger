@@ -8,7 +8,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { request } from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/norma-api";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { SyntheticEvent, useMemo, useState } from "react";
 import { RequestStatus } from "../services/common";

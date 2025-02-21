@@ -3,7 +3,7 @@ import {
   getRefreshToken,
   setAccessToken,
   setRefreshToken,
-} from "./authTokens";
+} from "./auth-tokens";
 import { RefreshTokenResponse } from "./models";
 
 const BASE_URL = "https://norma.nomoreparties.space/api";
