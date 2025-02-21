@@ -1,21 +1,19 @@
-import { getCookie, setCookie } from "../cookie";
-
-export function getAccessToken(): string | undefined {
-  return getCookie("token");
+export function getAccessToken(): string | null {
+  return localStorage.getItem("token");
 }
 export function setAccessToken(value: string) {
-  setCookie("token", value);
+  localStorage.setItem("token", value);
 }
 export function resetAccessToken() {
-  setCookie("token", "");
+  localStorage.removeItem("token");
 }
 
-export function getRefreshToken(): string | undefined {
-  return getCookie("refreshToken");
+export function getRefreshToken(): string | null {
+  return localStorage.getItem("refreshToken");
 }
 export function setRefreshToken(value: string) {
-  setCookie("refreshToken", value);
+  localStorage.setItem("refreshToken", value);
 }
 export function resetRefreshToken() {
-  setCookie("refreshToken", "");
+  localStorage.removeItem("refreshToken");
 }
