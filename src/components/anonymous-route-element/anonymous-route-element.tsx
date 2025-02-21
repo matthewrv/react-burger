@@ -3,11 +3,13 @@ import { useAuthContext } from "../../services/auth";
 import { Navigate } from "react-router-dom";
 import Loader from "../loader/loader";
 import styles from "./anonymous-route-element.module.css";
+import { useAppLocation } from "../../services/hooks";
 
 export default function AnonymousRouteElement(props: {
   element: ReactElement;
 }) {
   const auth = useAuthContext();
+  const location = useAppLocation();
 
   switch (auth.authentication) {
     case "in progress": {
@@ -21,7 +23,8 @@ export default function AnonymousRouteElement(props: {
       return props.element;
     }
     case "authenticated": {
-      return <Navigate to="/" replace={true} />;
+      const from = location.state?.from ?? { pathname: "/" };
+      return <Navigate to={from} replace={true} />;
     }
   }
 }

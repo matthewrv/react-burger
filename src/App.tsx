@@ -2,9 +2,13 @@ import { useEffect } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "./components/app-header/app-header";
 import { fetchIngredients } from "./services/ingredients";
-import { useAppDispatch, useAppSelector } from "./services/hooks";
+import {
+  useAppDispatch,
+  useAppLocation,
+  useAppSelector,
+} from "./services/hooks";
 import Loader from "./components/loader/loader";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/home";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
@@ -28,7 +32,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useAppLocation();
   const backgroundLocation = location.state?.backgroundLocation;
 
   useEffect(() => {

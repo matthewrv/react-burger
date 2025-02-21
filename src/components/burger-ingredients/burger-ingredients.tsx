@@ -7,10 +7,11 @@ import {
 import ingredientsStyles from "./burger-ingredients.module.css";
 import IngredientsSection from "./ingredients-section/ingredients-section";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAppLocation } from "../../services/hooks";
 
 const BurgerIngredients = () => {
-  const location = useLocation();
+  const location = useAppLocation();
   const navigate = useNavigate();
   const onItemSelect = (item: BurgerIngredient) =>
     navigate(`/ingredients/${item._id}`, {
