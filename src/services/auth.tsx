@@ -12,6 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import {
+  getAccessToken,
   getRefreshToken,
   resetAccessToken,
   resetRefreshToken,
@@ -35,7 +36,13 @@ const initialState: AuthInfo = { isAuthCompleted: false };
 //
 // See AuthContextProvider implementation below
 const getUser = createAsyncThunk("getUser", async () => {
-  return await request<GetUserResponse>("/auth/user", undefined, true);
+  const token = getAccessToken();
+  const refreshToken = getRefreshToken();
+
+  if (token || refreshToken) {
+    return await request<GetUserResponse>("/auth/user", undefined, true);
+  }
+  return Promise.reject(`Пользователь не авторизован`);
 });
 
 function setTokens(response: AuthResponse): AuthResponse {
