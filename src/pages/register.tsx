@@ -11,10 +11,12 @@ import FormWrapper from "../components/form-wrapper/form-wrapper";
 import { useStringInput } from "../hooks";
 import { SyntheticEvent } from "react";
 import Loader from "../components/loader/loader";
-import { useAppDispatch } from "../services/hooks";
+import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { register, useAuthContext } from "../services/auth";
 
 export default function RegisterPage() {
+  const location = useAppLocation();
+
   const [name, onChangeName] = useStringInput();
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
@@ -54,7 +56,11 @@ export default function RegisterPage() {
             </Button>
           </Form>
           <FormLinksWrapper>
-            <FormLink to="/login" label="Уже зарегистрированы?">
+            <FormLink
+              to="/login"
+              state={location.state}
+              label="Уже зарегистрированы?"
+            >
               Войти
             </FormLink>
           </FormLinksWrapper>

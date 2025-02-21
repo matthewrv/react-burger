@@ -13,11 +13,15 @@ import { useStringInput } from "../hooks";
 import { SyntheticEvent, useState } from "react";
 import { RequestStatus } from "../services/common";
 import Loader from "../components/loader/loader";
+import { useAppLocation } from "../services/hooks";
+import { setVerificationCodeSent } from "../utils/persist-state";
 
 export default function ForgotPasswordPage() {
   const [email, onChangeEmail] = useStringInput();
   const [status, setStatus] = useState<RequestStatus | undefined>(undefined);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const location = useAppLocation();
 
   const navigate = useNavigate();
   const onPasswordReset = async (e: SyntheticEvent) => {
@@ -28,7 +32,10 @@ export default function ForgotPasswordPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     })
-      .then(() => navigate("/reset-password", { replace: true }))
+      .then(() => {
+        setVerificationCodeSent(true);
+        navigate("/reset-password", { replace: true, state: location.state });
+      })
       .catch((error) => {
         setStatus("error");
         setErrorMsg(error.message);
@@ -52,7 +59,11 @@ export default function ForgotPasswordPage() {
             </Button>
           </Form>
           <FormLinksWrapper>
-            <FormLink label="Вспомнили пароль?" to="/login">
+            <FormLink
+              label="Вспомнили пароль?"
+              state={location.state}
+              to="/login"
+            >
               Войти
             </FormLink>
           </FormLinksWrapper>

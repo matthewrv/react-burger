@@ -9,10 +9,14 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { request } from "../utils/normaApi/normaApi";
-import { useNavigate } from "react-router-dom";
-import { SyntheticEvent, useState } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { SyntheticEvent, useMemo, useState } from "react";
 import { RequestStatus } from "../services/common";
 import Loader from "../components/loader/loader";
+import {
+  getVerificationCodeSent,
+  setVerificationCodeSent,
+} from "../utils/persist-state";
 
 export default function ResetPasswordPage() {
   const [newPassword, onChangeNewPassword] = useStringInput();
@@ -22,6 +26,9 @@ export default function ResetPasswordPage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const verificationCodeSent = useMemo(getVerificationCodeSent, []);
 
   const onPasswordReset = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -31,14 +38,19 @@ export default function ResetPasswordPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password: newPassword, token: verificationCode }),
     })
-      .then(() => navigate("/login", { replace: true }))
+      .then(() => {
+        setVerificationCodeSent(false);
+        navigate("/login", { replace: true, state: location.state });
+      })
       .catch((error) => {
         setStatus("error");
         setErrorMsg(error.message);
       });
   };
 
-  return (
+  return !verificationCodeSent ? (
+    <Navigate to="/forgot-password" state={location.state} />
+  ) : (
     <FormWrapper>
       {status === "request" ? (
         <Loader />
@@ -66,7 +78,11 @@ export default function ResetPasswordPage() {
             </Button>
           </Form>
           <FormLinksWrapper>
-            <FormLink to="/login" label="Вспомнили пароль?">
+            <FormLink
+              to="/login"
+              state={location.state}
+              label="Вспомнили пароль?"
+            >
               Войти
             </FormLink>
           </FormLinksWrapper>

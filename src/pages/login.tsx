@@ -10,10 +10,12 @@ import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrappe
 import { useStringInput } from "../hooks";
 import { SyntheticEvent } from "react";
 import Loader from "../components/loader/loader";
-import { useAppDispatch } from "../services/hooks";
+import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { login, useAuthContext } from "../services/auth";
 
 export default function LoginPage() {
+  const location = useAppLocation();
+
   const [email, onChangeEmail] = useStringInput();
   const [password, onChangePassword] = useStringInput();
 
@@ -49,10 +51,18 @@ export default function LoginPage() {
             </Button>
           </Form>
           <FormLinksWrapper>
-            <FormLink to="/register" label="Вы новый пользователь?">
+            <FormLink
+              to="/register"
+              state={location.state}
+              label="Вы новый пользователь?"
+            >
               Зарегистрироваться
             </FormLink>
-            <FormLink to="/forgot-password" label="Забыли пароль?">
+            <FormLink
+              to="/forgot-password"
+              state={location.state}
+              label="Забыли пароль?"
+            >
               Восстановить пароль
             </FormLink>
           </FormLinksWrapper>
