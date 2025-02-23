@@ -7,33 +7,37 @@ import Form from "../components/form/form";
 import FormLink from "../components/form-link/form-link";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
-import { useStringInput } from "../hooks";
+import { useForm } from "../hooks";
 import { SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { login, useAuthContext } from "../services/auth";
+import { LoginRequest } from "../utils/normaApi/models";
 
 export default function LoginPage() {
   const location = useAppLocation();
 
-  const [email, onChangeEmail] = useStringInput();
-  const [password, onChangePassword] = useStringInput();
+  const { values, handleChange } = useForm<LoginRequest>({
+    email: "",
+    password: "",
+  });
 
   const { errorMsg } = useAuthContext();
   const dispatch = useAppDispatch();
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
+    dispatch(login(values));
   };
 
   return (
     <FormWrapper>
       <Form title="Вход" errorMsg={errorMsg} onSubmit={onSubmit}>
-        <EmailInput value={email} onChange={onChangeEmail} />
+        <EmailInput value={values.email} onChange={handleChange} name="email" />
         <PasswordInput
           extraClass="mt-6"
-          value={password}
-          onChange={onChangePassword}
+          value={values.password}
+          onChange={handleChange}
+          name="password"
         />
         <Button
           extraClass="mt-6"

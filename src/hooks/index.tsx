@@ -1,3 +1,3 @@
-import { useStringInput } from "./useStringInput";
+import { useForm } from "./use-form";
 
-export { useStringInput };
+export { useForm };

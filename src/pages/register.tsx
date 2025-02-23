@@ -8,35 +8,49 @@ import Form from "../components/form/form";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
 import FormLink from "../components/form-link/form-link";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
-import { useStringInput } from "../hooks";
+import { useForm } from "../hooks";
 import { SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { register, useAuthContext } from "../services/auth";
+import { RegisterRequest } from "../utils/normaApi/models";
 
 export default function RegisterPage() {
   const location = useAppLocation();
 
-  const [name, onChangeName] = useStringInput();
-  const [email, onChangeEmail] = useStringInput();
-  const [password, onChangePassword] = useStringInput();
+  const { values, handleChange } = useForm<RegisterRequest>({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const { errorMsg } = useAuthContext();
   const dispatch = useAppDispatch();
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(register({ email, name, password }));
+    dispatch(register(values));
   };
 
   return (
     <FormWrapper>
       <Form title="Регистрация" errorMsg={errorMsg} onSubmit={onSubmit}>
-        <Input placeholder="Имя" value={name} onChange={onChangeName}></Input>
-        <EmailInput extraClass="mt-6" value={email} onChange={onChangeEmail} />
+        <Input
+          placeholder="Имя"
+          value={values.name}
+          onChange={handleChange}
+          name="name"
+        ></Input>
+        <EmailInput
+          extraClass="mt-6"
+          value={values.email}
+          onChange={handleChange}
+          name="email"
+        />
         <PasswordInput
           extraClass="mt-6"
-          value={password}
-          onChange={onChangePassword}
+          value={values.password}
+          onChange={handleChange}
+          name="password"
         />
         <Button extraClass="mt-6" htmlType="submit">
           Зарегистрироваться

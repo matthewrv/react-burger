@@ -3,13 +3,16 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { request } from "../utils/normaApi/norma-api";
-import { ForgotPasswordResponse } from "../utils/normaApi/models";
+import {
+  ForgotPasswordRequest,
+  ForgotPasswordResponse,
+} from "../utils/normaApi/models";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import Form from "../components/form/form";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
 import FormLink from "../components/form-link/form-link";
 import { useNavigate } from "react-router-dom";
-import { useStringInput } from "../hooks";
+import { useForm } from "../hooks";
 import { SyntheticEvent, useState } from "react";
 import { RequestStatus } from "../services/common";
 import Loader from "../components/loader/loader";
@@ -17,7 +20,9 @@ import { useAppLocation } from "../services/hooks";
 import { setVerificationCodeSent } from "../utils/persist-state";
 
 export default function ForgotPasswordPage() {
-  const [email, onChangeEmail] = useStringInput();
+  const { values, handleChange } = useForm<ForgotPasswordRequest>({
+    email: "",
+  });
   const [status, setStatus] = useState<RequestStatus | undefined>(undefined);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -30,7 +35,7 @@ export default function ForgotPasswordPage() {
     await request<ForgotPasswordResponse>("/password-reset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify(values),
     })
       .then(() => {
         setVerificationCodeSent(true);
@@ -53,7 +58,11 @@ export default function ForgotPasswordPage() {
             title="Восстановление пароля"
             errorMsg={errorMsg}
           >
-            <EmailInput value={email} onChange={onChangeEmail} />
+            <EmailInput
+              value={values.email}
+              onChange={handleChange}
+              name="email"
+            />
             <Button extraClass="mt-6" htmlType="submit">
               Восстановить пароль
             </Button>

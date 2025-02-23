@@ -2,7 +2,7 @@ import FormWrapper from "../components/form-wrapper/form-wrapper";
 import Form from "../components/form/form";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
 import FormLink from "../components/form-link/form-link";
-import { useStringInput } from "../hooks";
+import { useForm } from "../hooks";
 import {
   Button,
   Input,
@@ -11,18 +11,19 @@ import {
 import { request } from "../utils/normaApi/norma-api";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { SyntheticEvent, useMemo, useState } from "react";
-import { RequestStatus } from "../services/common";
 import Loader from "../components/loader/loader";
 import {
   getVerificationCodeSent,
   setVerificationCodeSent,
 } from "../utils/persist-state";
+import { ResetPasswordRequest } from "../utils/normaApi/models";
 
 export default function ResetPasswordPage() {
-  const [newPassword, onChangeNewPassword] = useStringInput();
-  const [verificationCode, onChangeVerificationCode] = useStringInput();
-
-  const [status, setStatus] = useState<RequestStatus | undefined>(undefined);
+  const { values, handleChange } = useForm<ResetPasswordRequest>({
+    password: "",
+    token: "",
+  });
+  const [inProgress, setInProgress] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
@@ -32,27 +33,27 @@ export default function ResetPasswordPage() {
 
   const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    setStatus("request");
+    setInProgress(true);
     await request("/password-reset/reset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password: newPassword, token: verificationCode }),
+      body: JSON.stringify(values),
     })
       .then(() => {
         setVerificationCodeSent(false);
         navigate("/login", { replace: true, state: location.state });
       })
       .catch((error) => {
-        setStatus("error");
-        setErrorMsg(error.message);
-      });
+        setErrorMsg(error);
+      })
+      .finally(() => setInProgress(false));
   };
 
   return !verificationCodeSent ? (
     <Navigate to="/forgot-password" state={location.state} />
   ) : (
     <FormWrapper>
-      {status === "request" ? (
+      {inProgress ? (
         <Loader />
       ) : (
         <>
@@ -62,13 +63,15 @@ export default function ResetPasswordPage() {
             onSubmit={onSubmit}
           >
             <PasswordInput
-              value={newPassword}
-              onChange={onChangeNewPassword}
+              name="password"
+              value={values.password}
+              onChange={handleChange}
               placeholder="Введите новый пароль"
             />
             <Input
-              value={verificationCode}
-              onChange={onChangeVerificationCode}
+              name="token"
+              value={values.token}
+              onChange={handleChange}
               placeholder="Введите код из письма"
               extraClass="mt-6"
             />
