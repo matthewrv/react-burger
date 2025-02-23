@@ -48,13 +48,13 @@ export default function ForgotPasswordPage() {
         <Loader />
       ) : (
         <>
-          <Form title="Восстановление пароля" errorMsg={errorMsg}>
+          <Form
+            onSubmit={onPasswordReset}
+            title="Восстановление пароля"
+            errorMsg={errorMsg}
+          >
             <EmailInput value={email} onChange={onChangeEmail} />
-            <Button
-              extraClass="mt-6"
-              htmlType="submit"
-              onClick={onPasswordReset}
-            >
+            <Button extraClass="mt-6" htmlType="submit">
               Восстановить пароль
             </Button>
           </Form>

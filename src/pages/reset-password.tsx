@@ -30,7 +30,7 @@ export default function ResetPasswordPage() {
 
   const verificationCodeSent = useMemo(getVerificationCodeSent, []);
 
-  const onPasswordReset = async (e: SyntheticEvent) => {
+  const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     setStatus("request");
     await request("/password-reset/reset", {
@@ -56,7 +56,11 @@ export default function ResetPasswordPage() {
         <Loader />
       ) : (
         <>
-          <Form title="Восстановление пароля" errorMsg={errorMsg}>
+          <Form
+            title="Восстановление пароля"
+            errorMsg={errorMsg}
+            onSubmit={onSubmit}
+          >
             <PasswordInput
               value={newPassword}
               onChange={onChangeNewPassword}
@@ -68,12 +72,7 @@ export default function ResetPasswordPage() {
               placeholder="Введите код из письма"
               extraClass="mt-6"
             />
-            <Button
-              htmlType="submit"
-              size="medium"
-              extraClass="mt-6"
-              onClick={onPasswordReset}
-            >
+            <Button htmlType="submit" size="medium" extraClass="mt-6">
               Сохранить
             </Button>
           </Form>

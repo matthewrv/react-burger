@@ -21,14 +21,14 @@ export default function LoginPage() {
   const { errorMsg } = useAuthContext();
   const dispatch = useAppDispatch();
 
-  const onClick = (e: SyntheticEvent) => {
+  const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
 
   return (
     <FormWrapper>
-      <Form title="Вход" errorMsg={errorMsg}>
+      <Form title="Вход" errorMsg={errorMsg} onSubmit={onSubmit}>
         <EmailInput value={email} onChange={onChangeEmail} />
         <PasswordInput
           extraClass="mt-6"
@@ -37,10 +37,9 @@ export default function LoginPage() {
         />
         <Button
           extraClass="mt-6"
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
-          onClick={onClick}
         >
           Войти
         </Button>

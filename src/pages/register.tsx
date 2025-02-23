@@ -23,14 +23,14 @@ export default function RegisterPage() {
   const { errorMsg } = useAuthContext();
   const dispatch = useAppDispatch();
 
-  const onClick = (e: SyntheticEvent) => {
+  const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(register({ email, name, password }));
   };
 
   return (
     <FormWrapper>
-      <Form title="Регистрация" errorMsg={errorMsg}>
+      <Form title="Регистрация" errorMsg={errorMsg} onSubmit={onSubmit}>
         <Input placeholder="Имя" value={name} onChange={onChangeName}></Input>
         <EmailInput extraClass="mt-6" value={email} onChange={onChangeEmail} />
         <PasswordInput
@@ -38,7 +38,7 @@ export default function RegisterPage() {
           value={password}
           onChange={onChangePassword}
         />
-        <Button extraClass="mt-6" htmlType="submit" onClick={onClick}>
+        <Button extraClass="mt-6" htmlType="submit">
           Зарегистрироваться
         </Button>
       </Form>
