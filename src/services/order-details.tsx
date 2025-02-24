@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import normaApi from "../utils/normaApi/normaApi";
+import { request } from "../utils/normaApi/norma-api";
 import {
   OrderCreateRequest,
   OrderCreateResponse,
 } from "../utils/normaApi/models";
 import { clearIngredients } from "./selected-ingredients";
 import { resetAllItemsCount } from "./ingredients";
+import { RequestStatus } from "./common";
 
 export interface OrderDetailsState {
   orderId: string | null;
-  createOrderStatus: "request" | "success" | "error";
+  createOrderStatus: RequestStatus;
 }
 
 const initialState: OrderDetailsState = {
@@ -20,13 +21,17 @@ const initialState: OrderDetailsState = {
 export const checkoutOrder = createAsyncThunk(
   "checkoutOrder",
   (payload: OrderCreateRequest, thunkApi) => {
-    return normaApi<OrderCreateResponse>("/orders", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
+    return request<OrderCreateResponse>(
+      "/orders",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    }).then((response) => {
+      true
+    ).then((response) => {
       thunkApi.dispatch(clearIngredients());
       thunkApi.dispatch(resetAllItemsCount());
       return response;

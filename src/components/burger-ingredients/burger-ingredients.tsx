@@ -1,21 +1,22 @@
 import { useRef, useState } from "react";
-import { IngredientType, localizedIngredientType } from "../../services/common";
+import {
+  BurgerIngredient,
+  IngredientType,
+  localizedIngredientType,
+} from "../../services/common";
 import ingredientsStyles from "./burger-ingredients.module.css";
 import IngredientsSection from "./ingredients-section/ingredients-section";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
-import IngredientDetails from "./ingredient-details/ingredient-details";
-import { useAppDispatch, useAppSelector } from "../../services/hooks";
-import {
-  resetIngredient,
-  setIngredient,
-} from "../../services/ingredient-details";
+import { useNavigate } from "react-router-dom";
+import { useAppLocation } from "../../services/hooks";
 
 const BurgerIngredients = () => {
-  const dispatch = useAppDispatch();
-  const selectedItem = useAppSelector(
-    (state) => state.indgidientDetails.ingredient
-  );
+  const location = useAppLocation();
+  const navigate = useNavigate();
+  const onItemSelect = (item: BurgerIngredient) =>
+    navigate(`/ingredients/${item._id}`, {
+      state: { backgroundLocation: location },
+    });
 
   const sections: IngredientType[] = ["bun", "sauce", "main"];
   const [activeSection, updateActiveSection] = useState<string>(sections[0]);
@@ -84,32 +85,23 @@ const BurgerIngredients = () => {
           title={localizedIngredientType["bun"]}
           key={"bun"}
           ingredientType={"bun"}
-          onItemSelect={(item) => dispatch(setIngredient(item))}
+          onItemSelect={onItemSelect}
         />
         <IngredientsSection
           ref={sauceRef}
           title={localizedIngredientType["sauce"]}
           key={"sauce"}
           ingredientType={"sauce"}
-          onItemSelect={(item) => dispatch(setIngredient(item))}
+          onItemSelect={onItemSelect}
         />
         <IngredientsSection
           ref={mainRef}
           title={localizedIngredientType["main"]}
           key={"main"}
           ingredientType={"main"}
-          onItemSelect={(item) => dispatch(setIngredient(item))}
+          onItemSelect={onItemSelect}
         />
       </div>
-
-      {selectedItem && (
-        <Modal
-          title="Детали ингридиента"
-          onClose={() => dispatch(resetIngredient())}
-        >
-          <IngredientDetails ingredient={selectedItem} />
-        </Modal>
-      )}
     </section>
   );
 };

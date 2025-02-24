@@ -22,3 +22,5 @@ export const localizedIngredientType: {
   main: "Начинки",
   sauce: "Соусы",
 };
+
+export type RequestStatus = "request" | "success" | "error";

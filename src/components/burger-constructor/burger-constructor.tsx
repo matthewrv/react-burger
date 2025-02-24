@@ -6,7 +6,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "./order-details/order-details";
 import Modal from "../modal/modal";
-import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import {
+  useAppDispatch,
+  useAppLocation,
+  useAppSelector,
+} from "../../services/hooks";
 import { checkoutOrder } from "../../services/order-details";
 import { useDrop } from "react-dnd";
 import {
@@ -20,6 +24,8 @@ import {
   increaseItemCount,
 } from "../../services/ingredients";
 import ConstructorItem from "./constructor-item/constructor-item";
+import { useAuthContext } from "../../services/auth";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch();
@@ -77,8 +83,16 @@ const BurgerConstructor = () => {
     dispatch(decreaseItemCount({ id: item.ingredientId }));
   };
 
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+  const location = useAppLocation();
   const [detailsVisible, updateDetailsVisible] = useState(false);
   const onClickCheckout = () => {
+    if (!user) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+
     dispatch(
       checkoutOrder({
         ingredients: [bun, ...ingredients, bun]

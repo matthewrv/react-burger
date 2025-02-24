@@ -1,0 +1,30 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: calc(var(--offset-base-size) * 15);
+  width: 100%;
+}
+
+.list {
+  list-style: none;
+}
+
+.listItem {
+  min-height: calc(var(--offset-base-size) * 16);
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  cursor: pointer;
+}
+
+.activeLink {
+  color: inherit;
+}
+
+.info {
+  opacity: 40%;
+}
