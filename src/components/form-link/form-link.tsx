@@ -2,11 +2,11 @@ import { FC } from "react";
 import formLinkStyles from "./form-link.module.css";
 import { Link, LinkProps } from "react-router-dom";
 
-export interface IFormLinkProps extends Omit<LinkProps, "className"> {
+export type TFormLinkProps = Omit<LinkProps, "className"> & {
   label: string;
-}
+};
 
-const FormLink: FC<IFormLinkProps> = (props: IFormLinkProps) => {
+const FormLink: FC<TFormLinkProps> = (props: TFormLinkProps) => {
   const { label, ...linkProps } = props;
   return (
     <div className="text text_type_main-default text_color_inactive">

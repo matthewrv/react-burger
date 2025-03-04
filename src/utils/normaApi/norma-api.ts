@@ -4,7 +4,7 @@ import {
   setAccessToken,
   setRefreshToken,
 } from "./auth-tokens";
-import { RefreshTokenResponse } from "./models";
+import { TRefreshTokenResponse } from "./models";
 
 const BASE_URL = "https://norma.nomoreparties.space/api";
 
@@ -57,9 +57,9 @@ function withToken(endpoint: URL, options?: RequestInit) {
   return fetch(endpoint, newOptions);
 }
 
-async function refreshToken(): Promise<RefreshTokenResponse> {
+async function refreshToken(): Promise<TRefreshTokenResponse> {
   const token = getRefreshToken();
-  return request<RefreshTokenResponse>("/auth/token", {
+  return request<TRefreshTokenResponse>("/auth/token", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token: token }),

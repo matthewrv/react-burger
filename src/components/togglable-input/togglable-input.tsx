@@ -1,21 +1,21 @@
 import { ChangeEvent, FC, useCallback, useRef, useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export interface ISafeInputProps {
+export type TSafeInputProps = {
   type: "text" | "email" | "password";
   placeholder: string;
   value: string;
   setValue: (value: string) => void;
   extraClass?: string;
-}
+};
 
-const TogglableInput: FC<ISafeInputProps> = ({
+const TogglableInput: FC<TSafeInputProps> = ({
   type,
   placeholder,
   extraClass,
   value,
   setValue,
-}: ISafeInputProps) => {
+}: TSafeInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
   const [enabled, setEnabled] = useState(false);
 

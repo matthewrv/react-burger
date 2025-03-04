@@ -1,21 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IBurgerIngredient, TRequestStatus } from "./common";
+import { TBurgerIngredient, TRequestStatus } from "./common";
 import { request } from "../utils/normaApi/norma-api";
-import { IngredientsResponse } from "../utils/normaApi/models";
+import { TIngredientsResponse } from "../utils/normaApi/models";
 
-export interface IIngredientsState {
-  ingredients: IBurgerIngredient[];
+export type TIngredientsState = {
+  ingredients: TBurgerIngredient[];
   ingredientsRequestStatus: TRequestStatus;
 }
 
-const initialState: IIngredientsState = {
+const initialState: TIngredientsState = {
   ingredients: [],
   ingredientsRequestStatus: "request",
 };
 
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchAll",
-  async () => await request<IngredientsResponse>("/ingredients")
+  async () => await request<TIngredientsResponse>("/ingredients")
 );
 
 export const ingredientsSlice = createSlice({

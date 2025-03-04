@@ -1,5 +1,5 @@
 import constructorItemStyles from "./constructor-item.module.css";
-import { IBurgerIngredient } from "../../../services/common";
+import { TBurgerIngredient } from "../../../services/common";
 import {
   ConstructorElement,
   DragIcon,
@@ -10,19 +10,19 @@ import { useAppDispatch } from "../../../services/hooks";
 import { swapElements } from "../../../services/selected-ingredients";
 import { FC, useRef } from "react";
 
-export interface IConsturtorItemProps {
+export type TConsturtorItemProps = {
   itemId: string;
-  ingredient: IBurgerIngredient;
+  ingredient: TBurgerIngredient;
   index?: number;
   isLocked?: boolean;
   text?: string;
   type?: "top" | "bottom";
   extraClass?: string;
   onDelete?: () => void;
-}
+};
 
-const ConstructorItem: FC<IConsturtorItemProps> = (
-  props: IConsturtorItemProps
+const ConstructorItem: FC<TConsturtorItemProps> = (
+  props: TConsturtorItemProps
 ) => {
   const dispatch: TAppDispatch = useAppDispatch();
 

@@ -1,4 +1,4 @@
-export interface IBurgerIngredient {
+export type TBurgerIngredient = {
   _id: string;
   name: string;
   type: TIngredientType;

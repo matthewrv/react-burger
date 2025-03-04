@@ -1,18 +1,18 @@
 import { TIngredientType } from "../../../services/common";
-import { IBurgerIngredient } from "../../../services/common";
+import { TBurgerIngredient } from "../../../services/common";
 import ingredientsArticleStyles from "./ingredients-section.module.css";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import { useAppSelector } from "../../../services/hooks";
 import { ForwardedRef, forwardRef } from "react";
 
-export interface IIngridientsSectionProps {
+export type TIngridientsSectionProps = {
   title: string;
   ingredientType: TIngredientType;
-  onItemSelect: (item: IBurgerIngredient) => void;
-}
+  onItemSelect: (item: TBurgerIngredient) => void;
+};
 
 const IngredientsSection = forwardRef(
-  (props: IIngridientsSectionProps, ref: ForwardedRef<HTMLHeadingElement>) => {
+  (props: TIngridientsSectionProps, ref: ForwardedRef<HTMLHeadingElement>) => {
     const ingredients = useAppSelector(
       (state) => state.ingredients.ingredients
     ).filter((item) => item.type === props.ingredientType);

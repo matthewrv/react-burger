@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBurgerIngredient } from "./common";
+import { TBurgerIngredient } from "./common";
 
-export interface IIngredientDetailState {
-  ingredient: IBurgerIngredient | null;
+export type TIngredientDetailState = {
+  ingredient: TBurgerIngredient | null;
 }
 
-const initialState: IIngredientDetailState = {
+const initialState: TIngredientDetailState = {
   ingredient: null,
 };
 
@@ -13,7 +13,7 @@ const ingredientDetailsSlice = createSlice({
   name: "ingredientDetail",
   initialState,
   reducers: {
-    setIngredient: (_, action: PayloadAction<IBurgerIngredient | null>) => {
+    setIngredient: (_, action: PayloadAction<TBurgerIngredient | null>) => {
       return { ingredient: action.payload };
     },
     resetIngredient: () => {

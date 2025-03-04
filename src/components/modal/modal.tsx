@@ -6,16 +6,16 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalRoot = document.getElementById("modals")!;
 
-export interface IModalProps {
+export type TModalProps = {
   title?: string;
   onClose: () => void;
-}
+};
 
-const Modal: FC<PropsWithChildren<IModalProps>> = ({
+const Modal: FC<PropsWithChildren<TModalProps>> = ({
   title,
   onClose,
   children,
-}: PropsWithChildren<IModalProps>) => {
+}: PropsWithChildren<TModalProps>) => {
   const onKeyPressed = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {

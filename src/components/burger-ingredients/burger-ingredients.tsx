@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from "react";
 import {
-  IBurgerIngredient,
+  TBurgerIngredient,
   TIngredientType,
   localizedIngredientType,
 } from "../../services/common";
@@ -13,7 +13,7 @@ import { useAppLocation } from "../../services/hooks";
 const BurgerIngredients: FC = () => {
   const location = useAppLocation();
   const navigate = useNavigate();
-  const onItemSelect = (item: IBurgerIngredient) =>
+  const onItemSelect = (item: TBurgerIngredient) =>
     navigate(`/ingredients/${item._id}`, {
       state: { backgroundLocation: location },
     });

@@ -16,10 +16,10 @@ import {
   getVerificationCodeSent,
   setVerificationCodeSent,
 } from "../utils/persist-state";
-import { ResetPasswordRequest } from "../utils/normaApi/models";
+import { TResetPasswordRequest } from "../utils/normaApi/models";
 
 const ResetPasswordPage: FC = () => {
-  const { values, handleChange } = useForm<ResetPasswordRequest>({
+  const { values, handleChange } = useForm<TResetPasswordRequest>({
     password: "",
     token: "",
   });

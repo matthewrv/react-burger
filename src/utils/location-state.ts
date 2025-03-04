@@ -1,6 +1,6 @@
 import { Location } from "react-router-dom";
 
-export interface ILocationState {
-  backgroundLocation?: Location<ILocationState>;
-  from?: Location<ILocationState>;
+export type TLocationState = {
+  backgroundLocation?: Location<TLocationState>;
+  from?: Location<TLocationState>;
 }

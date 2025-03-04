@@ -1,11 +1,11 @@
 import { FC } from "react";
 import loaderStyles from "./loader.module.css";
 
-export interface ILoaderProps {
+export type TLoaderProps = {
   title?: string;
-}
+};
 
-const Loader: FC<ILoaderProps> = ({ title }: ILoaderProps) => {
+const Loader: FC<TLoaderProps> = ({ title }: TLoaderProps) => {
   return (
     <div className={loaderStyles.loader}>
       {title && <h1 className="text text_type_main-medium">{title}</h1>}

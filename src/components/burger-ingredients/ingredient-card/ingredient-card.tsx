@@ -1,5 +1,5 @@
 import ingredientCardStyles from "./ingredient-card.module.css";
-import { IBurgerIngredient } from "../../../services/common";
+import { TBurgerIngredient } from "../../../services/common";
 import {
   Counter,
   CurrencyIcon,
@@ -7,13 +7,13 @@ import {
 import { useDrag } from "react-dnd";
 import { FC } from "react";
 
-export interface IIngredientCardProps {
-  ingredient: IBurgerIngredient;
-  onClick: (item: IBurgerIngredient) => void;
-}
+export type TIngredientCardProps = {
+  ingredient: TBurgerIngredient;
+  onClick: (item: TBurgerIngredient) => void;
+};
 
-const IngredientCard: FC<IIngredientCardProps> = (
-  props: IIngredientCardProps
+const IngredientCard: FC<TIngredientCardProps> = (
+  props: TIngredientCardProps
 ) => {
   const [, dragRef] = useDrag({
     type: props.ingredient.type,

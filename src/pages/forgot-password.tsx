@@ -4,8 +4,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { request } from "../utils/normaApi/norma-api";
 import {
-  ForgotPasswordRequest,
-  ForgotPasswordResponse,
+  TForgotPasswordRequest,
+  TForgotPasswordResponse,
 } from "../utils/normaApi/models";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import Form from "../components/form/form";
@@ -20,7 +20,7 @@ import { useAppLocation } from "../services/hooks";
 import { setVerificationCodeSent } from "../utils/persist-state";
 
 const ForgotPasswordPage: FC = () => {
-  const { values, handleChange } = useForm<ForgotPasswordRequest>({
+  const { values, handleChange } = useForm<TForgotPasswordRequest>({
     email: "",
   });
   const [status, setStatus] = useState<TRequestStatus | undefined>(undefined);
@@ -32,7 +32,7 @@ const ForgotPasswordPage: FC = () => {
   const onPasswordReset = async (e: SyntheticEvent) => {
     e.preventDefault();
     setStatus("request");
-    await request<ForgotPasswordResponse>("/password-reset", {
+    await request<TForgotPasswordResponse>("/password-reset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

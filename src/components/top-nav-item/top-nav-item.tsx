@@ -2,17 +2,17 @@ import { FC, useMemo } from "react";
 import { TICons } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import * as Icons from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
-export interface ITopNavItemProps {
+export type TTopNavItemProps = {
   isActive: boolean;
   icon: keyof TICons;
   text: string;
-}
+};
 
-const TopNavItem: FC<ITopNavItemProps> = ({
+const TopNavItem: FC<TTopNavItemProps> = ({
   isActive,
   icon,
   text,
-}: ITopNavItemProps) => {
+}: TTopNavItemProps) => {
   const IconToRender = useMemo(() => Icons[icon], [icon]);
   return (
     <>

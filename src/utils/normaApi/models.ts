@@ -1,45 +1,45 @@
-import { IBurgerIngredient } from "../../services/common";
+import { TBurgerIngredient } from "../../services/common";
 
-export interface IngredientsResponse {
-  data: IBurgerIngredient[];
+export type TIngredientsResponse = {
+  data: TBurgerIngredient[];
 }
 
-export interface OrderCreateRequest {
+export type TOrderCreateRequest = {
   ingredients: Array<string>;
 }
 
-export interface OrderCreateResponse {
+export type TOrderCreateResponse = {
   order: {
     number: string;
   };
 }
 
-export interface ForgotPasswordRequest {
+export type TForgotPasswordRequest = {
   email: string;
 }
 
-export interface ForgotPasswordResponse {
+export type TForgotPasswordResponse = {
   success: boolean;
   message: string;
 }
 
-export interface ResetPasswordRequest {
+export type TResetPasswordRequest = {
   password: string;
   token: string;
 }
 
-export interface LoginRequest {
+export type TLoginRequest = {
   email: string;
   password: string;
 }
 
-export interface RegisterRequest {
+export type TRegisterRequest = {
   email: string;
   name: string;
   password: string;
 }
 
-export interface AuthResponse {
+export type TAuthResponse = {
   success: boolean;
   user: {
     email: string;
@@ -49,7 +49,7 @@ export interface AuthResponse {
   refreshToken: string;
 }
 
-export interface GetUserResponse {
+export type TGetUserResponse = {
   success: boolean;
   user: {
     email: string;
@@ -57,24 +57,24 @@ export interface GetUserResponse {
   };
 }
 
-export interface RefreshTokenResponse {
+export type TRefreshTokenResponse = {
   success: boolean;
   accessToken: string;
   refreshToken: string;
 }
 
-export interface LogoutResponse {
+export type TLogoutResponse = {
   success: boolean;
   message: string;
 }
 
-export interface UpdateUserRequest {
+export type TUpdateUserRequest = {
   name?: string;
   email?: string;
   password?: string;
 }
 
-export interface UpdateUserResponse {
+export type TUpdateUserResponse = {
   success: boolean;
   user: {
     email: string;

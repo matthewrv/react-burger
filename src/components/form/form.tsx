@@ -1,18 +1,18 @@
 import { FC, PropsWithChildren, SyntheticEvent } from "react";
 import formStyles from "./form.module.css";
 
-export interface IFormProps {
+export type TFormProps = {
   title: string;
   errorMsg?: string;
   onSubmit: (e: SyntheticEvent) => void;
-}
+};
 
-const Form: FC<PropsWithChildren<IFormProps>> = ({
+const Form: FC<PropsWithChildren<TFormProps>> = ({
   title,
   errorMsg,
   onSubmit,
   children,
-}: PropsWithChildren<IFormProps>) => {
+}: PropsWithChildren<TFormProps>) => {
   return (
     <div>
       <h1 className="text text_type_main-medium text-center">{title}</h1>

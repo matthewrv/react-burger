@@ -11,12 +11,12 @@ import { useForm } from "../hooks";
 import { FC, SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { login, useAuthContext } from "../services/auth";
-import { LoginRequest } from "../utils/normaApi/models";
+import { TLoginRequest } from "../utils/normaApi/models";
 
 const LoginPage: FC = () => {
   const location = useAppLocation();
 
-  const { values, handleChange } = useForm<LoginRequest>({
+  const { values, handleChange } = useForm<TLoginRequest>({
     email: "",
     password: "",
   });

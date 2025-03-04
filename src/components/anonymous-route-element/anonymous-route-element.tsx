@@ -5,13 +5,13 @@ import Loader from "../loader/loader";
 import styles from "./anonymous-route-element.module.css";
 import { useAppLocation } from "../../services/hooks";
 
-export interface IAnonymousRouteElement {
+export type TAnonymousRouteElement = {
   element: ReactNode;
-}
+};
 
-const AnonymousRouteElement: FC<IAnonymousRouteElement> = ({
+const AnonymousRouteElement: FC<TAnonymousRouteElement> = ({
   element,
-}: IAnonymousRouteElement) => {
+}: TAnonymousRouteElement) => {
   const auth = useAuthContext();
   const location = useAppLocation();
 

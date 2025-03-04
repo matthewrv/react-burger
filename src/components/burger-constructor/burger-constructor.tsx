@@ -16,7 +16,7 @@ import { useDrop } from "react-dnd";
 import {
   addIngredient,
   removeIngredient,
-  ISelectedIngredientItem,
+  TSelectedIngredientItem,
   setBun,
 } from "../../services/selected-ingredients";
 import {
@@ -78,7 +78,7 @@ const BurgerConstructor: FC = () => {
     }),
   });
 
-  const onDeleteItem = (item: ISelectedIngredientItem) => {
+  const onDeleteItem = (item: TSelectedIngredientItem) => {
     dispatch(removeIngredient({ id: item.id }));
     dispatch(decreaseItemCount({ id: item.ingredientId }));
   };

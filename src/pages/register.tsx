@@ -12,12 +12,12 @@ import { useForm } from "../hooks";
 import { FC, SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { register, useAuthContext } from "../services/auth";
-import { RegisterRequest } from "../utils/normaApi/models";
+import { TRegisterRequest } from "../utils/normaApi/models";
 
 const RegisterPage: FC = () => {
   const location = useAppLocation();
 
-  const { values, handleChange } = useForm<RegisterRequest>({
+  const { values, handleChange } = useForm<TRegisterRequest>({
     name: "",
     email: "",
     password: "",

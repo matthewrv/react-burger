@@ -5,12 +5,12 @@ import Loader from "../loader/loader";
 import styles from "./protected-route-element.module.css";
 import { useAppLocation } from "../../services/hooks";
 
-export interface IProtectedRouteElementProps {
+export type TProtectedRouteElementProps = {
   element: ReactNode;
-}
+};
 
-const ProtectedRouteElement: FC<IProtectedRouteElementProps> = (
-  props: IProtectedRouteElementProps
+const ProtectedRouteElement: FC<TProtectedRouteElementProps> = (
+  props: TProtectedRouteElementProps
 ) => {
   const auth = useAuthContext();
   const location = useAppLocation();
