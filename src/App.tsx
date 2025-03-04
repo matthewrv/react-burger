@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "./components/app-header/app-header";
 import { fetchIngredients } from "./services/ingredients";
@@ -15,7 +15,6 @@ import RegisterPage from "./pages/register";
 import ForgotPasswordPage from "./pages/forgot-password";
 import ResetPasswordPage from "./pages/reset-password";
 import ProfilePage from "./pages/profile/profile";
-import ErrorView from "./components/error/error";
 import ProtectedRouteElement from "./components/protected-route-element/protected-route-element";
 import AnonymousRouteElement from "./components/anonymous-route-element/anonymous-route-element";
 import NotFound404 from "./pages/not-found-404/not-found-404";
@@ -25,7 +24,7 @@ import Modal from "./components/modal/modal";
 import IngredientDetailsPage from "./pages/ingredient-details/ingredient-details";
 import OrdersPage from "./pages/orders/orders";
 
-function App() {
+const App: FC = () => {
   const { ingredientsRequestStatus } = useAppSelector(
     (state) => state.ingredients
   );
@@ -117,6 +116,6 @@ function App() {
         </>
       );
   }
-}
+};
 
 export default App;

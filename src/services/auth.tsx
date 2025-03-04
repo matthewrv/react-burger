@@ -20,7 +20,7 @@ import {
   setRefreshToken,
 } from "../utils/normaApi/auth-tokens";
 
-export interface AuthInfo {
+export interface IAuthInfo {
   isAuthCompleted: boolean;
   user?: {
     email: string;
@@ -29,7 +29,7 @@ export interface AuthInfo {
   errorMsg?: string;
 }
 
-const initialState: AuthInfo = { isAuthCompleted: false };
+const initialState: IAuthInfo = { isAuthCompleted: false };
 
 // Do not export - assumed that user is requested using AuthContextProvider only.
 // We want to avoid multiple getUser requests from different places.

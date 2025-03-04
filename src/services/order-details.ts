@@ -6,14 +6,14 @@ import {
 } from "../utils/normaApi/models";
 import { clearIngredients } from "./selected-ingredients";
 import { resetAllItemsCount } from "./ingredients";
-import { RequestStatus } from "./common";
+import { TRequestStatus } from "./common";
 
-export interface OrderDetailsState {
+export interface IOrderDetailsState {
   orderId: string | null;
-  createOrderStatus: RequestStatus;
+  createOrderStatus: TRequestStatus;
 }
 
-const initialState: OrderDetailsState = {
+const initialState: IOrderDetailsState = {
   orderId: null,
   createOrderStatus: "request",
 };
@@ -43,7 +43,7 @@ const OrderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState,
   reducers: {
-    setOrderDetails: (_, action: PayloadAction<OrderDetailsState>) => {
+    setOrderDetails: (_, action: PayloadAction<IOrderDetailsState>) => {
       return action.payload;
     },
     resetOrderDetails: () => {

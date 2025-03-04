@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface RemoveIngredientPayload {
+export interface IRemoveIngredientPayload {
   id: string;
 }
 
-export interface SelectedIngredientItem {
+export interface ISelectedIngredientItem {
   id: string;
   ingredientId: string;
 }
 
-export interface SelectedIngredientsState {
-  bun: SelectedIngredientItem | null;
-  ingredients: SelectedIngredientItem[];
+export interface ISelectedIngredientsState {
+  bun: ISelectedIngredientItem | null;
+  ingredients: ISelectedIngredientItem[];
 }
 
-const initialState: SelectedIngredientsState = {
+const initialState: ISelectedIngredientsState = {
   bun: null,
   ingredients: [],
 };
@@ -32,21 +32,21 @@ const selectedIngridietsSlice = createSlice({
   reducers: {
     clearIngredients: () => initialState,
     addIngredient: {
-      reducer: (state, action: PayloadAction<SelectedIngredientItem>) => {
+      reducer: (state, action: PayloadAction<ISelectedIngredientItem>) => {
         state.ingredients.push(action.payload);
       },
       prepare: prepareSelectedIngredient,
     },
     removeIngredient: (
       state,
-      action: PayloadAction<RemoveIngredientPayload>
+      action: PayloadAction<IRemoveIngredientPayload>
     ) => {
       state.ingredients = state.ingredients.filter(
         (item) => item.id !== action.payload.id
       );
     },
     setBun: {
-      reducer: (state, action: PayloadAction<SelectedIngredientItem>) => {
+      reducer: (state, action: PayloadAction<ISelectedIngredientItem>) => {
         state.bun = action.payload;
       },
       prepare: prepareSelectedIngredient,

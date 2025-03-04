@@ -1,7 +1,8 @@
 import ingredientDetailsStyles from "./ingredient-details.module.css";
 import IngredientDetails from "../../components/burger-ingredients/ingredient-details/ingredient-details";
+import { FC } from "react";
 
-export default function IngredientDetailsPage() {
+const IngredientDetailsPage: FC = () => {
   return (
     <div className={ingredientDetailsStyles.wrapper}>
       <h1 className="text text_type_main-large text-center">
@@ -10,4 +11,6 @@ export default function IngredientDetailsPage() {
       <IngredientDetails />
     </div>
   );
-}
+};
+
+export default IngredientDetailsPage;

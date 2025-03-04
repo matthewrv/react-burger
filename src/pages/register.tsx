@@ -9,12 +9,12 @@ import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrappe
 import FormLink from "../components/form-link/form-link";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import { useForm } from "../hooks";
-import { SyntheticEvent } from "react";
+import { FC, SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { register, useAuthContext } from "../services/auth";
 import { RegisterRequest } from "../utils/normaApi/models";
 
-export default function RegisterPage() {
+const RegisterPage: FC = () => {
   const location = useAppLocation();
 
   const { values, handleChange } = useForm<RegisterRequest>({
@@ -67,4 +67,6 @@ export default function RegisterPage() {
       </FormLinksWrapper>
     </FormWrapper>
   );
-}
+};
+
+export default RegisterPage;

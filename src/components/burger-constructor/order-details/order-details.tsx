@@ -2,8 +2,9 @@ import orderDetailsStyles from "./order-details.module.css";
 import orderAcceptedImage from "../../../images/order-accepted.svg";
 import { useAppSelector } from "../../../services/hooks";
 import Loader from "../../loader/loader";
+import { FC } from "react";
 
-export default function OrderDetails() {
+const OrderDetails: FC = () => {
   const { orderId, createOrderStatus } = useAppSelector(
     (state) => state.orderDetails
   );
@@ -35,4 +36,6 @@ export default function OrderDetails() {
       )}
     </div>
   );
-}
+};
+
+export default OrderDetails;

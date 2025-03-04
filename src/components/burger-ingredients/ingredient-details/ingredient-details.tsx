@@ -1,17 +1,17 @@
 import ingredientDetailsStyles from "./ingredient-details.module.css";
 import { Navigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../services/hooks";
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import Loader from "../../loader/loader";
 
-export default function IngredientDetails() {
+const IngredientDetails: FC = () => {
   const { id } = useParams();
   const { ingredients, ingredientsRequestStatus } = useAppSelector(
     (state) => state.ingredients
   );
   const ingredient = useMemo(
     () => ingredients.find((it) => it._id === id),
-    [id, ...ingredients]
+    [id, ingredients]
   );
 
   return ingredientsRequestStatus === "request" ? (
@@ -51,4 +51,6 @@ export default function IngredientDetails() {
       </ul>
     </div>
   );
-}
+};
+
+export default IngredientDetails;

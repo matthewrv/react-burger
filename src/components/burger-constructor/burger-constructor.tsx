@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import constructorStyles from "./burger-constructor.module.css";
 import {
   Button,
@@ -16,7 +16,7 @@ import { useDrop } from "react-dnd";
 import {
   addIngredient,
   removeIngredient,
-  SelectedIngredientItem,
+  ISelectedIngredientItem,
   setBun,
 } from "../../services/selected-ingredients";
 import {
@@ -27,7 +27,7 @@ import ConstructorItem from "./constructor-item/constructor-item";
 import { useAuthContext } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 
-const BurgerConstructor = () => {
+const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
 
   const ingredientsMap = new Map(
@@ -78,7 +78,7 @@ const BurgerConstructor = () => {
     }),
   });
 
-  const onDeleteItem = (item: SelectedIngredientItem) => {
+  const onDeleteItem = (item: ISelectedIngredientItem) => {
     dispatch(removeIngredient({ id: item.id }));
     dispatch(decreaseItemCount({ id: item.ingredientId }));
   };

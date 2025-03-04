@@ -1,7 +1,7 @@
-import { BurgerIngredient } from "../../services/common";
+import { IBurgerIngredient } from "../../services/common";
 
 export interface IngredientsResponse {
-  data: BurgerIngredient[];
+  data: IBurgerIngredient[];
 }
 
 export interface OrderCreateRequest {

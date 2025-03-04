@@ -2,8 +2,9 @@ import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyles from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
 import TopNavItem from "../top-nav-item/top-nav-item";
+import { FC } from "react";
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
   return (
     <header className={`${headerStyles.header} p-4`}>
       <nav className={headerStyles["navigation"]}>

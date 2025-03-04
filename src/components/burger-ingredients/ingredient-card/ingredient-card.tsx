@@ -1,17 +1,20 @@
 import ingredientCardStyles from "./ingredient-card.module.css";
-import { BurgerIngredient } from "../../../services/common";
+import { IBurgerIngredient } from "../../../services/common";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
+import { FC } from "react";
 
-interface IngredientCardProps {
-  ingredient: BurgerIngredient;
-  onClick: (item: BurgerIngredient) => void;
+export interface IIngredientCardProps {
+  ingredient: IBurgerIngredient;
+  onClick: (item: IBurgerIngredient) => void;
 }
 
-export default function IngredientCard(props: IngredientCardProps) {
+const IngredientCard: FC<IIngredientCardProps> = (
+  props: IIngredientCardProps
+) => {
   const [, dragRef] = useDrag({
     type: props.ingredient.type,
     item: { id: props.ingredient._id },
@@ -34,4 +37,6 @@ export default function IngredientCard(props: IngredientCardProps) {
       )}
     </article>
   );
-}
+};
+
+export default IngredientCard;

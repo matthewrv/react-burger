@@ -5,7 +5,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { store } from "./services/store.tsx";
+import { store } from "./services/store.ts";
 import { AuthContextProvider } from "./services/auth.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

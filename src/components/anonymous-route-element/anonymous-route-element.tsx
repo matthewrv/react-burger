@@ -1,13 +1,17 @@
-import { ReactElement } from "react";
+import { FC, ReactNode } from "react";
 import { useAuthContext } from "../../services/auth";
 import { Navigate } from "react-router-dom";
 import Loader from "../loader/loader";
 import styles from "./anonymous-route-element.module.css";
 import { useAppLocation } from "../../services/hooks";
 
-export default function AnonymousRouteElement(props: {
-  element: ReactElement;
-}) {
+export interface IAnonymousRouteElement {
+  element: ReactNode;
+}
+
+const AnonymousRouteElement: FC<IAnonymousRouteElement> = ({
+  element,
+}: IAnonymousRouteElement) => {
   const auth = useAuthContext();
   const location = useAppLocation();
 
@@ -24,5 +28,7 @@ export default function AnonymousRouteElement(props: {
     return <Navigate to={from} replace={true} />;
   }
 
-  return props.element;
-}
+  return element;
+};
+
+export default AnonymousRouteElement;

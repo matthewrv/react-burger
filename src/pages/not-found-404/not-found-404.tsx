@@ -1,7 +1,8 @@
 import notFoundStyles from "./not-found-404.module.css";
 import notFoundImg from "../../images/not-found.png";
+import { FC } from "react";
 
-export default function NotFound404() {
+const NotFound404: FC = () => {
   return (
     <div className={notFoundStyles.wrapper}>
       <h1 className="text text_type_main-large">
@@ -15,4 +16,6 @@ export default function NotFound404() {
       <p className="text text_type_main-medium">Страница не найдена</p>
     </div>
   );
-}
+};
+
+export default NotFound404;
