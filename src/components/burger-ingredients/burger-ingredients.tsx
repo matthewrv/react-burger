@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import {
-  BurgerIngredient,
-  IngredientType,
+  TBurgerIngredient,
+  TIngredientType,
   localizedIngredientType,
 } from "../../services/common";
 import ingredientsStyles from "./burger-ingredients.module.css";
@@ -10,20 +10,20 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 import { useAppLocation } from "../../services/hooks";
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const location = useAppLocation();
   const navigate = useNavigate();
-  const onItemSelect = (item: BurgerIngredient) =>
+  const onItemSelect = (item: TBurgerIngredient) =>
     navigate(`/ingredients/${item._id}`, {
       state: { backgroundLocation: location },
     });
 
-  const sections: IngredientType[] = ["bun", "sauce", "main"];
+  const sections: TIngredientType[] = ["bun", "sauce", "main"];
   const [activeSection, updateActiveSection] = useState<string>(sections[0]);
 
   const onClickTab = (value: string) => {
     const currentSectionRef =
-      sectionRefs[sections.indexOf(value as IngredientType)];
+      sectionRefs[sections.indexOf(value as TIngredientType)];
     currentSectionRef.current!.scrollIntoView({
       behavior: "smooth",
       block: "start",

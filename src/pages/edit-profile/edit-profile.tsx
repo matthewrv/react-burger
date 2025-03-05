@@ -2,14 +2,14 @@ import editProfileStyles from "./edit-profile.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import TogglableInput from "../../components/togglable-input/togglable-input";
 import { updateUser, useAuthContext } from "../../services/auth";
-import { SyntheticEvent, useState } from "react";
+import { FC, SyntheticEvent, useState } from "react";
 import { useAppDispatch } from "../../services/hooks";
 
-export default function EditProfile() {
+const EditProfile: FC = () => {
   const { user } = useAuthContext();
 
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
+  const [name, setName] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
 
   const somethingChanged =
@@ -29,8 +29,8 @@ export default function EditProfile() {
 
   const onReset = (e: SyntheticEvent) => {
     e.preventDefault();
-    setName(user?.name);
-    setEmail(user?.email);
+    setName(user?.name || "");
+    setEmail(user?.email || "");
     setPassword("");
   };
 
@@ -68,4 +68,6 @@ export default function EditProfile() {
       )}
     </form>
   );
-}
+};
+
+export default EditProfile;

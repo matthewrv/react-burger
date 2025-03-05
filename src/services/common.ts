@@ -1,7 +1,7 @@
-export interface BurgerIngredient {
+export type TBurgerIngredient = {
   _id: string;
   name: string;
-  type: IngredientType;
+  type: TIngredientType;
   proteins: number;
   fat: number;
   carbohydrates: number;
@@ -13,14 +13,14 @@ export interface BurgerIngredient {
   __v: number;
 }
 
-export type IngredientType = "bun" | "main" | "sauce";
+export type TIngredientType = "bun" | "main" | "sauce";
 
 export const localizedIngredientType: {
-  [K in IngredientType]: string;
+  [K in TIngredientType]: string;
 } = {
   bun: "Булки",
   main: "Начинки",
   sauce: "Соусы",
 };
 
-export type RequestStatus = "request" | "success" | "error";
+export type TRequestStatus = "request" | "success" | "error";

@@ -1,18 +1,18 @@
-import { PropsWithChildren, SyntheticEvent } from "react";
+import { FC, PropsWithChildren, SyntheticEvent } from "react";
 import formStyles from "./form.module.css";
 
-export interface FormProps {
+export type TFormProps = {
   title: string;
   errorMsg?: string;
   onSubmit: (e: SyntheticEvent) => void;
-}
+};
 
-export default function Form({
+const Form: FC<PropsWithChildren<TFormProps>> = ({
   title,
   errorMsg,
   onSubmit,
   children,
-}: PropsWithChildren<FormProps>) {
+}: PropsWithChildren<TFormProps>) => {
   return (
     <div>
       <h1 className="text text_type_main-medium text-center">{title}</h1>
@@ -24,4 +24,6 @@ export default function Form({
       </div>
     </div>
   );
-}
+};
+
+export default Form;

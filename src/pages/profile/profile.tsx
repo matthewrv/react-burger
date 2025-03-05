@@ -1,10 +1,10 @@
 import profileStyles from "./profile.module.css";
 import { NavLink, Outlet } from "react-router-dom";
-import { useCallback } from "react";
+import { FC, useCallback } from "react";
 import { useAppDispatch } from "../../services/hooks";
 import { logout } from "../../services/auth";
 
-export default function ProfilePage() {
+const ProfilePage: FC = () => {
   const linkStyle = ({ isActive }: { isActive: boolean }) =>
     `text text_type_main-medium ${profileStyles.link} ${
       isActive ? profileStyles.activeLink : "text_color_inactive"
@@ -46,4 +46,6 @@ export default function ProfilePage() {
       <Outlet />
     </div>
   );
-}
+};
+
+export default ProfilePage;

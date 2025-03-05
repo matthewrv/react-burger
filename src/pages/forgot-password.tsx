@@ -4,8 +4,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { request } from "../utils/normaApi/norma-api";
 import {
-  ForgotPasswordRequest,
-  ForgotPasswordResponse,
+  TForgotPasswordRequest,
+  TForgotPasswordResponse,
 } from "../utils/normaApi/models";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import Form from "../components/form/form";
@@ -13,17 +13,17 @@ import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrappe
 import FormLink from "../components/form-link/form-link";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks";
-import { SyntheticEvent, useState } from "react";
-import { RequestStatus } from "../services/common";
+import { FC, SyntheticEvent, useState } from "react";
+import { TRequestStatus } from "../services/common";
 import Loader from "../components/loader/loader";
 import { useAppLocation } from "../services/hooks";
 import { setVerificationCodeSent } from "../utils/persist-state";
 
-export default function ForgotPasswordPage() {
-  const { values, handleChange } = useForm<ForgotPasswordRequest>({
+const ForgotPasswordPage: FC = () => {
+  const { values, handleChange } = useForm<TForgotPasswordRequest>({
     email: "",
   });
-  const [status, setStatus] = useState<RequestStatus | undefined>(undefined);
+  const [status, setStatus] = useState<TRequestStatus | undefined>(undefined);
   const [errorMsg, setErrorMsg] = useState("");
 
   const location = useAppLocation();
@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
   const onPasswordReset = async (e: SyntheticEvent) => {
     e.preventDefault();
     setStatus("request");
-    await request<ForgotPasswordResponse>("/password-reset", {
+    await request<TForgotPasswordResponse>("/password-reset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -80,4 +80,6 @@ export default function ForgotPasswordPage() {
       )}
     </FormWrapper>
   );
-}
+};
+
+export default ForgotPasswordPage;

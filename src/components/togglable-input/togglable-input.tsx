@@ -1,22 +1,22 @@
-import { ChangeEvent, useCallback, useRef, useState } from "react";
+import { ChangeEvent, FC, useCallback, useRef, useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export interface SafeInputProps {
+export type TSafeInputProps = {
   type: "text" | "email" | "password";
   placeholder: string;
   value: string;
   setValue: (value: string) => void;
   extraClass?: string;
-}
+};
 
-export default function TogglableInput({
+const TogglableInput: FC<TSafeInputProps> = ({
   type,
   placeholder,
   extraClass,
   value,
   setValue,
-}: SafeInputProps) {
-  const ref = useRef(null);
+}: TSafeInputProps) => {
+  const ref = useRef<HTMLInputElement>(null);
   const [enabled, setEnabled] = useState(false);
 
   const onChangeValue = useCallback(
@@ -30,9 +30,9 @@ export default function TogglableInput({
     setEnabled(!enabled);
     if (!enabled) {
       // small delay is required - disabled input can not get in focus
-      setTimeout(() => ref.current.focus(), 50);
+      setTimeout(() => ref.current?.focus(), 50);
     } else {
-      ref.current.blur();
+      ref.current?.blur();
     }
   };
 
@@ -49,4 +49,6 @@ export default function TogglableInput({
       extraClass={extraClass}
     />
   );
-}
+};
+
+export default TogglableInput;

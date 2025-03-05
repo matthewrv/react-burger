@@ -1,27 +1,27 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { request } from "../utils/normaApi/norma-api";
 import {
-  OrderCreateRequest,
-  OrderCreateResponse,
+  TOrderCreateRequest,
+  TOrderCreateResponse,
 } from "../utils/normaApi/models";
 import { clearIngredients } from "./selected-ingredients";
 import { resetAllItemsCount } from "./ingredients";
-import { RequestStatus } from "./common";
+import { TRequestStatus } from "./common";
 
-export interface OrderDetailsState {
+export type TOrderDetailsState = {
   orderId: string | null;
-  createOrderStatus: RequestStatus;
+  createOrderStatus: TRequestStatus;
 }
 
-const initialState: OrderDetailsState = {
+const initialState: TOrderDetailsState = {
   orderId: null,
   createOrderStatus: "request",
 };
 
 export const checkoutOrder = createAsyncThunk(
   "checkoutOrder",
-  (payload: OrderCreateRequest, thunkApi) => {
-    return request<OrderCreateResponse>(
+  (payload: TOrderCreateRequest, thunkApi) => {
+    return request<TOrderCreateResponse>(
       "/orders",
       {
         method: "POST",
@@ -43,7 +43,7 @@ const OrderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState,
   reducers: {
-    setOrderDetails: (_, action: PayloadAction<OrderDetailsState>) => {
+    setOrderDetails: (_, action: PayloadAction<TOrderDetailsState>) => {
       return action.payload;
     },
     resetOrderDetails: () => {

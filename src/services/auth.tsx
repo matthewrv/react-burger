@@ -1,13 +1,13 @@
 import { request } from "../utils/normaApi/norma-api";
 import { Action, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  LoginRequest,
-  AuthResponse,
-  GetUserResponse,
-  LogoutResponse,
-  RegisterRequest,
-  UpdateUserResponse,
-  UpdateUserRequest,
+  TLoginRequest,
+  TAuthResponse,
+  TGetUserResponse,
+  TLogoutResponse,
+  TRegisterRequest,
+  TUpdateUserResponse,
+  TUpdateUserRequest,
 } from "../utils/normaApi/models";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
@@ -20,16 +20,16 @@ import {
   setRefreshToken,
 } from "../utils/normaApi/auth-tokens";
 
-export interface AuthInfo {
+export type TAuthInfo = {
   isAuthCompleted: boolean;
   user?: {
     email: string;
     name: string;
   };
   errorMsg?: string;
-}
+};
 
-const initialState: AuthInfo = { isAuthCompleted: false };
+const initialState: TAuthInfo = { isAuthCompleted: false };
 
 // Do not export - assumed that user is requested using AuthContextProvider only.
 // We want to avoid multiple getUser requests from different places.
@@ -40,12 +40,12 @@ const getUser = createAsyncThunk("getUser", async () => {
   const refreshToken = getRefreshToken();
 
   if (token || refreshToken) {
-    return await request<GetUserResponse>("/auth/user", undefined, true);
+    return await request<TGetUserResponse>("/auth/user", undefined, true);
   }
   return Promise.reject(`Пользователь не авторизован`);
 });
 
-function setTokens(response: AuthResponse): AuthResponse {
+function setTokens(response: TAuthResponse): TAuthResponse {
   setAccessToken(response.accessToken.split("Bearer ")[1]);
   setRefreshToken(response.refreshToken);
   return response;
@@ -59,8 +59,8 @@ function resetTokens<T>(response: T): T {
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (payload: RegisterRequest) => {
-    return await request<AuthResponse>("/auth/register", {
+  async (payload: TRegisterRequest) => {
+    return await request<TAuthResponse>("/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,8 +72,8 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (payload: LoginRequest) => {
-    return await request<AuthResponse>("/auth/login", {
+  async (payload: TLoginRequest) => {
+    return await request<TAuthResponse>("/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   const refreshToken = getRefreshToken();
-  return await request<LogoutResponse>("/auth/logout", {
+  return await request<TLogoutResponse>("/auth/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -98,8 +98,8 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 
 export const updateUser = createAsyncThunk(
   "auth/updateUser",
-  async (payload: UpdateUserRequest) => {
-    return await request<UpdateUserResponse>(
+  async (payload: TUpdateUserRequest) => {
+    return await request<TUpdateUserResponse>(
       "/auth/user",
       {
         method: "PATCH",

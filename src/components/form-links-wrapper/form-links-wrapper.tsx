@@ -1,6 +1,8 @@
-import { PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from "react";
 import formLinksWrapperStyles from "./form-links-wrapper.module.css";
 
-export default function FormLinksWrapper(props: PropsWithChildren) {
+const FormLinksWrapper: FC<PropsWithChildren> = (props: PropsWithChildren) => {
   return <div className={formLinksWrapperStyles.links}>{props.children}</div>;
-}
+};
+
+export default FormLinksWrapper;

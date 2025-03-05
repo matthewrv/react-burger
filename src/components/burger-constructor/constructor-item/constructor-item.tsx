@@ -1,28 +1,30 @@
 import constructorItemStyles from "./constructor-item.module.css";
-import { BurgerIngredient } from "../../../services/common";
+import { TBurgerIngredient } from "../../../services/common";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import { AppDispatch } from "../../../services/store";
+import { TAppDispatch } from "../../../services/store";
 import { useAppDispatch } from "../../../services/hooks";
 import { swapElements } from "../../../services/selected-ingredients";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 
-export interface ConsturtorItemProps {
+export type TConsturtorItemProps = {
   itemId: string;
-  ingredient: BurgerIngredient;
+  ingredient: TBurgerIngredient;
   index?: number;
   isLocked?: boolean;
   text?: string;
   type?: "top" | "bottom";
   extraClass?: string;
   onDelete?: () => void;
-}
+};
 
-export default function ConstructorItem(props: ConsturtorItemProps) {
-  const dispatch: AppDispatch = useAppDispatch();
+const ConstructorItem: FC<TConsturtorItemProps> = (
+  props: TConsturtorItemProps
+) => {
+  const dispatch: TAppDispatch = useAppDispatch();
 
   const ref = useRef<HTMLLIElement>(null);
 
@@ -63,4 +65,6 @@ export default function ConstructorItem(props: ConsturtorItemProps) {
       />
     </li>
   );
-}
+};
+
+export default ConstructorItem;

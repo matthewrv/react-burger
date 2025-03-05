@@ -1,13 +1,17 @@
-import { ReactElement } from "react";
+import { FC, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../../services/auth";
 import Loader from "../loader/loader";
 import styles from "./protected-route-element.module.css";
 import { useAppLocation } from "../../services/hooks";
 
-export default function ProtectedRouteElement(props: {
-  element: ReactElement;
-}) {
+export type TProtectedRouteElementProps = {
+  element: ReactNode;
+};
+
+const ProtectedRouteElement: FC<TProtectedRouteElementProps> = (
+  props: TProtectedRouteElementProps
+) => {
   const auth = useAuthContext();
   const location = useAppLocation();
 
@@ -24,4 +28,6 @@ export default function ProtectedRouteElement(props: {
   }
 
   return props.element;
-}
+};
+
+export default ProtectedRouteElement;

@@ -1,6 +1,6 @@
 const stateKey = "codeSent";
 
-export function setVerificationCodeSent(value: boolean) {
+export function setVerificationCodeSent(value: boolean): void {
   if (value) {
     localStorage.setItem(stateKey, "yeah");
   } else {

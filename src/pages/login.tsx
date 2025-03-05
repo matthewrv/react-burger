@@ -8,15 +8,15 @@ import FormLink from "../components/form-link/form-link";
 import FormWrapper from "../components/form-wrapper/form-wrapper";
 import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrapper";
 import { useForm } from "../hooks";
-import { SyntheticEvent } from "react";
+import { FC, SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
 import { login, useAuthContext } from "../services/auth";
-import { LoginRequest } from "../utils/normaApi/models";
+import { TLoginRequest } from "../utils/normaApi/models";
 
-export default function LoginPage() {
+const LoginPage: FC = () => {
   const location = useAppLocation();
 
-  const { values, handleChange } = useForm<LoginRequest>({
+  const { values, handleChange } = useForm<TLoginRequest>({
     email: "",
     password: "",
   });
@@ -66,4 +66,6 @@ export default function LoginPage() {
       </FormLinksWrapper>
     </FormWrapper>
   );
-}
+};
+
+export default LoginPage;

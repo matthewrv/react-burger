@@ -10,16 +10,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { request } from "../utils/normaApi/norma-api";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { SyntheticEvent, useMemo, useState } from "react";
+import { FC, SyntheticEvent, useMemo, useState } from "react";
 import Loader from "../components/loader/loader";
 import {
   getVerificationCodeSent,
   setVerificationCodeSent,
 } from "../utils/persist-state";
-import { ResetPasswordRequest } from "../utils/normaApi/models";
+import { TResetPasswordRequest } from "../utils/normaApi/models";
 
-export default function ResetPasswordPage() {
-  const { values, handleChange } = useForm<ResetPasswordRequest>({
+const ResetPasswordPage: FC = () => {
+  const { values, handleChange } = useForm<TResetPasswordRequest>({
     password: "",
     token: "",
   });
@@ -92,4 +92,6 @@ export default function ResetPasswordPage() {
       )}
     </FormWrapper>
   );
-}
+};
+
+export default ResetPasswordPage;
