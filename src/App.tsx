@@ -23,6 +23,7 @@ import IngredientDetails from "./components/burger-ingredients/ingredient-detail
 import Modal from "./components/modal/modal";
 import IngredientDetailsPage from "./pages/ingredient-details/ingredient-details";
 import OrdersPage from "./pages/orders/orders";
+import FeedPage from "./pages/feed/feed";
 
 const App: FC = () => {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -79,6 +80,7 @@ const App: FC = () => {
           <main className={`${appStyles.main} pl-5 pr-5`}>
             <Routes location={backgroundLocation || location}>
               <Route index element={<HomePage />} />
+              <Route path="feed" element={<FeedPage />} />
               <Route
                 path="/ingredients/:id"
                 element={<IngredientDetailsPage />}

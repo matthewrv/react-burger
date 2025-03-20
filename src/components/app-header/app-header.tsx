@@ -32,7 +32,7 @@ const AppHeader: FC = () => {
           <li
             className={`pl-5 pr-5 pt-4 pb-4 ${headerStyles["order-history-item"]}`}
           >
-            <NavLink to="/orders" className={headerStyles["nav-link"]}>
+            <NavLink to="/feed" className={headerStyles["nav-link"]}>
               {({ isActive }) => (
                 <TopNavItem
                   isActive={isActive}

@@ -1,0 +1,69 @@
+.content {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "feed dashboard";
+  column-gap: calc(var(--offset-base-size) * 15);
+  grid-template-columns: repeat(2, 1fr);
+  block-size: 100%;
+}
+
+.header {
+  grid-area: header;
+}
+
+.ordersFeed {
+  grid-area: feed;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 4);
+  overflow-y: auto;
+}
+
+.card {
+  background-color: #1c1c21;
+  border-radius: calc(var(--offset-base-size) * 10);
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 6);
+  padding: calc(var(--offset-base-size) * 6);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard {
+  height: 100%;
+  grid-area: dashboard;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 15);
+}
+
+.ordersDashboard {
+  display: flex;
+  gap: calc(var(--offset-base-size) * 9);
+}
+
+.ordersSection {
+  flex-grow: 1;
+}
+
+.ordersList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 2);
+}
+
+.readyAccent {
+  color: #00cccc;
+}
+
+.accentShadow {
+  text-shadow: 0 4px 32px #3333ff80, 0 0 8px #3333ff40, 0 0 16px #3333ff40;
+}
