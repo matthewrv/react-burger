@@ -11,7 +11,7 @@ import { TRequestStatus } from "./common";
 export type TOrderDetailsState = {
   orderId: string | null;
   createOrderStatus: TRequestStatus;
-}
+};
 
 const initialState: TOrderDetailsState = {
   orderId: null,

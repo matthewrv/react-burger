@@ -6,7 +6,7 @@ import { TIngredientsResponse } from "../utils/normaApi/models";
 export type TIngredientsState = {
   ingredients: TBurgerIngredient[];
   ingredientsRequestStatus: TRequestStatus;
-}
+};
 
 const initialState: TIngredientsState = {
   ingredients: [],

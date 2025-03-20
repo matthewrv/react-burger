@@ -2,17 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type TRemoveIngredientPayload = {
   id: string;
-}
+};
 
 export type TSelectedIngredientItem = {
   id: string;
   ingredientId: string;
-}
+};
 
 export type TSelectedIngredientsState = {
   bun: TSelectedIngredientItem | null;
   ingredients: TSelectedIngredientItem[];
-}
+};
 
 const initialState: TSelectedIngredientsState = {
   bun: null,
