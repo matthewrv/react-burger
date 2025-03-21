@@ -5,8 +5,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 export default function FeedPage(props) {
   const item = {
     _id: "123456",
-    createdAt: "Сегодня 15:20",
-    // createdAt: "2021-06-23T14:43:22.587Z",
+    createdAt: "2025-03-21T14:43:22.587Z",
     status: "done",
     name: "Death Star Starship Main бургер",
     ingredients: [
@@ -44,9 +43,9 @@ export default function FeedPage(props) {
                   </span>
                   <time
                     className={`text text_type_main-default text_color_inactive`}
-                    dateTime={``} // TODO
+                    dateTime={item.createdAt} // TODO
                   >
-                    {item.createdAt}
+                    {formatDate(item.createdAt)}
                   </time>
                 </p>
                 <p className="text text_type_main-default">{item.name}</p>
@@ -120,4 +119,29 @@ export default function FeedPage(props) {
       </div>
     </>
   );
+}
+
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const toMidnightTimestamp = (datetime: Date) =>
+    new Date(datetime.toDateString()).getTime();
+  const daysAgo =
+    (toMidnightTimestamp(new Date()) - toMidnightTimestamp(date)) /
+    (60 * 60 * 24 * 1000);
+
+  const daysAgoString =
+    daysAgo == 0
+      ? "Сегодня"
+      : daysAgo == 1
+      ? "Вчера"
+      : `${daysAgo} ${plural(daysAgo, ["день", "дня", "дней"])} назад`;
+
+  return `${daysAgoString}, ${date.getHours()}:${date.getMinutes()}`;
+}
+
+function plural(num: number, words: [string, string, string]): string {
+  var cases = [2, 0, 1, 1, 1, 2];
+  return words[
+    num % 100 > 4 && num % 100 < 20 ? 2 : cases[Math.min(num % 10, 5)]
+  ];
 }
