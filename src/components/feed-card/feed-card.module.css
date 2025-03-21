@@ -1,0 +1,48 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 6);
+  width: 100%;
+  border-radius: calc(var(--offset-base-size) * 10);
+  padding: calc(var(--offset-base-size) * 6);
+  background-color: #1c1c21;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingridientsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingridients {
+  display: flex;
+  list-style: none;
+}
+
+.ingridientImage {
+  margin-inline-end: calc(var(--offset-base-size) * -4);
+  border: transparent solid 2px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background-image: linear-gradient(
+      var(--background-alt),
+      var(--background-alt)
+    ),
+    linear-gradient(to right, #801ab2, #4c4cff);
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+  block-size: calc(var(--offset-base-size) * 16);
+  aspect-ratio: 1;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 2);
+}

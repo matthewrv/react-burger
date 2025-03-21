@@ -20,22 +20,6 @@
   overflow-y: auto;
 }
 
-.card {
-  background-color: #1c1c21;
-  border-radius: calc(var(--offset-base-size) * 10);
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--offset-base-size) * 6);
-  padding: calc(var(--offset-base-size) * 6);
-}
-
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-}
-
 .dashboard {
   height: 100%;
   grid-area: dashboard;

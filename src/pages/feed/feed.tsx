@@ -1,29 +1,39 @@
-import React from "react";
 import feedStyles from "./feed.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useAppSelector } from "../../services/hooks";
+import { TBurgerIngredient } from "../../services/common";
+import FeedCard from "../../components/feed-card/feed-card";
+
+export type TOrderItem = {
+  _id: string;
+  createdAt: string;
+  status: "done" | "in_progress";
+  name: string;
+  ingredients: ReadonlyArray<string>;
+};
 
 export default function FeedPage(props) {
-  const item = {
+  const item: TOrderItem = {
     _id: "123456",
     createdAt: "2025-03-21T14:43:22.587Z",
     status: "done",
     name: "Death Star Starship Main бургер",
     ingredients: [
-      "60d3463f7034a000269f45e7",
-      "60d3463f7034a000269f45e9",
-      "60d3463f7034a000269f45e8",
-      "60d3463f7034a000269f45ea",
+      "643d69a5c3f7b9001cfa093c",
+      "643d69a5c3f7b9001cfa0941",
+      "643d69a5c3f7b9001cfa093e",
+      "643d69a5c3f7b9001cfa0942",
     ],
-    price: 480,
   };
 
-  const items = [
+  const items: TOrderItem[] = [
     item,
     { ...item, _id: "123455", status: "in_progress" },
     { ...item, _id: "123454", status: "in_progress" },
     { ...item, _id: "123453", status: "done" },
     { ...item, _id: "123452", status: "done" },
   ];
+
+  const ingridients = useAppSelector((state) => state.ingredients);
 
   return (
     <>
@@ -36,26 +46,10 @@ export default function FeedPage(props) {
         <ol className={`${feedStyles.ordersFeed} pr-2`}>
           {items.map((item) => (
             <li key={item._id}>
-              <article className={feedStyles.card}>
-                <p className={feedStyles.cardHeader}>
-                  <span className="text text_type_digits-default">
-                    #{item._id}
-                  </span>
-                  <time
-                    className={`text text_type_main-default text_color_inactive`}
-                    dateTime={item.createdAt} // TODO
-                  >
-                    {formatDate(item.createdAt)}
-                  </time>
-                </p>
-                <p className="text text_type_main-default">{item.name}</p>
-                <div>
-                  <p className="text text_type_digits-default">
-                    {item.price}
-                    <CurrencyIcon type="primary" />{" "}
-                  </p>
-                </div>
-              </article>
+              <FeedCard
+                item={item}
+                ingridients={getIngridients(item, ingridients.ingredients)}
+              />
             </li>
           ))}
         </ol>
@@ -121,27 +115,12 @@ export default function FeedPage(props) {
   );
 }
 
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  const toMidnightTimestamp = (datetime: Date) =>
-    new Date(datetime.toDateString()).getTime();
-  const daysAgo =
-    (toMidnightTimestamp(new Date()) - toMidnightTimestamp(date)) /
-    (60 * 60 * 24 * 1000);
-
-  const daysAgoString =
-    daysAgo == 0
-      ? "Сегодня"
-      : daysAgo == 1
-      ? "Вчера"
-      : `${daysAgo} ${plural(daysAgo, ["день", "дня", "дней"])} назад`;
-
-  return `${daysAgoString}, ${date.getHours()}:${date.getMinutes()}`;
-}
-
-function plural(num: number, words: [string, string, string]): string {
-  var cases = [2, 0, 1, 1, 1, 2];
-  return words[
-    num % 100 > 4 && num % 100 < 20 ? 2 : cases[Math.min(num % 10, 5)]
-  ];
+function getIngridients(
+  item: TOrderItem,
+  ingridients: ReadonlyArray<TBurgerIngredient>
+) {
+  const map = new Map(ingridients.map((item) => [item._id, item]));
+  return item.ingredients
+    .map((_id) => map.get(_id))
+    .filter((ingredient) => ingredient !== undefined);
 }
