@@ -3,10 +3,12 @@ import { useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import FeedCard from "../../components/feed-card/feed-card";
 
+export type TOrderStatus = "done" | "in_progress" | "cancelled";
+
 export type TOrderItem = {
   _id: string;
   createdAt: string;
-  status: "done" | "in_progress";
+  status: TOrderStatus;
   name: string;
   ingredients: ReadonlyArray<string>;
 };

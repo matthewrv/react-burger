@@ -24,6 +24,8 @@ import Modal from "./components/modal/modal";
 import IngredientDetailsPage from "./pages/ingredient-details/ingredient-details";
 import OrdersPage from "./pages/orders/orders";
 import FeedPage from "./pages/feed/feed";
+import OrderDetails from "./components/burger-constructor/order-details/order-details";
+import OrderDetailsPage from "./pages/order-details/order-details";
 
 const App: FC = () => {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -81,6 +83,7 @@ const App: FC = () => {
             <Routes location={backgroundLocation || location}>
               <Route index element={<HomePage />} />
               <Route path="feed" element={<FeedPage />} />
+              <Route path="feed/:id" element={<OrderDetailsPage />} />
               <Route
                 path="/ingredients/:id"
                 element={<IngredientDetailsPage />}

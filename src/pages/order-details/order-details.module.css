@@ -1,0 +1,48 @@
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-inline-size: 640px;
+}
+
+.completed {
+  color: #00cccc;
+}
+
+.cancelled {
+  color: #e52b1a;
+}
+
+.ingridientsList {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 4);
+
+  padding-inline-end: calc(var(--offset-base-size) * 6);
+  overflow-y: scroll;
+  list-style: none;
+
+  max-block-size: 312px;
+}
+
+.ingridientItem {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 4);
+}
+
+.ingridientItemName {
+  flex-grow: 1;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 2);
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+}
