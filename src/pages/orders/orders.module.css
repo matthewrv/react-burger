@@ -1,0 +1,14 @@
+.wrapper {
+  grid-column: span 2;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 6);
+  height: 100%;
+  overflow-y: auto;
+  list-style: none;
+}

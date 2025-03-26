@@ -16,8 +16,8 @@ const ProfilePage: FC = () => {
   }, [dispatch]);
 
   return (
-    <div className={`pt-30 ${profileStyles.container}`}>
-      <div>
+    <div className={`${profileStyles.container}`}>
+      <div className={`pt-30`}>
         <nav>
           <ul className={profileStyles.list}>
             <li className={profileStyles.listItem}>
