@@ -12,3 +12,8 @@
   overflow-y: auto;
   list-style: none;
 }
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}

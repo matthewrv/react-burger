@@ -24,7 +24,6 @@ import Modal from "./components/modal/modal";
 import IngredientDetailsPage from "./pages/ingredient-details/ingredient-details";
 import OrdersPage from "./pages/orders/orders";
 import FeedPage from "./pages/feed/feed";
-import OrderDetails from "./components/burger-constructor/order-details/order-details";
 import OrderDetailsPage from "./pages/order-details/order-details";
 
 const App: FC = () => {
@@ -106,6 +105,12 @@ const App: FC = () => {
                 path="/reset-password"
                 element={
                   <AnonymousRouteElement element={<ResetPasswordPage />} />
+                }
+              />
+              <Route
+                path="/profile/orders/:id"
+                element={
+                  <ProtectedRouteElement element={<OrderDetailsPage />} />
                 }
               />
               <Route

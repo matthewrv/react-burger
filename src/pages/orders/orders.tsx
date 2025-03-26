@@ -3,6 +3,7 @@ import { TOrderItem } from "../feed/feed";
 import { useAppSelector } from "../../services/hooks";
 import OrdersPageStyles from "./orders.module.css";
 import FeedCard from "../../components/feed-card/feed-card";
+import { Link, useNavigate } from "react-router-dom";
 
 const OrdersPage: FC = () => {
   const item: TOrderItem = {
@@ -34,12 +35,14 @@ const OrdersPage: FC = () => {
       <ul className={`${OrdersPageStyles.container} p-2`}>
         {items.map((item) => (
           <li>
-            <FeedCard
-              key={item._id}
-              item={item}
-              ingridients={item.ingredients.map((id) => mapping.get(id)!)}
-              displayStatus
-            />
+            <Link to={`${item._id}`} className={`${OrdersPageStyles.link}`}>
+              <FeedCard
+                key={item._id}
+                item={item}
+                ingridients={item.ingredients.map((id) => mapping.get(id)!)}
+                displayStatus
+              />
+            </Link>
           </li>
         ))}
       </ul>
