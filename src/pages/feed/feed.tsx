@@ -3,39 +3,10 @@ import { useAppLocation, useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
-
-export type TOrderStatus = "done" | "in_progress" | "cancelled";
-
-export type TOrderItem = {
-  _id: string;
-  createdAt: string;
-  status: TOrderStatus;
-  name: string;
-  ingredients: ReadonlyArray<string>;
-};
+import { TOrderItem } from "../../services/orders-feed";
 
 export default function FeedPage() {
-  const item: TOrderItem = {
-    _id: "123456",
-    createdAt: "2025-03-21T14:43:22.587Z",
-    status: "done",
-    name: "Death Star Starship Main бургер",
-    ingredients: [
-      "643d69a5c3f7b9001cfa093c",
-      "643d69a5c3f7b9001cfa0941",
-      "643d69a5c3f7b9001cfa093e",
-      "643d69a5c3f7b9001cfa0942",
-    ],
-  };
-
-  const items: TOrderItem[] = [
-    item,
-    { ...item, _id: "123455", status: "in_progress" },
-    { ...item, _id: "123454", status: "in_progress" },
-    { ...item, _id: "123453", status: "done" },
-    { ...item, _id: "123452", status: "done" },
-  ];
-
+  const ordersFeed = useAppSelector((state) => state.ordersFeed);
   const ingridients = useAppSelector((state) => state.ingredients);
   const location = useAppLocation();
 
@@ -48,7 +19,7 @@ export default function FeedPage() {
           Лента заказов
         </h1>
         <ol className={`${feedStyles.ordersFeed} pr-2`}>
-          {items.map((item) => (
+          {ordersFeed.orders.map((item) => (
             <li key={item._id}>
               <Link
                 className={`${feedStyles.link}`}
@@ -69,7 +40,7 @@ export default function FeedPage() {
             <section className={feedStyles.ordersSection}>
               <h2 className="text text_type_main-medium pb-6">Готовы:</h2>
               <ul className={feedStyles.ordersList}>
-                {items.map(
+                {ordersFeed.orders.map(
                   (item) =>
                     item.status == "done" && (
                       <li
@@ -85,7 +56,7 @@ export default function FeedPage() {
             <section className={feedStyles.ordersSection}>
               <h2 className="text text_type_main-medium pb-6">В работе:</h2>
               <ul className={feedStyles.ordersList}>
-                {items.map(
+                {ordersFeed.orders.map(
                   (item) =>
                     item.status == "in_progress" && (
                       <li
@@ -107,7 +78,7 @@ export default function FeedPage() {
             <p
               className={`text text_type_digits-large ${feedStyles.accentShadow}`}
             >
-              28 756
+              {ordersFeed.total}
             </p>
           </section>
 
@@ -116,7 +87,7 @@ export default function FeedPage() {
             <p
               className={`text text_type_digits-large ${feedStyles.accentShadow}`}
             >
-              138
+              {ordersFeed.todayTotal}
             </p>
           </section>
         </div>

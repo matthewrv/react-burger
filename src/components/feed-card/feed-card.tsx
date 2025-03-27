@@ -2,8 +2,8 @@ import feedCardStyles from "./feed-card.module.css";
 import { TBurgerIngredient } from "../../services/common";
 import IngridientPreview from "../ingridient-preview/ingridient-preview";
 import OrderedDate from "../ordered-date/ordered-date";
-import { TOrderItem, TOrderStatus } from "../../pages/feed/feed";
 import PriceSpan from "../price-span/price-span";
+import { TOrderItem, TOrderStatus } from "../../services/orders-feed";
 
 export type TFeedCardProps = {
   item: TOrderItem;

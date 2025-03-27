@@ -1,11 +1,11 @@
 import orderDetailsStyles from "./order-details.module.css";
 import { useParams } from "react-router-dom";
-import { TOrderItem, TOrderStatus } from "../feed/feed";
 import { useAppLocation, useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import IngridientPreview from "../../components/ingridient-preview/ingridient-preview";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderedDate from "../../components/ordered-date/ordered-date";
+import { TOrderItem, TOrderStatus } from "../../services/orders-feed";
 
 const statusMap = new Map<TOrderStatus, [string, string]>([
   ["done", [orderDetailsStyles.completed, "Выполнен"]],
@@ -16,18 +16,8 @@ const statusMap = new Map<TOrderStatus, [string, string]>([
 export default function OrderDetailsPage() {
   const { id } = useParams();
 
-  const item: TOrderItem = {
-    _id: id,
-    createdAt: "2025-03-21T14:43:22.587Z",
-    status: "done",
-    name: "Death Star Starship Main бургер",
-    ingredients: [
-      "643d69a5c3f7b9001cfa093c",
-      "643d69a5c3f7b9001cfa0941",
-      "643d69a5c3f7b9001cfa093e",
-      "643d69a5c3f7b9001cfa0942",
-    ],
-  };
+  const orders = useAppSelector((state) => state.ordersFeed.orders);
+  const item = orders.find((item) => item._id === id)!;
 
   const ingridients = useAppSelector((state) => state.ingredients);
   const orderIngridients = getIngridients(item, ingridients.ingredients);
