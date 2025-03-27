@@ -25,6 +25,7 @@ import IngredientDetailsPage from "./pages/ingredient-details/ingredient-details
 import OrdersPage from "./pages/orders/orders";
 import FeedPage from "./pages/feed/feed";
 import OrderDetailsPage from "./pages/order-details/order-details";
+import ModalOrder from "./components/modal-order/modal-order";
 
 const App: FC = () => {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -73,6 +74,11 @@ const App: FC = () => {
                     <IngredientDetails />
                   </Modal>
                 }
+              />
+              <Route path="/feed/:id" element={<ModalOrder />} />
+              <Route
+                path="/profile/orders/:id"
+                element={<ProtectedRouteElement element={<ModalOrder />} />}
               />
             </Routes>
           )}

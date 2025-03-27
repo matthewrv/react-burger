@@ -1,13 +1,11 @@
 import orderDetailsStyles from "./order-details.module.css";
 import { useParams } from "react-router-dom";
 import { TOrderItem, TOrderStatus } from "../feed/feed";
-import { useAppSelector } from "../../services/hooks";
+import { useAppLocation, useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import IngridientPreview from "../../components/ingridient-preview/ingridient-preview";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderedDate from "../../components/ordered-date/ordered-date";
-
-export type TOrderDetailsPageProps = {};
 
 const statusMap = new Map<TOrderStatus, [string, string]>([
   ["done", [orderDetailsStyles.completed, "Выполнен"]],
@@ -15,7 +13,7 @@ const statusMap = new Map<TOrderStatus, [string, string]>([
   ["in_progress", ["", "В работе"]],
 ]);
 
-export default function OrderDetailsPage({}: TOrderDetailsPageProps) {
+export default function OrderDetailsPage() {
   const { id } = useParams();
 
   const item: TOrderItem = {
@@ -34,13 +32,17 @@ export default function OrderDetailsPage({}: TOrderDetailsPageProps) {
   const ingridients = useAppSelector((state) => state.ingredients);
   const orderIngridients = getIngridients(item, ingridients.ingredients);
 
-  const [statusStyle, statusText] = statusMap.get(item.status);
+  const location = useAppLocation();
+
+  const [statusStyle, statusText] = statusMap.get(item.status)!;
 
   return (
     <div className={`${orderDetailsStyles.content}`}>
-      <h1 className={`mb-10 text-center text text_type_digits-default`}>
-        #{item._id}
-      </h1>
+      {!location.state?.backgroundLocation && (
+        <h1 className={`mb-10 text-center text text_type_digits-default`}>
+          #{item._id}
+        </h1>
+      )}
       <h2 className={`text text_type_main-medium mb-3`}>{item.name}</h2>
       <p className={`text text_type_main-default mb-15 ${statusStyle}`}>
         {statusText}

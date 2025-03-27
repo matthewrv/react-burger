@@ -1,7 +1,8 @@
 import feedStyles from "./feed.module.css";
-import { useAppSelector } from "../../services/hooks";
+import { useAppLocation, useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import FeedCard from "../../components/feed-card/feed-card";
+import { Link } from "react-router-dom";
 
 export type TOrderStatus = "done" | "in_progress" | "cancelled";
 
@@ -13,7 +14,7 @@ export type TOrderItem = {
   ingredients: ReadonlyArray<string>;
 };
 
-export default function FeedPage(props) {
+export default function FeedPage() {
   const item: TOrderItem = {
     _id: "123456",
     createdAt: "2025-03-21T14:43:22.587Z",
@@ -36,6 +37,7 @@ export default function FeedPage(props) {
   ];
 
   const ingridients = useAppSelector((state) => state.ingredients);
+  const location = useAppLocation();
 
   return (
     <>
@@ -48,10 +50,16 @@ export default function FeedPage(props) {
         <ol className={`${feedStyles.ordersFeed} pr-2`}>
           {items.map((item) => (
             <li key={item._id}>
-              <FeedCard
-                item={item}
-                ingridients={getIngridients(item, ingridients.ingredients)}
-              />
+              <Link
+                className={`${feedStyles.link}`}
+                to={item._id}
+                state={{ backgroundLocation: location }}
+              >
+                <FeedCard
+                  item={item}
+                  ingridients={getIngridients(item, ingridients.ingredients)}
+                />
+              </Link>
             </li>
           ))}
         </ol>

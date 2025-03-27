@@ -42,9 +42,8 @@ export default function FeedCard({
       <div className={`${feedCardStyles.ingridientsRow} mt-6`}>
         <ul className={feedCardStyles.ingridients}>
           {ingridients.map((ingredient) => (
-            <li>
+            <li key={ingredient._id}>
               <IngridientPreview
-                key={ingredient._id}
                 image={ingredient.image}
                 name={ingredient.name}
                 extraClass={feedCardStyles.overlap}
