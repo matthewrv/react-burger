@@ -1,15 +1,17 @@
 import feedCardStyles from "./feed-card.module.css";
 import { TBurgerIngredient } from "../../services/common";
 import IngridientPreview from "../ingridient-preview/ingridient-preview";
-import OrderedDate from "../ordered-date/ordered-date";
 import PriceSpan from "../price-span/price-span";
-import { TOrderItem, TOrderStatus } from "../../services/orders-feed";
+import { TOrderItem, TOrderStatus } from "../../services/orders-feed/slice";
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export type TFeedCardProps = {
   item: TOrderItem;
   ingridients: ReadonlyArray<TBurgerIngredient>;
   displayStatus?: boolean;
 };
+
+const displayLimit = 6;
 
 export default function FeedCard({
   item,
@@ -31,25 +33,52 @@ export default function FeedCard({
     );
   };
 
+  const ingridientsCount = ingridients.length;
+  const ingridientsSet = new Set(ingridients);
+  const counts = new Map<string, number>();
+  for (const ingridient of ingridients) {
+    counts.set(ingridient._id, counts.get(ingridient._id) || 0 + 1);
+  }
+
   return (
     <article className={feedCardStyles.card}>
       <p className={feedCardStyles.cardHeader}>
-        <span className="text text_type_digits-default">#{item._id}</span>
-        <OrderedDate date={item.createdAt} />
+        <span className="text text_type_digits-default">#{item.number}</span>
+        <FormattedDate
+          date={new Date(item.createdAt)}
+          className={`text text_type_main-default text_color_inactive`}
+        />
       </p>
       <p className="text text_type_main-medium mt-6">{item.name}</p>
       {displayStatus && toDisplayStatus(item.status)}
       <div className={`${feedCardStyles.ingridientsRow} mt-6`}>
         <ul className={feedCardStyles.ingridients}>
-          {ingridients.map((ingredient) => (
-            <li key={ingredient._id}>
-              <IngridientPreview
-                image={ingredient.image}
-                name={ingredient.name}
-                extraClass={feedCardStyles.overlap}
-              />
-            </li>
-          ))}
+          {[...ingridientsSet].map((ingredient, index) => {
+            if (index + 1 < displayLimit) {
+              return (
+                <li key={ingredient._id}>
+                  <IngridientPreview
+                    image={ingredient.image}
+                    name={ingredient.name}
+                    extraClass={feedCardStyles.overlap}
+                  />
+                </li>
+              );
+            }
+            if (index + 1 === displayLimit) {
+              return (
+                <li key={ingredient._id}>
+                  <IngridientPreview
+                    image={ingredient.image}
+                    name={ingredient.name}
+                    extraClass={feedCardStyles.overlap}
+                    overlimit={ingridientsCount - displayLimit}
+                  />
+                </li>
+              );
+            }
+            return null;
+          })}
         </ul>
         <PriceSpan
           price={ingridients.reduce((prev, current) => prev + current.price, 0)}

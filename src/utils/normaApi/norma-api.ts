@@ -57,7 +57,7 @@ function withToken(endpoint: URL, options?: RequestInit) {
   return fetch(endpoint, newOptions);
 }
 
-async function refreshToken(): Promise<TRefreshTokenResponse> {
+export async function refreshToken(): Promise<TRefreshTokenResponse> {
   const token = getRefreshToken();
   return request<TRefreshTokenResponse>("/auth/token", {
     method: "POST",

@@ -3,9 +3,19 @@ import { useAppLocation, useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
-import { TOrderItem } from "../../services/orders-feed";
+import { TOrderItem } from "../../services/orders-feed/slice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { connect } from "../../services/orders-feed/actions";
 
 export default function FeedPage() {
+  const dispatch = useDispatch();
+
+  useEffect(
+    () => dispatch(connect("wss://norma.nomoreparties.space/orders/all")),
+    [dispatch]
+  );
+
   const ordersFeed = useAppSelector((state) => state.ordersFeed);
   const ingridients = useAppSelector((state) => state.ingredients);
   const location = useAppLocation();
@@ -47,7 +57,7 @@ export default function FeedPage() {
                         key={item._id}
                         className={`text text_type_digits-default ${feedStyles.readyAccent}`}
                       >
-                        {item._id}
+                        {item.number}
                       </li>
                     )
                 )}
@@ -63,7 +73,7 @@ export default function FeedPage() {
                         key={item._id}
                         className="text text_type_digits-default"
                       >
-                        {item._id}
+                        {item.number}
                       </li>
                     )
                 )}
@@ -87,7 +97,7 @@ export default function FeedPage() {
             <p
               className={`text text_type_digits-large ${feedStyles.accentShadow}`}
             >
-              {ordersFeed.todayTotal}
+              {ordersFeed.totalToday}
             </p>
           </section>
         </div>

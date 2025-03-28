@@ -1,3 +1,7 @@
+.wrapper {
+  position: relative;
+}
+
 .ingridientImage {
   border: transparent solid 2px;
   border-radius: 50%;
@@ -12,4 +16,19 @@
   background-origin: border-box;
   block-size: calc(var(--offset-base-size) * 16);
   aspect-ratio: 1;
+}
+
+.dim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  opacity: 60%;
+  background-color: var(--background);
+}
+
+.counter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
 }

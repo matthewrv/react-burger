@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import { useAppLocation, useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import IngridientPreview from "../../components/ingridient-preview/ingridient-preview";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import OrderedDate from "../../components/ordered-date/ordered-date";
-import { TOrderItem, TOrderStatus } from "../../services/orders-feed";
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { TOrderItem, TOrderStatus } from "../../services/orders-feed/slice";
 
 const statusMap = new Map<TOrderStatus, [string, string]>([
   ["done", [orderDetailsStyles.completed, "Выполнен"]],
@@ -63,7 +65,10 @@ export default function OrderDetailsPage() {
         ))}
       </ul>
       <div className={`${orderDetailsStyles.summary}`}>
-        <OrderedDate date={item.createdAt} />
+        <FormattedDate
+          date={new Date(item.createdAt)}
+          className={`text text_type_main-default text_color_inactive`}
+        />
         <span
           className={`${orderDetailsStyles.price} text text_type_digits-default`}
         >
