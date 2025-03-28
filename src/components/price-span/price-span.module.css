@@ -1,5 +1,0 @@
-.price {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--offset-base-size) * 2);
-}

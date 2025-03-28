@@ -3,7 +3,10 @@ import { TBurgerIngredient } from "../../services/common";
 import IngridientPreview from "../ingridient-preview/ingridient-preview";
 import PriceSpan from "../price-span/price-span";
 import { TOrderItem, TOrderStatus } from "../../utils/normaApi/models";
-import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export type TFeedCardProps = {
   item: TOrderItem;
@@ -73,9 +76,12 @@ export default function FeedCard({
             return null;
           })}
         </ul>
-        <PriceSpan
-          price={ingridients.reduce((prev, current) => prev + current.price, 0)}
-        />
+        <span
+          className={`${feedCardStyles.price} text text_type_digits-default`}
+        >
+          {ingridients.reduce((prev, current) => prev + current.price, 0)}
+          <CurrencyIcon type="primary" />
+        </span>
       </div>
     </article>
   );
