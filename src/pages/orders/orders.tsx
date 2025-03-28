@@ -8,6 +8,7 @@ import OrdersPageStyles from "./orders.module.css";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
 import { connect } from "../../services/profile-feed/actions";
+import Loader from "../../components/loader/loader";
 
 const OrdersPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,23 +25,27 @@ const OrdersPage: FC = () => {
 
   return (
     <div className={`${OrdersPageStyles.wrapper} pt-9`}>
-      <ul className={`${OrdersPageStyles.container} p-2`}>
-        {items.map((item) => (
-          <li key={item._id}>
-            <Link
-              to={`${item.number}`}
-              state={{ backgroundLocation: location }}
-              className={`${OrdersPageStyles.link}`}
-            >
-              <FeedCard
-                item={item}
-                ingridients={item.ingredients.map((id) => mapping.get(id)!)}
-                displayStatus
-              />
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {ordersFeed.status === "CONNECTING" ? (
+        <Loader />
+      ) : (
+        <ul className={`${OrdersPageStyles.container} p-2`}>
+          {items.map((item) => (
+            <li key={item._id}>
+              <Link
+                to={`${item.number}`}
+                state={{ backgroundLocation: location }}
+                className={`${OrdersPageStyles.link}`}
+              >
+                <FeedCard
+                  item={item}
+                  ingridients={item.ingredients.map((id) => mapping.get(id)!)}
+                  displayStatus
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
