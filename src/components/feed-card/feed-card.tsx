@@ -25,7 +25,7 @@ export default function FeedCard({
 }: TFeedCardProps) {
   const ingridientsCount = ingridients.length;
   const ingridientsSet = new Set(ingridients);
-  const [stylingClass, text] = statusMap.get(item.status)!;
+  const [stylingClass, text] = statusMap.get(item.status) || ["", ""];
 
   return (
     <article className={feedCardStyles.card}>

@@ -55,7 +55,7 @@ export default function OrderDetailsPage() {
     counts.set(ingridient._id, (counts.get(ingridient._id) || 0) + 1);
   }
 
-  const [statusStyle, statusText] = statusMap.get(item.status)!;
+  const [statusStyle, statusText] = statusMap.get(item.status) || ["", ""];
 
   return (
     <div className={`${orderDetailsStyles.content}`}>
