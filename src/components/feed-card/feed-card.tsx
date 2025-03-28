@@ -12,29 +12,20 @@ export type TFeedCardProps = {
 };
 
 const displayLimit = 6;
+const statusMap = new Map<TOrderStatus, [string, string]>([
+  ["done", [feedCardStyles.completed, "Выполнен"]],
+  ["cancelled", [feedCardStyles.cancelled, "Отменён"]],
+  ["in_progress", ["", "В работе"]],
+]);
 
 export default function FeedCard({
   item,
   ingridients,
   displayStatus,
 }: TFeedCardProps) {
-  // TODO: fix case when count of ingridients > 6
-  const toDisplayStatus = (status: TOrderStatus) => {
-    const [text, stylingClass] =
-      status === "done"
-        ? ["Выполнен", feedCardStyles.completed]
-        : status === "cancelled"
-        ? ["Отменён", feedCardStyles.cancelled]
-        : ["Готовится", ""];
-    return (
-      <p className={`${stylingClass} text text_type_main-default mt-2`}>
-        {text}
-      </p>
-    );
-  };
-
   const ingridientsCount = ingridients.length;
   const ingridientsSet = new Set(ingridients);
+  const [stylingClass, text] = statusMap.get(item.status)!;
 
   return (
     <article className={feedCardStyles.card}>
@@ -46,7 +37,13 @@ export default function FeedCard({
         />
       </p>
       <p className="text text_type_main-medium mt-6">{item.name}</p>
-      {displayStatus && toDisplayStatus(item.status)}
+
+      {displayStatus && (
+        <p className={`${stylingClass} text text_type_main-default mt-2`}>
+          {text}
+        </p>
+      )}
+
       <div className={`${feedCardStyles.ingridientsRow} mt-6`}>
         <ul className={feedCardStyles.ingridients}>
           {[...ingridientsSet].map((ingredient, index) => {
