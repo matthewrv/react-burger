@@ -7,7 +7,7 @@ import {
 import OrdersPageStyles from "./orders.module.css";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
-import { connect } from "../../services/profile-feed/actions";
+import { connect, disconnect } from "../../services/profile-feed/actions";
 import Loader from "../../components/loader/loader";
 
 const OrdersPage: FC = () => {
@@ -21,6 +21,10 @@ const OrdersPage: FC = () => {
 
   useEffect(() => {
     dispatch(connect("wss://norma.nomoreparties.space/orders"));
+
+    return () => {
+      dispatch(disconnect());
+    };
   }, [dispatch]);
 
   return (

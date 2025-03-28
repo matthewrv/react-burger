@@ -1,4 +1,4 @@
-import orderDetailsStyles from "./order-details.module.css";
+import styles from "./order-details.module.css";
 import { useParams } from "react-router-dom";
 import {
   useAppDispatch,
@@ -17,9 +17,9 @@ import { requestOrderByNumber } from "../../services/order-details";
 import Loader from "../../components/loader/loader";
 
 const statusMap = new Map<TOrderStatus, [string, string]>([
-  ["done", [orderDetailsStyles.completed, "Выполнен"]],
-  ["cancelled", [orderDetailsStyles.cancelled, "Отменён"]],
-  ["in_progress", ["", "В работе"]],
+  ["done", [styles.completed, "Выполнен"]],
+  ["cancelled", [styles.cancelled, "Отменён"]],
+  ["pending", ["", "В работе"]],
 ]);
 
 export default function OrderDetailsPage() {
@@ -28,6 +28,8 @@ export default function OrderDetailsPage() {
 
   const orders = useAppSelector((state) => state.ordersFeed.orders);
   const selectedOrder = useAppSelector((state) => state.orderDetails.order);
+  const ingridients = useAppSelector((state) => state.ingredients);
+
   const item = useMemo(() => {
     return (
       orders.find((item) => item.number === parseInt(itemNumber!)) ||
@@ -35,7 +37,6 @@ export default function OrderDetailsPage() {
     );
   }, [orders, selectedOrder, itemNumber]);
 
-  const ingridients = useAppSelector((state) => state.ingredients);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -58,49 +59,44 @@ export default function OrderDetailsPage() {
   const [statusStyle, statusText] = statusMap.get(item.status) || ["", ""];
 
   return (
-    <div className={`${orderDetailsStyles.content}`}>
+    <div className={`${styles.content}`}>
       {!location.state?.backgroundLocation && (
         <h1 className={`mb-10 text-center text text_type_digits-default`}>
           #{item.number}
         </h1>
       )}
+
       <h2 className={`text text_type_main-medium mb-3`}>{item.name}</h2>
       <p className={`text text_type_main-default mb-15 ${statusStyle}`}>
         {statusText}
       </p>
+
       <h3 className={`text text_type_main-medium mb-6`}>Состав:</h3>
-      <ul className={`${orderDetailsStyles.ingridientsList} mb-10`}>
+      <ul className={`${styles.ingridientsList} mb-10`}>
         {[...ingridientsSet].map((ingridient) => (
-          <li
-            key={ingridient._id}
-            className={`${orderDetailsStyles.ingridientItem}`}
-          >
+          <li key={ingridient._id} className={`${styles.ingridientItem}`}>
             <IngridientPreview
               image={ingridient.image}
               name={ingridient.name}
             />
             <span
-              className={`${orderDetailsStyles.ingridientItemName} text text_type_main-default`}
+              className={`${styles.ingridientItemName} text text_type_main-default`}
             >
               {ingridient.name}
             </span>
-            <span
-              className={`${orderDetailsStyles.price} text text_type_digits-default`}
-            >
+            <span className={`${styles.price} text text_type_digits-default`}>
               {counts.get(ingridient._id)} {"x"} {ingridient.price}{" "}
               <CurrencyIcon type="primary" />
             </span>
           </li>
         ))}
       </ul>
-      <div className={`${orderDetailsStyles.summary}`}>
+      <div className={`${styles.summary}`}>
         <FormattedDate
           date={new Date(item.createdAt)}
           className={`text text_type_main-default text_color_inactive`}
         />
-        <span
-          className={`${orderDetailsStyles.price} text text_type_digits-default`}
-        >
+        <span className={`${styles.price} text text_type_digits-default`}>
           {orderIngridients.reduce((prev, next) => prev + next.price, 0)}{" "}
           <CurrencyIcon type="primary" />
         </span>

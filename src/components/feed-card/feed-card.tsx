@@ -18,7 +18,7 @@ const displayLimit = 6;
 const statusMap = new Map<TOrderStatus, [string, string]>([
   ["done", [feedCardStyles.completed, "Выполнен"]],
   ["cancelled", [feedCardStyles.cancelled, "Отменён"]],
-  ["in_progress", ["", "В работе"]],
+  ["pending", ["", "В работе"]],
 ]);
 
 export default function FeedCard({

@@ -82,7 +82,7 @@ export type TUpdateUserResponse = {
   };
 };
 
-export type TOrderStatus = "done" | "in_progress" | "cancelled";
+export type TOrderStatus = "done" | "pending" | "cancelled";
 
 export type TOrderItem = {
   _id: string;
