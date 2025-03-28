@@ -3,7 +3,7 @@ import { useAppLocation, useAppSelector } from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
-import { TOrderItem } from "../../services/orders-feed/slice";
+import { TOrderItem } from "../../utils/normaApi/models";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { connect } from "../../services/orders-feed/actions";

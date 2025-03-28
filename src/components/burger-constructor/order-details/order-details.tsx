@@ -5,7 +5,7 @@ import Loader from "../../loader/loader";
 import { FC } from "react";
 
 const OrderDetails: FC = () => {
-  const { orderId, createOrderStatus } = useAppSelector(
+  const { number: orderId, createOrderStatus } = useAppSelector(
     (state) => state.orderDetails
   );
 

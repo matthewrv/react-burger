@@ -1,24 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onClose, onConnecting, onError, onMessage, onOpen } from "./actions";
 import { WebsocketStatus } from "../types/websocket";
-
-export type TOrderStatus = "done" | "in_progress" | "cancelled";
-
-export type TOrderItem = {
-  _id: string;
-  number: number;
-  createdAt: string;
-  status: TOrderStatus;
-  name: string;
-  ingredients: ReadonlyArray<string>;
-};
-
-export type TOrdersFeedResponse = {
-  success: boolean;
-  orders: ReadonlyArray<TOrderItem>;
-  total: number;
-  totalToday: number;
-};
+import { TOrdersFeedResponse } from "../../utils/normaApi/models";
 
 export type TOrdersFeed = Omit<TOrdersFeedResponse, "success"> & {
   status: WebsocketStatus;

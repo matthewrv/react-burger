@@ -1,13 +1,20 @@
 import orderDetailsStyles from "./order-details.module.css";
 import { useParams } from "react-router-dom";
-import { useAppLocation, useAppSelector } from "../../services/hooks";
+import {
+  useAppDispatch,
+  useAppLocation,
+  useAppSelector,
+} from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import IngridientPreview from "../../components/ingridient-preview/ingridient-preview";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TOrderItem, TOrderStatus } from "../../services/orders-feed/slice";
+import { TOrderItem, TOrderStatus } from "../../utils/normaApi/models";
+import { useEffect, useMemo } from "react";
+import { requestOrderByNumber } from "../../services/order-details";
+import Loader from "../../components/loader/loader";
 
 const statusMap = new Map<TOrderStatus, [string, string]>([
   ["done", [orderDetailsStyles.completed, "Выполнен"]],
@@ -16,20 +23,37 @@ const statusMap = new Map<TOrderStatus, [string, string]>([
 ]);
 
 export default function OrderDetailsPage() {
+  const location = useAppLocation();
   const { number: itemNumber } = useParams();
 
   const orders = useAppSelector((state) => state.ordersFeed.orders);
-  const item = orders.find((item) => item.number === parseInt(itemNumber!))!;
+  const selectedOrder = useAppSelector((state) => state.orderDetails.order);
+  const item = useMemo(() => {
+    return (
+      orders.find((item) => item.number === parseInt(itemNumber!)) ||
+      selectedOrder
+    );
+  }, [orders, selectedOrder, itemNumber]);
 
   const ingridients = useAppSelector((state) => state.ingredients);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!item) {
+      dispatch(requestOrderByNumber({ number: itemNumber! }));
+    }
+  }, [dispatch, itemNumber, item]);
+
+  if (!item) {
+    return <Loader />;
+  }
+
   const orderIngridients = getIngridients(item, ingridients.ingredients);
   const ingridientsSet = new Set(orderIngridients);
   const counts = new Map<string, number>();
   for (const ingridient of orderIngridients) {
     counts.set(ingridient._id, (counts.get(ingridient._id) || 0) + 1);
   }
-
-  const location = useAppLocation();
 
   const [statusStyle, statusText] = statusMap.get(item.status)!;
 
@@ -60,7 +84,6 @@ export default function OrderDetailsPage() {
             >
               {ingridient.name}
             </span>
-            {/* TODO add ingridient item count */}
             <span
               className={`${orderDetailsStyles.price} text text_type_digits-default`}
             >
