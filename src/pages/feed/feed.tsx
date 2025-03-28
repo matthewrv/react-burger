@@ -33,7 +33,7 @@ export default function FeedPage() {
             <li key={item._id}>
               <Link
                 className={`${feedStyles.link}`}
-                to={item._id}
+                to={item.number.toString()}
                 state={{ backgroundLocation: location }}
               >
                 <FeedCard

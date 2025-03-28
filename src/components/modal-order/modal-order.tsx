@@ -9,7 +9,7 @@ export default function ModalOrder() {
     <Modal
       headingType="digits"
       onClose={() => navigate(-1)}
-      title={`#${params.id}`}
+      title={`#${params.number}`}
     >
       <OrderDetailsPage />
     </Modal>

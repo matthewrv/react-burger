@@ -18,7 +18,7 @@ const OrdersPage: FC = () => {
         {items.map((item) => (
           <li key={item._id}>
             <Link
-              to={`${item._id}`}
+              to={`${item.number}`}
               state={{ backgroundLocation: location }}
               className={`${OrdersPageStyles.link}`}
             >

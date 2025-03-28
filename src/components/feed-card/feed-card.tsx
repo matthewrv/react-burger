@@ -35,10 +35,6 @@ export default function FeedCard({
 
   const ingridientsCount = ingridients.length;
   const ingridientsSet = new Set(ingridients);
-  const counts = new Map<string, number>();
-  for (const ingridient of ingridients) {
-    counts.set(ingridient._id, counts.get(ingridient._id) || 0 + 1);
-  }
 
   return (
     <article className={feedCardStyles.card}>

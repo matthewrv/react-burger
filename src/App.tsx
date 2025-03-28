@@ -75,9 +75,9 @@ const App: FC = () => {
                   </Modal>
                 }
               />
-              <Route path="/feed/:id" element={<ModalOrder />} />
+              <Route path="/feed/:number" element={<ModalOrder />} />
               <Route
-                path="/profile/orders/:id"
+                path="/profile/orders/:number"
                 element={<ProtectedRouteElement element={<ModalOrder />} />}
               />
             </Routes>
@@ -88,7 +88,7 @@ const App: FC = () => {
             <Routes location={backgroundLocation || location}>
               <Route index element={<HomePage />} />
               <Route path="feed" element={<FeedPage />} />
-              <Route path="feed/:id" element={<OrderDetailsPage />} />
+              <Route path="feed/:number" element={<OrderDetailsPage />} />
               <Route
                 path="/ingredients/:id"
                 element={<IngredientDetailsPage />}
@@ -114,7 +114,7 @@ const App: FC = () => {
                 }
               />
               <Route
-                path="/profile/orders/:id"
+                path="/profile/orders/:number"
                 element={
                   <ProtectedRouteElement element={<OrderDetailsPage />} />
                 }

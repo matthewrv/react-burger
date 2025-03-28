@@ -16,13 +16,18 @@ const statusMap = new Map<TOrderStatus, [string, string]>([
 ]);
 
 export default function OrderDetailsPage() {
-  const { id } = useParams();
+  const { number: itemNumber } = useParams();
 
   const orders = useAppSelector((state) => state.ordersFeed.orders);
-  const item = orders.find((item) => item._id === id)!;
+  const item = orders.find((item) => item.number === parseInt(itemNumber!))!;
 
   const ingridients = useAppSelector((state) => state.ingredients);
   const orderIngridients = getIngridients(item, ingridients.ingredients);
+  const ingridientsSet = new Set(orderIngridients);
+  const counts = new Map<string, number>();
+  for (const ingridient of orderIngridients) {
+    counts.set(ingridient._id, (counts.get(ingridient._id) || 0) + 1);
+  }
 
   const location = useAppLocation();
 
@@ -32,7 +37,7 @@ export default function OrderDetailsPage() {
     <div className={`${orderDetailsStyles.content}`}>
       {!location.state?.backgroundLocation && (
         <h1 className={`mb-10 text-center text text_type_digits-default`}>
-          #{item._id}
+          #{item.number}
         </h1>
       )}
       <h2 className={`text text_type_main-medium mb-3`}>{item.name}</h2>
@@ -41,7 +46,7 @@ export default function OrderDetailsPage() {
       </p>
       <h3 className={`text text_type_main-medium mb-6`}>Состав:</h3>
       <ul className={`${orderDetailsStyles.ingridientsList} mb-10`}>
-        {orderIngridients.map((ingridient) => (
+        {[...ingridientsSet].map((ingridient) => (
           <li
             key={ingridient._id}
             className={`${orderDetailsStyles.ingridientItem}`}
@@ -59,7 +64,8 @@ export default function OrderDetailsPage() {
             <span
               className={`${orderDetailsStyles.price} text text_type_digits-default`}
             >
-              {ingridient.price} <CurrencyIcon type="primary" />
+              {counts.get(ingridient._id)} {"x"} {ingridient.price}{" "}
+              <CurrencyIcon type="primary" />
             </span>
           </li>
         ))}
