@@ -1,16 +1,26 @@
-import { FC } from "react";
-import { useAppLocation, useAppSelector } from "../../services/hooks";
+import { FC, useEffect } from "react";
+import {
+  useAppDispatch,
+  useAppLocation,
+  useAppSelector,
+} from "../../services/hooks";
 import OrdersPageStyles from "./orders.module.css";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
+import { connect } from "../../services/profile-feed/actions";
 
 const OrdersPage: FC = () => {
-  const ordersFeed = useAppSelector((state) => state.ordersFeed);
+  const dispatch = useAppDispatch();
+  const ordersFeed = useAppSelector((state) => state.profileFeed);
   const items = ordersFeed.orders;
 
   const ingridients = useAppSelector((state) => state.ingredients);
   const mapping = new Map(ingridients.ingredients.map((i) => [i._id, i]));
   const location = useAppLocation();
+
+  useEffect(() => {
+    dispatch(connect("wss://norma.nomoreparties.space/orders"));
+  }, [dispatch]);
 
   return (
     <div className={`${OrdersPageStyles.wrapper} pt-9`}>
