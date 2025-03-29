@@ -9,14 +9,17 @@ import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
 import { connect, disconnect } from "../../services/profile-feed/actions";
 import Loader from "../../components/loader/loader";
+import { isValidOrder } from "../../utils/normaApi/validation";
 
 const OrdersPage: FC = () => {
   const dispatch = useAppDispatch();
   const ordersFeed = useAppSelector((state) => state.profileFeed);
-  const items = ordersFeed.orders;
-
   const ingridients = useAppSelector((state) => state.ingredients);
   const mapping = new Map(ingridients.ingredients.map((i) => [i._id, i]));
+  const items = ordersFeed.orders.filter((order) =>
+    isValidOrder(order, new Set(mapping.keys()))
+  );
+
   const location = useAppLocation();
 
   useEffect(() => {

@@ -1,15 +1,19 @@
 import feedStyles from "./feed.module.css";
-import { useAppLocation, useAppSelector } from "../../services/hooks";
+import {
+  useAppDispatch,
+  useAppLocation,
+  useAppSelector,
+} from "../../services/hooks";
 import { TBurgerIngredient } from "../../services/common";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
 import { TOrderItem } from "../../utils/normaApi/models";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { connect, disconnect } from "../../services/orders-feed/actions";
+import { isValidOrder } from "../../utils/normaApi/validation";
 
 export default function FeedPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(connect("wss://norma.nomoreparties.space/orders/all"));
@@ -22,6 +26,14 @@ export default function FeedPage() {
   const ordersFeed = useAppSelector((state) => state.ordersFeed);
   const ingridients = useAppSelector((state) => state.ingredients);
   const location = useAppLocation();
+
+  const validIngridientIds = new Set(ingridients.ingredients.map((i) => i._id));
+  const validOrders = ordersFeed.orders.filter((order) =>
+    isValidOrder(order, validIngridientIds)
+  );
+  const completedOrders = validOrders.filter((item) => item.status === "done");
+  const pendingOrders = validOrders.filter((item) => item.status === "pending");
+  const displayLimit = 20;
 
   return (
     <div className={feedStyles.content}>
@@ -52,9 +64,9 @@ export default function FeedPage() {
           <section className={feedStyles.ordersSection}>
             <h2 className="text text_type_main-medium pb-6">Готовы:</h2>
             <ul className={feedStyles.ordersList}>
-              {ordersFeed.orders.map(
-                (item) =>
-                  item.status == "done" && (
+              {completedOrders.map(
+                (item, idx) =>
+                  idx < displayLimit && (
                     <li
                       key={item._id}
                       className={`text text_type_digits-default ${feedStyles.readyAccent}`}
@@ -68,9 +80,9 @@ export default function FeedPage() {
           <section className={feedStyles.ordersSection}>
             <h2 className="text text_type_main-medium pb-6">В работе:</h2>
             <ul className={feedStyles.ordersList}>
-              {ordersFeed.orders.map(
-                (item) =>
-                  item.status == "pending" && (
+              {pendingOrders.map(
+                (item, idx) =>
+                  idx < displayLimit && (
                     <li
                       key={item._id}
                       className="text text_type_digits-default"
