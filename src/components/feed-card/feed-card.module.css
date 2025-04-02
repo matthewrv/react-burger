@@ -1,0 +1,39 @@
+.card {
+  border-radius: calc(var(--offset-base-size) * 10);
+  padding: calc(var(--offset-base-size) * 6);
+  background-color: #1c1c21;
+}
+
+.completed {
+  color: #00cccc;
+}
+
+.cancelled {
+  color: #cc0000;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingridientsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingridients {
+  display: flex;
+  list-style: none;
+}
+
+.overlap {
+  margin-inline-end: calc(var(--offset-base-size) * -4);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 2);
+}

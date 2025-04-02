@@ -23,6 +23,9 @@ import IngredientDetails from "./components/burger-ingredients/ingredient-detail
 import Modal from "./components/modal/modal";
 import IngredientDetailsPage from "./pages/ingredient-details/ingredient-details";
 import OrdersPage from "./pages/orders/orders";
+import FeedPage from "./pages/feed/feed";
+import OrderDetailsPage from "./pages/order-details/order-details";
+import ModalOrder from "./components/modal-order/modal-order";
 
 const App: FC = () => {
   const { ingredientsRequestStatus } = useAppSelector(
@@ -72,6 +75,11 @@ const App: FC = () => {
                   </Modal>
                 }
               />
+              <Route path="/feed/:number" element={<ModalOrder />} />
+              <Route
+                path="/profile/orders/:number"
+                element={<ProtectedRouteElement element={<ModalOrder />} />}
+              />
             </Routes>
           )}
 
@@ -79,6 +87,8 @@ const App: FC = () => {
           <main className={`${appStyles.main} pl-5 pr-5`}>
             <Routes location={backgroundLocation || location}>
               <Route index element={<HomePage />} />
+              <Route path="feed" element={<FeedPage />} />
+              <Route path="feed/:number" element={<OrderDetailsPage />} />
               <Route
                 path="/ingredients/:id"
                 element={<IngredientDetailsPage />}
@@ -101,6 +111,12 @@ const App: FC = () => {
                 path="/reset-password"
                 element={
                   <AnonymousRouteElement element={<ResetPasswordPage />} />
+                }
+              />
+              <Route
+                path="/profile/orders/:number"
+                element={
+                  <ProtectedRouteElement element={<OrderDetailsPage />} />
                 }
               />
               <Route

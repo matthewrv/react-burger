@@ -3,18 +3,21 @@ import { request } from "../utils/normaApi/norma-api";
 import {
   TOrderCreateRequest,
   TOrderCreateResponse,
+  TOrderResponse,
 } from "../utils/normaApi/models";
 import { clearIngredients } from "./selected-ingredients";
 import { resetAllItemsCount } from "./ingredients";
 import { TRequestStatus } from "./common";
+import { TOrderItem } from "../utils/normaApi/models";
 
 export type TOrderDetailsState = {
-  orderId: string | null;
+  number: number | null;
+  order?: TOrderItem;
   createOrderStatus: TRequestStatus;
 };
 
 const initialState: TOrderDetailsState = {
-  orderId: null,
+  number: null,
   createOrderStatus: "request",
 };
 
@@ -39,6 +42,19 @@ export const checkoutOrder = createAsyncThunk(
   }
 );
 
+export const requestOrderByNumber = createAsyncThunk(
+  "requestOrder",
+  (payload: { number: string }) => {
+    return request<TOrderResponse>(
+      `/orders/${payload.number}`,
+      {
+        method: "GET",
+      },
+      true
+    );
+  }
+);
+
 const OrderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState,
@@ -51,15 +67,19 @@ const OrderDetailsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(checkoutOrder.fulfilled, (_, action) => ({
-      orderId: action.payload.order.number,
-      createOrderStatus: "success",
-    }));
-    builder.addCase(checkoutOrder.rejected, () => ({
-      ...initialState,
-      createOrderStatus: "error",
-    }));
-    builder.addCase(checkoutOrder.pending, () => initialState);
+    builder
+      .addCase(checkoutOrder.fulfilled, (_, action) => ({
+        number: action.payload.order.number,
+        createOrderStatus: "success",
+      }))
+      .addCase(checkoutOrder.rejected, () => ({
+        ...initialState,
+        createOrderStatus: "error",
+      }))
+      .addCase(checkoutOrder.pending, () => initialState)
+      .addCase(requestOrderByNumber.fulfilled, (state, action) => {
+        state.order = action.payload.orders[0];
+      });
   },
 });
 

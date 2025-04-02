@@ -8,11 +8,13 @@ const modalRoot = document.getElementById("modals")!;
 
 export type TModalProps = {
   title?: string;
+  headingType?: "text" | "digits";
   onClose: () => void;
 };
 
 const Modal: FC<PropsWithChildren<TModalProps>> = ({
   title,
+  headingType,
   onClose,
   children,
 }: PropsWithChildren<TModalProps>) => {
@@ -31,12 +33,17 @@ const Modal: FC<PropsWithChildren<TModalProps>> = ({
     return () => document.removeEventListener("keydown", onKeyPressed);
   }, [onClose, onKeyPressed]);
 
+  const headingStyle =
+    headingType === "digits"
+      ? "text_type_digits-default"
+      : "text_type_main-large";
+
   return ReactDOM.createPortal(
     <>
       <ModalOverlay onClick={onClose} />
       <div aria-label={title} className={`p-10 ${modalStyles.modal}`}>
         <div className={modalStyles.heading}>
-          <p className="text text_type_main-large">{title}</p>
+          <p className={`text ${headingStyle}`}>{title}</p>
           <button
             className={`text ${modalStyles["close-button"]}`}
             type="button"

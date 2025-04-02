@@ -1,0 +1,38 @@
+.wrapper {
+  position: relative;
+
+  border: transparent solid 2px;
+  border-radius: 50%;
+
+  background-image: linear-gradient(
+      var(--background-alt),
+      var(--background-alt)
+    ),
+    linear-gradient(to right, #801ab2, #4c4cff);
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+}
+
+.ingridientImage {
+  object-fit: cover;
+  object-position: center;
+
+  block-size: calc(var(--offset-base-size) * 16);
+  aspect-ratio: 1;
+}
+
+.dim {
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+  opacity: 60%;
+  background-color: var(--background);
+}
+
+.counter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}

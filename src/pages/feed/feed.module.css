@@ -1,0 +1,61 @@
+.content {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "feed dashboard";
+  column-gap: calc(var(--offset-base-size) * 15);
+  grid-template-columns: repeat(2, 1fr);
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+.header {
+  grid-area: header;
+}
+
+.ordersFeed {
+  grid-area: feed;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 4);
+  overflow-y: auto;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dashboard {
+  height: 100%;
+  grid-area: dashboard;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 15);
+}
+
+.ordersDashboard {
+  display: flex;
+  gap: calc(var(--offset-base-size) * 9);
+}
+
+.ordersSection {
+  flex-grow: 1;
+}
+
+.ordersList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(10, min-content);
+  grid-auto-flow: column;
+  gap: calc(var(--offset-base-size) * 2);
+}
+
+.readyAccent {
+  color: #00cccc;
+}
+
+.accentShadow {
+  text-shadow: 0 4px 32px #3333ff80, 0 0 8px #3333ff40, 0 0 16px #3333ff40;
+}

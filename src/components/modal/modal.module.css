@@ -30,3 +30,7 @@
   background-color: transparent;
   border: none;
 }
+
+.close-button:hover {
+  cursor: pointer;
+}

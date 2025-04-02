@@ -35,7 +35,7 @@ const EditProfile: FC = () => {
   };
 
   return (
-    <form>
+    <form className={`pt-30`}>
       <TogglableInput
         type="text"
         placeholder="Имя"
