@@ -1,14 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onClose, onConnecting, onError, onMessage, onOpen } from "./actions";
-import { WebsocketStatus } from "../types/websocket";
-import { TOrdersFeedResponse } from "../../utils/normaApi/models";
+import { TOrdersFeedState } from "../types/orders-feed";
 
-export type TOrdersFeed = Omit<TOrdersFeedResponse, "success"> & {
-  status: WebsocketStatus;
-  error: string;
-};
-
-const initialState: TOrdersFeed = {
+export const initialState: TOrdersFeedState = {
   status: "OFFLINE",
   error: "",
   orders: [],
@@ -16,7 +10,7 @@ const initialState: TOrdersFeed = {
   totalToday: 0,
 };
 
-const ordersFeed = createSlice({
+export const ordersFeed = createSlice({
   name: "ordersFeed",
   initialState,
   reducers: {},

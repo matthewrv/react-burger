@@ -16,7 +16,7 @@ export type TOrderDetailsState = {
   createOrderStatus: TRequestStatus;
 };
 
-const initialState: TOrderDetailsState = {
+export const initialState: TOrderDetailsState = {
   number: null,
   createOrderStatus: "request",
 };
@@ -55,7 +55,7 @@ export const requestOrderByNumber = createAsyncThunk(
   }
 );
 
-const OrderDetailsSlice = createSlice({
+export const OrderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState,
   reducers: {

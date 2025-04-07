@@ -29,13 +29,14 @@ export type TAuthInfo = {
   errorMsg?: string;
 };
 
-const initialState: TAuthInfo = { isAuthCompleted: false };
+export const initialState: TAuthInfo = { isAuthCompleted: false };
 
-// Do not export - assumed that user is requested using AuthContextProvider only.
-// We want to avoid multiple getUser requests from different places.
+// Do not actually use it outside of module - assumed that user is
+// requested using AuthContextProvider only. We want to avoid multiple
+// getUser requests from different places.
 //
 // See AuthContextProvider implementation below
-const getUser = createAsyncThunk("getUser", async () => {
+export const getUser = createAsyncThunk("getUser", async () => {
   const token = getAccessToken();
   const refreshToken = getRefreshToken();
 
@@ -118,7 +119,7 @@ function isPendingAction(action: Action): action is PendingAction {
   return action.type.startsWith("auth") && action.type.endsWith("pending");
 }
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
