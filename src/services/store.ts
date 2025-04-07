@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import ingredientsSlice from "./ingredients";
-import selectedIngredientsSlice from "./selected-ingredients";
-import orderDetailsSlice from "./order-details";
-import authSlice from "./auth";
+import ingredientsSlice from "./ingredients/ingredients";
+import selectedIngredientsSlice from "./selected-ingredients/selected-ingredients";
+import orderDetailsSlice from "./order-details/order-details";
+import authSlice from "./auth/auth";
 import ordersFeedSlice from "./orders-feed/slice";
 import profileFeedSlice from "./profile-feed/slice";
 import { socketMiddleware } from "./middleware/socket-middleware";

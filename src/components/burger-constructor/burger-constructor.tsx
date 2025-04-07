@@ -11,20 +11,20 @@ import {
   useAppLocation,
   useAppSelector,
 } from "../../services/hooks";
-import { checkoutOrder } from "../../services/order-details";
+import { checkoutOrder } from "../../services/order-details/order-details";
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
   removeIngredient,
   TSelectedIngredientItem,
   setBun,
-} from "../../services/selected-ingredients";
+} from "../../services/selected-ingredients/selected-ingredients";
 import {
   decreaseItemCount,
   increaseItemCount,
-} from "../../services/ingredients";
+} from "../../services/ingredients/ingredients";
 import ConstructorItem from "./constructor-item/constructor-item";
-import { useAuthContext } from "../../services/auth";
+import { useAuthContext } from "../../services/auth/auth";
 import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor: FC = () => {

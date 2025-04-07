@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuthContext } from "../../services/auth";
+import { useAuthContext } from "../../services/auth/auth";
 import Loader from "../loader/loader";
 import styles from "./protected-route-element.module.css";
 import { useAppLocation } from "../../services/hooks";

@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { request } from "../utils/normaApi/norma-api";
+import { request } from "../../utils/normaApi/norma-api";
 import {
   TOrderCreateRequest,
   TOrderCreateResponse,
   TOrderResponse,
-} from "../utils/normaApi/models";
-import { clearIngredients } from "./selected-ingredients";
-import { resetAllItemsCount } from "./ingredients";
-import { TRequestStatus } from "../utils/normaApi/models";
-import { TOrderItem } from "../utils/normaApi/models";
+} from "../../utils/normaApi/models";
+import { clearIngredients } from "../selected-ingredients/selected-ingredients";
+import { resetAllItemsCount } from "../ingredients/ingredients";
+import { TRequestStatus } from "../../utils/normaApi/models";
+import { TOrderItem } from "../../utils/normaApi/models";
 
 export type TOrderDetailsState = {
   number: number | null;

@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "./components/app-header/app-header";
-import { fetchIngredients } from "./services/ingredients";
+import { fetchIngredients } from "./services/ingredients/ingredients";
 import {
   useAppDispatch,
   useAppLocation,

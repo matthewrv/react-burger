@@ -7,7 +7,7 @@ import {
 import { useDrag, useDrop } from "react-dnd";
 import { TAppDispatch } from "../../../services/store";
 import { useAppDispatch } from "../../../services/hooks";
-import { swapElements } from "../../../services/selected-ingredients";
+import { swapElements } from "../../../services/selected-ingredients/selected-ingredients";
 import { FC, useRef } from "react";
 
 export type TConsturtorItemProps = {

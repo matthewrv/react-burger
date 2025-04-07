@@ -13,7 +13,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TOrderItem, TOrderStatus } from "../../utils/normaApi/models";
 import { useEffect, useMemo } from "react";
-import { requestOrderByNumber } from "../../services/order-details";
+import { requestOrderByNumber } from "../../services/order-details/order-details";
 import Loader from "../../components/loader/loader";
 
 const statusMap = new Map<TOrderStatus, [string, string]>([

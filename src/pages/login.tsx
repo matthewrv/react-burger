@@ -10,7 +10,7 @@ import FormLinksWrapper from "../components/form-links-wrapper/form-links-wrappe
 import { useForm } from "../hooks";
 import { FC, SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
-import { login, useAuthContext } from "../services/auth";
+import { login, useAuthContext } from "../services/auth/auth";
 import { TLoginRequest } from "../utils/normaApi/models";
 
 const LoginPage: FC = () => {

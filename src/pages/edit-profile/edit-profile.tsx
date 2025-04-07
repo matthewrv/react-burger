@@ -1,7 +1,7 @@
 import editProfileStyles from "./edit-profile.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import TogglableInput from "../../components/togglable-input/togglable-input";
-import { updateUser, useAuthContext } from "../../services/auth";
+import { updateUser, useAuthContext } from "../../services/auth/auth";
 import { FC, SyntheticEvent, useState } from "react";
 import { useAppDispatch } from "../../services/hooks";
 

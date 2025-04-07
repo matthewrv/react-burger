@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { useAuthContext } from "../../services/auth";
+import { useAuthContext } from "../../services/auth/auth";
 import { Navigate } from "react-router-dom";
 import Loader from "../loader/loader";
 import styles from "./anonymous-route-element.module.css";

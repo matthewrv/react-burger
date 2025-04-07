@@ -1,4 +1,4 @@
-import { request } from "../utils/normaApi/norma-api";
+import { request } from "../../utils/normaApi/norma-api";
 import { Action, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   TLoginRequest,
@@ -8,8 +8,8 @@ import {
   TRegisterRequest,
   TUpdateUserResponse,
   TUpdateUserRequest,
-} from "../utils/normaApi/models";
-import { useAppDispatch, useAppSelector } from "./hooks";
+} from "../../utils/normaApi/models";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import {
   getAccessToken,
@@ -18,7 +18,7 @@ import {
   resetRefreshToken,
   setAccessToken,
   setRefreshToken,
-} from "../utils/normaApi/auth-tokens";
+} from "../../utils/normaApi/auth-tokens";
 
 export type TAuthInfo = {
   isAuthCompleted: boolean;
