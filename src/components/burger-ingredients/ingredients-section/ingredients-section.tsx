@@ -1,5 +1,5 @@
-import { TIngredientType } from "../../../services/common";
-import { TBurgerIngredient } from "../../../services/common";
+import { TIngredientType } from "../../../utils/normaApi/models";
+import { TBurgerIngredient } from "../../../utils/normaApi/models";
 import ingredientsArticleStyles from "./ingredients-section.module.css";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import { useAppSelector } from "../../../services/hooks";

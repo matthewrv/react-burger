@@ -7,7 +7,7 @@ import {
 } from "../utils/normaApi/models";
 import { clearIngredients } from "./selected-ingredients";
 import { resetAllItemsCount } from "./ingredients";
-import { TRequestStatus } from "./common";
+import { TRequestStatus } from "../utils/normaApi/models";
 import { TOrderItem } from "../utils/normaApi/models";
 
 export type TOrderDetailsState = {

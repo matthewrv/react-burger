@@ -1,5 +1,5 @@
 import feedCardStyles from "./feed-card.module.css";
-import { TBurgerIngredient } from "../../services/common";
+import { TBurgerIngredient } from "../../utils/normaApi/models";
 import IngridientPreview from "../ingridient-preview/ingridient-preview";
 import PriceSpan from "../price-span/price-span";
 import { TOrderItem, TOrderStatus } from "../../utils/normaApi/models";

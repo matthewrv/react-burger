@@ -5,7 +5,7 @@ import {
   useAppLocation,
   useAppSelector,
 } from "../../services/hooks";
-import { TBurgerIngredient } from "../../services/common";
+import { TBurgerIngredient } from "../../utils/normaApi/models";
 import IngridientPreview from "../../components/ingridient-preview/ingridient-preview";
 import {
   CurrencyIcon,

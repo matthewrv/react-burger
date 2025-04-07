@@ -14,7 +14,7 @@ import FormLink from "../components/form-link/form-link";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks";
 import { FC, SyntheticEvent, useState } from "react";
-import { TRequestStatus } from "../services/common";
+import { TRequestStatus } from "../utils/normaApi/models";
 import Loader from "../components/loader/loader";
 import { useAppLocation } from "../services/hooks";
 import { setVerificationCodeSent } from "../utils/persist-state";

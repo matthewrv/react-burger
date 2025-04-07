@@ -1,5 +1,5 @@
 import constructorItemStyles from "./constructor-item.module.css";
-import { TBurgerIngredient } from "../../../services/common";
+import { TBurgerIngredient } from "../../../utils/normaApi/models";
 import {
   ConstructorElement,
   DragIcon,

@@ -3,7 +3,7 @@ import {
   TBurgerIngredient,
   TIngredientType,
   localizedIngredientType,
-} from "../../services/common";
+} from "../../utils/normaApi/models";
 import ingredientsStyles from "./burger-ingredients.module.css";
 import IngredientsSection from "./ingredients-section/ingredients-section";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";

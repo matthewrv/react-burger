@@ -4,7 +4,7 @@ import {
   useAppLocation,
   useAppSelector,
 } from "../../services/hooks";
-import { TBurgerIngredient } from "../../services/common";
+import { TBurgerIngredient } from "../../utils/normaApi/models";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
 import { TOrderItem } from "../../utils/normaApi/models";

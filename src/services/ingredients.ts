@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TBurgerIngredient, TRequestStatus } from "./common";
+import { TBurgerIngredient, TRequestStatus } from "../utils/normaApi/models";
 import { request } from "../utils/normaApi/norma-api";
 import { TIngredientsResponse } from "../utils/normaApi/models";
 
