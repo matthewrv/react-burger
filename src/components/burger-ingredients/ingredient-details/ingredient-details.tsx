@@ -24,8 +24,12 @@ const IngredientDetails: FC = () => {
         className={ingredientDetailsStyles.img}
         src={ingredient.image_large}
         alt={ingredient.name}
+        data-testid="ingredient-image"
       />
-      <p className="mt-4 text text_type_main-medium text-center">
+      <p
+        className="mt-4 text text_type_main-medium text-center"
+        data-testid="ingredient-name"
+      >
         {ingredient.name}
       </p>
       <ul

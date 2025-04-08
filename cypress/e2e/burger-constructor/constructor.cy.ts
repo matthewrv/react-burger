@@ -70,8 +70,10 @@ describe("burger constructor page", () => {
       .should("have.text", "Котлета")
       .click();
 
-    cy.get("[data-testid=modal]").should("exist");
+    cy.get("[data-testid=modal]").as("modal").should("exist");
     cy.get("[data-testid=modal-overlay]").should("exist");
+    cy.get("@modal").find("[data-testid=ingredient-image]").should("exist");
+    cy.get("@modal").find("[data-testid=ingredient-name]").should("exist");
   });
 
   it("close modal by click on overlay", () => {
@@ -131,5 +133,10 @@ describe("burger constructor page", () => {
     });
     cy.get("[data-testid=checkout-button]").click();
     cy.get("[data-testid=modal]").should("exist");
+
+    cy.get("[data-testid=modal-close-button]")
+      .should("exist")
+      .click({ force: true })
+      .should("not.exist");
   });
 });
