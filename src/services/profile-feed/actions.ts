@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-import { TOrdersFeed } from "./slice";
+import { TOrdersFeed } from "../types/orders-feed";
 
 export const connect = createAction<string, "profileFeed/onConnect">(
   "profileFeed/onConnect"

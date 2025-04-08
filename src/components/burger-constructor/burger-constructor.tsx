@@ -97,7 +97,7 @@ const BurgerConstructor: FC = () => {
       checkoutOrder({
         ingredients: [bun, ...ingredients, bun]
           .filter((item) => item !== null)
-          .map((item) => item.ingredientId),
+          .map((item) => item!.ingredientId),
       })
     );
     updateDetailsVisible(true);
