@@ -115,6 +115,7 @@ const BurgerConstructor: FC = () => {
           enableOutline ? constructorStyles["drop-allowed"] : ""
         }`}
         ref={dropRef}
+        data-testid="constructor-drop-region"
       >
         {(bunIngredient && (
           <ConstructorItem
@@ -179,7 +180,10 @@ const BurgerConstructor: FC = () => {
       </ol>
 
       <div className={`mr-4 ${constructorStyles["total-price-section"]}`}>
-        <span className="text text_type_digits-medium">
+        <span
+          className="text text_type_digits-medium"
+          data-testid="total-price"
+        >
           {totalPrice} <CurrencyIcon type="primary" />
         </span>
         <Button
@@ -188,6 +192,7 @@ const BurgerConstructor: FC = () => {
           size="large"
           disabled={bun === null}
           onClick={onClickCheckout}
+          data-testid="checkout-button"
         >
           Оформить заказ
         </Button>

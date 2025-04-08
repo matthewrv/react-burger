@@ -52,6 +52,7 @@ const ConstructorItem: FC<TConsturtorItemProps> = (
     <li
       className={`${constructorItemStyles["ingredients-list-item"]} ${liStyle}`}
       ref={ref}
+      data-testid="constructor-item"
     >
       {!props.isLocked && <DragIcon type="primary" />}
       <ConstructorElement

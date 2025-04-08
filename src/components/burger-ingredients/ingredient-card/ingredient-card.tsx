@@ -24,12 +24,16 @@ const IngredientCard: FC<TIngredientCardProps> = (
       className={ingredientCardStyles["ingredient-card"]}
       onClick={() => props.onClick(props.ingredient)}
       ref={dragRef}
+      data-testid={`ingredients-item-${props.ingredient.type}`}
     >
       <img src={props.ingredient.image} alt={props.ingredient.name} />
       <span className="text text_type_digits-default text-center">
         {`${props.ingredient.price}`} <CurrencyIcon type="primary" />
       </span>
-      <span className="text text_type_main-default text-center">
+      <span
+        className="text text_type_main-default text-center"
+        data-testid="ingredient-title"
+      >
         {props.ingredient.name}
       </span>
       {!!props.ingredient.__v && (

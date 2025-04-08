@@ -41,13 +41,18 @@ const Modal: FC<PropsWithChildren<TModalProps>> = ({
   return ReactDOM.createPortal(
     <>
       <ModalOverlay onClick={onClose} />
-      <div aria-label={title} className={`p-10 ${modalStyles.modal}`}>
+      <div
+        aria-label={title}
+        className={`p-10 ${modalStyles.modal}`}
+        data-testid="modal"
+      >
         <div className={modalStyles.heading}>
           <p className={`text ${headingStyle}`}>{title}</p>
           <button
             className={`text ${modalStyles["close-button"]}`}
             type="button"
             onClick={onClose}
+            data-testid="modal-close-button"
           >
             <CloseIcon type="primary" />
           </button>
