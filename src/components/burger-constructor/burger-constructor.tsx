@@ -11,20 +11,20 @@ import {
   useAppLocation,
   useAppSelector,
 } from "../../services/hooks";
-import { checkoutOrder } from "../../services/order-details";
+import { checkoutOrder } from "../../services/order-details/order-details";
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
   removeIngredient,
   TSelectedIngredientItem,
   setBun,
-} from "../../services/selected-ingredients";
+} from "../../services/selected-ingredients/selected-ingredients";
 import {
   decreaseItemCount,
   increaseItemCount,
-} from "../../services/ingredients";
+} from "../../services/ingredients/ingredients";
 import ConstructorItem from "./constructor-item/constructor-item";
-import { useAuthContext } from "../../services/auth";
+import { useAuthContext } from "../../services/auth/auth";
 import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor: FC = () => {
@@ -97,7 +97,7 @@ const BurgerConstructor: FC = () => {
       checkoutOrder({
         ingredients: [bun, ...ingredients, bun]
           .filter((item) => item !== null)
-          .map((item) => item.ingredientId),
+          .map((item) => item!.ingredientId),
       })
     );
     updateDetailsVisible(true);
@@ -115,6 +115,7 @@ const BurgerConstructor: FC = () => {
           enableOutline ? constructorStyles["drop-allowed"] : ""
         }`}
         ref={dropRef}
+        data-testid="constructor-drop-region"
       >
         {(bunIngredient && (
           <ConstructorItem
@@ -179,7 +180,10 @@ const BurgerConstructor: FC = () => {
       </ol>
 
       <div className={`mr-4 ${constructorStyles["total-price-section"]}`}>
-        <span className="text text_type_digits-medium">
+        <span
+          className="text text_type_digits-medium"
+          data-testid="total-price"
+        >
           {totalPrice} <CurrencyIcon type="primary" />
         </span>
         <Button
@@ -188,6 +192,7 @@ const BurgerConstructor: FC = () => {
           size="large"
           disabled={bun === null}
           onClick={onClickCheckout}
+          data-testid="checkout-button"
         >
           Оформить заказ
         </Button>

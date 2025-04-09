@@ -2,7 +2,7 @@ import profileStyles from "./profile.module.css";
 import { NavLink, Outlet } from "react-router-dom";
 import { FC, useCallback } from "react";
 import { useAppDispatch } from "../../services/hooks";
-import { logout } from "../../services/auth";
+import { logout } from "../../services/auth/auth";
 
 const ProfilePage: FC = () => {
   const linkStyle = ({ isActive }: { isActive: boolean }) =>

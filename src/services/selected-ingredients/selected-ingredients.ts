@@ -14,7 +14,7 @@ export type TSelectedIngredientsState = {
   ingredients: TSelectedIngredientItem[];
 };
 
-const initialState: TSelectedIngredientsState = {
+export const initialState: TSelectedIngredientsState = {
   bun: null,
   ingredients: [],
 };
@@ -26,7 +26,7 @@ const prepareSelectedIngredient = (ingredientId: string) => {
   };
 };
 
-const selectedIngridietsSlice = createSlice({
+export const selectedIngridietsSlice = createSlice({
   name: "selectedIngredients",
   initialState,
   reducers: {
@@ -82,6 +82,7 @@ export default selectedIngridietsSlice.reducer;
 export const {
   addIngredient,
   setBun,
+  resetBun,
   removeIngredient,
   swapElements,
   clearIngredients,

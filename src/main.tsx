@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { store } from "./services/store.ts";
-import { AuthContextProvider } from "./services/auth.tsx";
+import { AuthContextProvider } from "./services/auth/auth.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

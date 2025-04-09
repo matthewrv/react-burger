@@ -115,12 +115,12 @@ export type TOrderItem = {
   createdAt: string;
   status: TOrderStatus;
   name: string;
-  ingredients: ReadonlyArray<string>;
+  ingredients: string[];
 };
 
 export type TOrdersFeedResponse = {
   success: boolean;
-  orders: ReadonlyArray<TOrderItem>;
+  orders: TOrderItem[];
   total: number;
   totalToday: number;
 };

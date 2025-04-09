@@ -13,7 +13,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TOrderItem, TOrderStatus } from "../../utils/normaApi/models";
 import { useEffect, useMemo } from "react";
-import { requestOrderByNumber } from "../../services/order-details";
+import { requestOrderByNumber } from "../../services/order-details/order-details";
 import Loader from "../../components/loader/loader";
 
 const statusMap = new Map<TOrderStatus, [string, string]>([
@@ -110,7 +110,9 @@ function getIngridients(
   ingridients: ReadonlyArray<TBurgerIngredient>
 ) {
   const map = new Map(ingridients.map((item) => [item._id, item]));
-  return item.ingredients
-    .map((_id) => map.get(_id))
-    .filter((ingredient) => ingredient !== undefined);
+  return item.ingredients.map((_id) => map.get(_id)).filter(notUndefined);
+}
+
+function notUndefined<T>(value: T | undefined): value is T {
+  return value !== undefined;
 }

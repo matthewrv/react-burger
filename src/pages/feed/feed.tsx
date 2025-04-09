@@ -122,9 +122,11 @@ export default function FeedPage() {
 function getIngridients(
   item: TOrderItem,
   ingridients: ReadonlyArray<TBurgerIngredient>
-) {
+): TBurgerIngredient[] {
   const map = new Map(ingridients.map((item) => [item._id, item]));
-  return item.ingredients
-    .map((_id) => map.get(_id))
-    .filter((ingredient) => ingredient !== undefined);
+  return item.ingredients.map((_id) => map.get(_id)).filter(notUndefined);
+}
+
+function notUndefined<T>(value: T | undefined): value is T {
+  return value !== undefined;
 }

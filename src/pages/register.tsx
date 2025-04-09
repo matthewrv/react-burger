@@ -11,7 +11,7 @@ import FormWrapper from "../components/form-wrapper/form-wrapper";
 import { useForm } from "../hooks";
 import { FC, SyntheticEvent } from "react";
 import { useAppDispatch, useAppLocation } from "../services/hooks";
-import { register, useAuthContext } from "../services/auth";
+import { register, useAuthContext } from "../services/auth/auth";
 import { TRegisterRequest } from "../utils/normaApi/models";
 
 const RegisterPage: FC = () => {
