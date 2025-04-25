@@ -16,7 +16,7 @@ export default function FeedPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(connect("wss://norma.nomoreparties.space/orders/all"));
+    dispatch(connect(`${import.meta.env.VITE_WS_BASE_URL}/orders/all`));
 
     return () => {
       dispatch(disconnect());

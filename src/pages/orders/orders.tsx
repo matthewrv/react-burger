@@ -23,7 +23,7 @@ const OrdersPage: FC = () => {
   const location = useAppLocation();
 
   useEffect(() => {
-    dispatch(connect("wss://norma.nomoreparties.space/orders"));
+    dispatch(connect(`${import.meta.env.VITE_WS_BASE_URL}/orders`));
 
     return () => {
       dispatch(disconnect());

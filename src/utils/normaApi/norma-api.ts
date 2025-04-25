@@ -6,7 +6,7 @@ import {
 } from "./auth-tokens";
 import { TRefreshTokenResponse } from "./models";
 
-const BASE_URL = "https://norma.nomoreparties.space/api";
+const BASE_URL = import.meta.env.VITE_REST_API_BASE_URL;
 
 export function request<T>(
   ...args: Parameters<typeof withCheckResponse>
