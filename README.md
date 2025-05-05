@@ -16,6 +16,7 @@
 - Redux toolkit
 - React Router (в формате библиотеки для SPA)
 - React DnD
+- WebSocket
 
 Тесты:
 - Vitest
