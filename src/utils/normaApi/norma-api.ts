@@ -4,7 +4,7 @@ import {
   setAccessToken,
   setRefreshToken,
 } from "./auth-tokens";
-import { TRefreshTokenResponse } from "./models";
+import { TErrorDetail, TRefreshTokenResponse } from "./models";
 
 const BASE_URL = import.meta.env.VITE_REST_API_BASE_URL;
 
@@ -19,9 +19,16 @@ function checkResponse<T>(response: Response): Promise<T> {
     return response.json();
   }
   if (Math.floor(response.status / 100) === 4) {
-    return response
-      .json()
-      .then((body) => Promise.reject<T>(`Ошибка: ${body.message}`));
+    return response.json().then((body) => {
+      const msg =
+        typeof body.detail === "string"
+          ? body.detail
+          : Array.isArray(body.detail)
+          ? body.detail.map((i: TErrorDetail) => i.msg).join()
+          : undefined;
+      const user_msg = msg ? `Ошибка: ${msg}` : "Ошибка сервера";
+      return Promise.reject<T>(user_msg);
+    });
   }
   return Promise.reject<T>(`Ошибка ${response.status}`);
 }

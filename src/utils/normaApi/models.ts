@@ -129,3 +129,7 @@ export type TOrderResponse = {
   success: boolean;
   orders: [TOrderItem];
 };
+
+export type TErrorDetail = {
+  msg: string;
+};
